@@ -1,0 +1,76 @@
+<template>
+	<div class="container">
+		<div v-if="$fetchState.error" class="error">
+			<p>{{ $fetchState.error }}</p>
+		</div>
+		<div v-if="$fetchState.pending" class="loading">
+			<p>loading..</p>
+		</div>
+		<div v-if="!$fetchState.error && !$fetchState.pending" class="event">
+			<ImageItem :image-src="event.main_image + imgIX" :image-alt="event.title" />
+			<div class="title">
+				<h2>{{ event.title }}</h2>
+			</div>
+			<div class="text">
+				{{ event.text }}
+			</div>
+			<div class="gallery">Gallery</div>
+			<div class="video">video</div>
+
+			<!-- add slices -->
+			<div v-for="(slice, i) in event.slices" :key="'slice-' + i" class="slice">
+				<template v-if="slice.slice_type === 'gallery'">
+					<Gallery :data="slice.items" />
+				</template>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	async fetch() {
+		const event = await this.$prismic.api.getByUID('project', this.$route.params.event_page)
+		this.event = {
+			main_image: event.data.main_image.url,
+			title: this.$prismic.asText(event.data.title),
+			text: this.$prismic.asText(event.data.text),
+			slices: event.data.body,
+		}
+
+		console.log(this.event)
+	},
+	data: () => ({
+		event: Object,
+		imgIX: '&fit=crop&w=800&h=450&q=45&dpr=1',
+	}),
+}
+</script>
+
+<style lang="scss" scoped>
+.event {
+	max-width: 800px;
+	width: 100%;
+	min-height: 100vh;
+	margin: 5% 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	.image {
+		max-width: 100%;
+	}
+	h2 {
+		margin: 30px 0;
+		font-size: 2.75em;
+	}
+	.text {
+		margin: 30px 0;
+	}
+}
+@media (max-width: 600px) {
+}
+</style>
