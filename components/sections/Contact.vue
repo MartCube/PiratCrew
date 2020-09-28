@@ -204,20 +204,25 @@ export default {
 @media (max-width: 600px) {
 
 	.contact{
-		flex-direction: column;
+		flex-direction: column-reverse;
 		padding-bottom: 5rem;
-	
+		border: none;
 		.info {
 			flex-basis: initial; 
 			width: 100%;
+			margin-top: 4rem;
+
 			height: auto;
 			.smedias, .phone, .adress {
 				margin-bottom: 3rem;
 			}
 		}
-		form{
+		.form{
 			width: 99%;
-			margin-top: 3rem;
+			.submit {
+				margin-top: 2rem;
+			}
+			// margin-top: 3rem;
 		}
 	}
 }
