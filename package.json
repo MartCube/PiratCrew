@@ -17,7 +17,6 @@
     "lazysizes": "^5.2.2",
     "nuxt": "^2.14.5",
     "vee-validate": "^3.4.0",
-    "vue-picture-swipe": "^2.0.0",
     "vue-scrollto": "^2.18.2"
   },
   "devDependencies": {
