@@ -20,7 +20,7 @@ export default {
 		function checkLoad() {
 			if (video.readyState === 4) {
 				document.querySelector('.intro video').classList.add("loaded")
-				document.querySelector('.logo').classList.add("loaded")
+				// document.querySelector('.logo').classList.add("loaded")
 			} else {
 				setTimeout(checkLoad, 100)
 			}
@@ -50,7 +50,7 @@ export default {
 		position: absolute;
 		top: 0;
 		left: 0;
-		transition: 5.5s opacity .5s ;
+		transition: opacity .5s 2s;
 		&.loaded {
 			opacity: 1;
 		}
@@ -64,11 +64,11 @@ export default {
 				font-size: 14em;
 			}
 		}
-		transition: 2.5s opacity .5s;
-		opacity: 1;
-		&.loaded{
-			opacity: 0;
-		}
+		// transition: 2.5s opacity .5s;
+		// opacity: 1;
+		// &.loaded{
+		// 	opacity: 0;
+		// }
 
 	}
 }
