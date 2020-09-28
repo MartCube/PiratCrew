@@ -98,7 +98,7 @@ $size: 40px;
 		height: $size;
 		padding: $size / 4;
 		background: $bg;
-		z-index: 1;
+		z-index: 3;
 		user-select: none;
 		display: flex;
 		justify-content: flex-end;
@@ -115,7 +115,7 @@ $size: 40px;
 				span{display: none;}
 			}
 			&:last-child{
-				padding-right: 2rem;
+				padding-right: $size / 4;
 			}
 			span{
 				content: '';
