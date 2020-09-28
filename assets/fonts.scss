@@ -3,7 +3,6 @@
     font-family: 'codec';
     src: url('/fonts/codec.woff2') format('woff2'),
         url('/fonts/codec.ttf') format('truetype');
-    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -12,11 +11,15 @@
     font-family: 'codec_bold';
     src: url('/fonts/codec_bold.woff2') format('woff2'),
         url('/fonts/codec_bold.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'codec_thin';
+    src: url('/fonts/codec_thin.woff2') format('woff2'),
+        url('/fonts/codec_thin.ttf') format('truetype');
+    font-display: swap;
+}
 
 
 // #####   Icon font   #####
@@ -70,8 +73,8 @@
 .icon-phone:before { content: '\e804'; } /* '' */
 .icon-mail:before { content: '\e805'; } /* '' */
 .icon-cancel:before { content: '\e806'; } /* '' */
+.icon-youtube:before { content: '\e807'; } /* '' */
 .icon-left:before { content: '\e809'; } /* '' */
+.icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-calendar:before { content: '\f133'; } /* '' */
-.icon-youtube:before { content: '\f16a'; } /* '' */
 .icon-instagram:before { content: '\f16d'; } /* '' */
-.icon-facebook:before { content: '\f308'; } /* '' */

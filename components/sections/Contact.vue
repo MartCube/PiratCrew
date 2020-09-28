@@ -4,9 +4,6 @@
 		<div class="contact">
 			<div class="info">
 				<div class="adress">
-					<h2>write us <i class="icon icon-right" /></h2>
-				</div>
-				<div class="adress">
 					<h2>adress <i class="icon icon-location" /></h2>
 					<p>Ukraine, Kyiv. Kreschatik 322</p>
 				</div>
@@ -14,6 +11,14 @@
 					<h2>phone <i class="icon icon-phone" /></h2>
 					<p>viber +380 492 322 105</p>
 					<p>what's up +380 492 322 105</p>
+				</div>
+				<div class="smedias">
+					<a link="https://www.facebook.com/"> <i class="icon icon-facebook" /></a>
+					<a link="https://www.instagram.com/"> <i class="icon icon-instagram" /></a>
+					<a link="https://www.youtube.com/"><i class="icon icon-youtube" /></a>
+				</div>
+				<div>
+					<h2>write us <i class="icon icon-right" /></h2>
 				</div>
 			</div>
 			<ValidationObserver ref="send_email" tag="form" class="form" @submit.prevent="Submit()">
@@ -66,6 +71,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/colors.scss';
+
 .contact {
 	width: 100%;
 
@@ -87,6 +94,18 @@ export default {
 		p {
 			margin: 5px 0;
 			user-select: text;
+		}
+		a {
+			font-size: 1.5em;
+		}
+		.icon-facebook {
+			color: $facebook;
+		}
+		.icon-instagram {
+			color: $instagram;
+		}
+		.icon-youtube {
+			color: $youtube;
 		}
 	}
 	.form {
