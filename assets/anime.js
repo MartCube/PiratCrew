@@ -81,22 +81,72 @@ export function textAnim(text, box) {
 		)
 }
 
-export function navBarAnim(items) {
+
+export function navBarAnimHorizontal(navbarItems, navbarItemsLine) {
+  const StartUpTimeline = anime.timeline({
+    autoplay: true,
+  });
+
+	StartUpTimeline
+	.add({
+		targets: navbarItems,
+		opacity: [0, 1],
+		easing: "easeOutCubic",
+		duration: 2050,
+	})
+	.add({
+    targets: navbarItemsLine,
+    width: [0, "4vw"],
+    easing: "easeOutCubic",
+    duration: 1050,
+  }, 1000);
+}
+export function navBarAnimVertical(navbarItems, navbarItemsLine) {
 	const StartUpTimeline = anime.timeline({
 		autoplay: true,
 	})
 
-	StartUpTimeline.add(
-		{
-			targets: items,
-			opacity: [0 , 1],
-			translateX: [ '-100%', 0],
-			delay: anime.stagger(250),
-			easing: 'easeOutCubic',
-			duration: 750,
+	StartUpTimeline
+	.add({
+		targets: navbarItems,
+		opacity: [0, 1],
+		easing: "easeOutCubic",
+		duration: 2050,
+	})
+	.add({
+    targets: navbarItemsLine,
+    height: [0, "4vw"],
+    easing: "easeOutCubic",
+    duration: 1050,
+  }, 1000);
+	
+}
+export function widthStretch(navbarLine) {
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
+	})
+
+	StartUpTimeline.add({
+    targets: navbarLine,
+    delay: 850,
+    width: [0, "20%"],
+    easing: "easeOutCubic",
+    duration: 1050,
 		},
-		0,
-	)
+	);
+	
+}
+export function fadeIn(target) {
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
+	})
+
+	StartUpTimeline.add({
+    targets: target,
+    opacity: [0, 1],
+    easing: "easeOutCubic",
+    duration: 2050,
+  });
 	
 }
 

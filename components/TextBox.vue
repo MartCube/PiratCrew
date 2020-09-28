@@ -53,6 +53,7 @@ export default {
 
 @media (max-width: 600px) {
 	.text_box {
+		margin: 3.2rem 0 3rem;
 		h2 {
 			font-size: 3em;
 		}

@@ -1,12 +1,12 @@
 <template>
-	<div class="event" :class="{ reverse: reverse }">
+	<n-link :to="link" class="event" :class="{ reverse: reverse }">
 		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" />
 		<div class="text">
 			<h2>{{ $prismic.asText(event.data.title) }}</h2>
 			<p>{{ $prismic.asText(event.data.text) }}</p>
-			<n-link :to="link">see more</n-link>
+			<span>see more</span>
 		</div>
-	</div>
+	</n-link>
 </template>
 
 <script>
@@ -37,6 +37,8 @@ export default {
 	align-items: center;
 
 	width: 100%;
+	text-decoration: none;
+	color: #fff;
 	margin-bottom: 5%;
 	.text {
 		display: flex;
@@ -55,13 +57,12 @@ export default {
 			margin-bottom: 1.5rem;
 			text-transform: uppercase;
 		}
-		a {
+		span {
 			margin: 10px 0;
 
 			font-family: 'codec_bold';
 			font-size: 1.2em;
 			text-transform: uppercase;
-			text-decoration: none;
 			color: white;
 			transition: 0.3s ease;
 			&:hover {
@@ -83,5 +84,48 @@ export default {
 }
 
 @media (max-width: 600px) {
+	.event {
+		align-self: flex-end;
+		flex-direction: column;
+		margin: 0rem 0 3rem;
+		&.reverse {
+			flex-direction: column;
+			.text{
+				h2{
+					padding-left: 0;
+					padding-right: 1rem;
+					&::before{
+						right: initial;
+						left: 0;
+					}
+				}
+			}
+		}
+		.text{
+			margin: 1.5rem 10%;
+			width: auto;
+			p{
+				line-height: 1.2;
+				display: none;
+			}
+			span{
+				text-decoration: underline;
+			}
+			h2{
+				position: relative;
+				padding-right: 1rem;
+				&::before{
+					content: '';
+					display: flex;
+					height: 100%;
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					width: 2px;
+					background-color: #fff;
+				}
+			}
+		}
+	}
 }
 </style>

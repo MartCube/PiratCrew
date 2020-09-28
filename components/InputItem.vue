@@ -86,8 +86,8 @@ export default {
 				top: 0;
 				display: block;
 				transition: 0.2s;
-				font-size: 1rem;
-				color: white;
+				font-size: .7em;
+				color: #aaaaaa;
 				font-weight: 700;
 			}
 			padding-bottom: 6px;
@@ -127,6 +127,15 @@ export default {
 	&:required,
 	&:invalid {
 		box-shadow: none;
+	}
+}
+
+@media (max-width: 600px) {
+	.form_group{
+		margin-top: 1rem;
+		button{
+			margin-top: 2rem;
+		}
 	}
 }
 </style>

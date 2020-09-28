@@ -1,8 +1,8 @@
 <template>
 	<div class="container">
 		<Intro />
-		<Portfolio />
 		<About />
+		<Portfolio />
 		<Contact />
 	</div>
 </template>

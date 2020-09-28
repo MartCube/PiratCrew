@@ -1,6 +1,6 @@
 <template>
 	<section id="contact">
-		<TextBox text="contact" />
+		<TextBox text="contacts" />
 		<div class="contact">
 			<div class="info">
 				<div class="adress">
@@ -123,5 +123,28 @@ export default {
 }
 
 @media (max-width: 600px) {
+
+	.contact{
+		flex-direction: column;
+		padding-bottom: 5rem;
+		.info {
+			flex-basis: initial; 
+			width: 100%;
+			height: auto;
+			.adress:nth-child(1){
+				order: 3;
+				margin: 3rem 0 2rem;
+			}
+			.adress:nth-child(2) {
+				order: 1
+			}
+			.phone {
+				order: 2
+			}
+		}
+		form{
+			width: 99%;
+		}
+	}
 }
 </style>
