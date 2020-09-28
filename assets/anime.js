@@ -89,6 +89,6 @@ export function introAnim(letters) {
 
 		easing: 'easeInOutCubic',
 		delay: anime.stagger(200, { from: 'center' }),
-		duration: 1200,
+		duration: 1000,
 	})
 }

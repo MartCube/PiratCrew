@@ -3,6 +3,12 @@
 		<TextBox text="contact" />
 		<div class="contact">
 			<div class="info">
+				<div class="smedias">
+					<h2>fallow us</h2>
+					<a target="blank" href="https://www.facebook.com/"> <i class="icon icon-facebook" /> facebook</a>
+					<a target="blank" href="https://www.instagram.com/"> <i class="icon icon-instagram" />instagram</a>
+					<a target="blank" href="https://www.youtube.com/"><i class="icon icon-youtube" />youtube</a>
+				</div>
 				<div class="adress">
 					<h2>adress <i class="icon icon-location" /></h2>
 					<p>Ukraine, Kyiv. Kreschatik 322</p>
@@ -12,16 +18,9 @@
 					<p>viber +380 492 322 105</p>
 					<p>what's up +380 492 322 105</p>
 				</div>
-				<div class="smedias">
-					<a link="https://www.facebook.com/"> <i class="icon icon-facebook" /></a>
-					<a link="https://www.instagram.com/"> <i class="icon icon-instagram" /></a>
-					<a link="https://www.youtube.com/"><i class="icon icon-youtube" /></a>
-				</div>
-				<div>
-					<h2>write us <i class="icon icon-right" /></h2>
-				</div>
 			</div>
 			<ValidationObserver ref="send_email" tag="form" class="form" @submit.prevent="Submit()">
+				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
 				<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
@@ -83,38 +82,56 @@ export default {
 	.info {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		flex-basis: 40%;
 		height: 350px;
 
 		h2 {
 			text-transform: uppercase;
-			margin: 15px 0;
+			margin-bottom: 15px;
 		}
 		p {
 			margin: 5px 0;
 			user-select: text;
 		}
-		a {
-			font-size: 1.5em;
-		}
-		.icon-facebook {
-			color: $facebook;
-		}
-		.icon-instagram {
-			color: $instagram;
-		}
-		.icon-youtube {
-			color: $youtube;
+
+		.smedias {
+			display: flex;
+			flex-direction: column;
+			a {
+				text-decoration: none;
+				font-size: 1em;
+				color: white;
+			}
+			.icon {
+				margin-right: 10px;
+				font-size: 1.5em;
+				color: white;
+
+				&:hover {
+					&.icon-facebook {
+						color: $facebook;
+					}
+					&.icon-instagram {
+						color: $instagram;
+					}
+					&.icon-youtube {
+						color: $youtube;
+					}
+				}
+			}
 		}
 	}
 	.form {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		flex-basis: 40%;
 		height: 350px;
 
+		h2 {
+			text-transform: uppercase;
+		}
 		.submit {
 			width: 100%;
 			height: 50px;
