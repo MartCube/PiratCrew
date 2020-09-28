@@ -192,6 +192,7 @@ $size: 40px;
 		user-select: none;
 		right: 0;
 		bottom: 0;
+		transform: initial;
 		height: 100%;
 		background: $bg;
 		z-index: 2;
@@ -328,5 +329,22 @@ $size: 40px;
 			}
 		}
 	}
+}
+
+.event{ 
+	.navbar{
+		&.hide {
+			.links{ 
+				transform: translateX(100%);
+			}
+		}
+		.links{
+			color: #fff;
+			.item{opacity: 0;
+				span {display: none;}
+			}
+		} 
+	} 
+		
 }
 </style>

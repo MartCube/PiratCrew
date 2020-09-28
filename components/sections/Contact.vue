@@ -75,7 +75,7 @@ export default {
 
 .contact {
 	width: 100%;
-
+	border-left: 5px solid #fff;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -181,10 +181,12 @@ export default {
 }
 .white {
 	#contact {
-		box-shadow: 0 0 7px 0px #cbc9c9;
+		border-top:5px solid #000;
+		margin-top: 3rem;
 	}
 	
 	.contact{
+		border-color: #000;
 		form{
 			.submit {
 				color: #000;

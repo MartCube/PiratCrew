@@ -50,7 +50,14 @@ export default {
 		background: white;
 	}
 }
-
+.white {
+	.text_box {
+		h2 {
+			-webkit-text-stroke: 3px black;
+			line-height: 1;
+		}
+	}
+}
 @media (max-width: 600px) {
 	.text_box {
 		margin: 3.2rem 0 3rem;

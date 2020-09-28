@@ -41,9 +41,11 @@ export default {
 	}),
 	mounted(){
 		document.querySelector("body").classList.add("white")
+		document.querySelector("body").classList.add("event")
 	},
 	destroyed(){
 		document.querySelector("body").classList.remove("white")
+		document.querySelector("body").classList.remove("event")
 	},
 }
 </script>
@@ -52,7 +54,7 @@ export default {
 .event {
 	width: 100%;
 	min-height: 100vh;
-	margin: 40px 0 5%;
+	margin: 40px 0 0;
 	background-color: #fff;
 	color:#000;
 	display: flex;
