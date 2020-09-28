@@ -31,7 +31,7 @@ export default {
 		endpoint: 'https://piratcrew.cdn.prismic.io/api/v2',
 		linkResolver: '@/plugins/link-resolver',
 		htmlSerializer: '@/plugins/html-serializer',
-		preview: true,
+		preview: false,
 	},
 
 	// Build Configuration (https://go.nuxtjs.dev/config-build)

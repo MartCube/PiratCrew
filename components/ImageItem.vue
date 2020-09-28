@@ -1,7 +1,7 @@
 <template>
 	<div class="image">
 		<picture>
-			<source :data-srcset="imageSrc + '&fit=crop&w=400&h=500'" media="(max-width: 500px)" />
+			<source :data-srcset="imageSrc + '&fit=crop&w=500&h=auto'" media="(max-width: 500px)" />
 			<img :data-src="imageSrc" class="lazyload" :alt="imageAlt" />
 		</picture>
 		<div class="box"></div>
@@ -20,6 +20,10 @@ export default {
 			required: true,
 		},
 	},
+	data: () => ({
+		imgIX: '&fit=crop&w=800&h=450&q=45&dpr=1',
+		thumbnail_imgIX: '',
+	}),
 	methods: {},
 }
 </script>
