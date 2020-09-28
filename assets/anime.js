@@ -87,38 +87,47 @@ export function navBarAnimHorizontal(navbarItems, navbarItemsLine) {
     autoplay: true,
   });
 
-	StartUpTimeline
-	.add({
-		targets: navbarItems,
-		opacity: [0, 1],
-		easing: "easeOutCubic",
-		duration: 2050,
-	})
-	.add({
-    targets: navbarItemsLine,
-    width: [0, "4vw"],
-    easing: "easeOutCubic",
-    duration: 1050,
-  }, 1000);
+	StartUpTimeline.add(
+    {
+      targets: navbarItems,
+      opacity: [0, 1],
+      easing: "easeOutCubic",
+			translateT: ["-100%", "0%"],
+      duration: 1000,
+    },
+    0
+  ).add(
+    {
+      targets: navbarItemsLine,
+      width: [0, "4vw"],
+      easing: "easeOutCubic",
+      duration: 1000,
+    },
+    1000
+  );
 }
 export function navBarAnimVertical(navbarItems, navbarItemsLine) {
 	const StartUpTimeline = anime.timeline({
 		autoplay: true,
 	})
 
-	StartUpTimeline
-	.add({
-		targets: navbarItems,
-		opacity: [0, 1],
-		easing: "easeOutCubic",
-		duration: 2050,
-	})
-	.add({
-    targets: navbarItemsLine,
-    height: [0, "4vw"],
-    easing: "easeOutCubic",
-    duration: 1050,
-  }, 1000);
+	StartUpTimeline.add(
+    {
+      targets: navbarItems,
+      opacity: [0, 1],
+      easing: "easeOutCubic",
+      duration: 1000,
+    },
+    0
+  ).add(
+    {
+      targets: navbarItemsLine,
+      height: [0, "4vw"],
+      easing: "easeOutCubic",
+      duration: 1000,
+    },
+    1000
+  );
 	
 }
 export function widthStretch(navbarLine) {
@@ -128,12 +137,11 @@ export function widthStretch(navbarLine) {
 
 	StartUpTimeline.add({
     targets: navbarLine,
-    delay: 850,
+    delay: 750,
     width: [0, "20%"],
     easing: "easeOutCubic",
-    duration: 1050,
-		},
-	);
+    duration: 1000,
+  });
 	
 }
 export function fadeIn(target) {
@@ -145,8 +153,8 @@ export function fadeIn(target) {
     targets: target,
     opacity: [0, 1],
     easing: "easeOutCubic",
-    duration: 2050,
-  });
+    duration: 750,
+  }, 0);
 	
 }
 

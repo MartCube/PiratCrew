@@ -1,5 +1,5 @@
 <template>
-	<div class="navbar">
+	<div class="navbar" v-on:scroll="scrollFunction">
 		<!-- <svg class="menu_btn" viewBox="0 0 512 512" @click="menuAnim">
 			<circle cx="256" cy="256" r="40.23" class="w_circle" />
 			<circle cx="421.77" cy="416.77" r="40.23" class="w_circle" />
@@ -17,9 +17,9 @@
 		</svg> -->
 		
 		<div class="social_medias">
-			<div class="logo">
+			<a href="/" class="logo">
 				<img src="/logo.png" alt="">
-			</div>
+			</a>
 			<div class="wrapper">
  				<span class="item facebook">facebook
 					<span></span>
@@ -36,28 +36,30 @@
 			<span v-scroll-to="'#intro'" class="item">home
 				<span></span>
 			</span>
-			<span v-scroll-to="'#portfolio'" class="item">portfolio
+			<span v-scroll-to="'#about'" class="item">about
 				<span></span>
 			</span>
-			<span v-scroll-to="'#about'" class="item">about
+			<span v-scroll-to="'#portfolio'" class="item">portfolio
 				<span></span>
 			</span>
 			<span v-scroll-to="'#contact'" class="item">contact
 				<span></span>
 			</span>
 		</div>
-	
+		<div class="bottom-bar"><span></span></div>
+		<div class="name"><span>PIRAT CREW DANCE GROUP</span></div>
 	</div>
 </template>
 
 <script>
-import { menuAnim, navBarAnimHorizontal, navBarAnimVertical, fadeIn} from '~/assets/anime'
+import { menuAnim, navBarAnimHorizontal, navBarAnimVertical, fadeIn, widthStretch} from '~/assets/anime'
 
 export default {
 	data: () => ({
 		menuActive: false,
 	}),
 	mounted(){
+		window.addEventListener('scroll', this.scrollFunction)
 		const navbarItemsHorizontal = document.querySelectorAll('.social_medias .item')
 		const navbarItemsLineHorizontal = document.querySelectorAll('.social_medias .item span')
 		const logo = document.querySelector('.logo img')
@@ -66,6 +68,12 @@ export default {
 		const navbarItemsLineVertical = document.querySelectorAll('.links .item span')
 		fadeIn(logo)
 
+		const LeftText = document.querySelector('.name span')
+		const bottomLine = document.querySelector('.bottom-bar span')
+		fadeIn(LeftText)
+		widthStretch(bottomLine)
+
+	console.log(navbarItemsHorizontal,navbarItemsLineHorizontal);
 		navBarAnimHorizontal(navbarItemsHorizontal, navbarItemsLineHorizontal)
 		navBarAnimVertical(navbarItemsVertical, navbarItemsLineVertical)
 		
@@ -79,6 +87,21 @@ export default {
 			this.menuActive = !this.menuActive
 			menuAnim(circles, circlesW, circlesX, circlesP, this.menuActive)
 		},
+		scrollFunction(e){
+			let navbar = document.querySelector(".navbar");
+			let scrollTop = Math.floor(window.scrollY || window.scrollTop || document.getElementsByTagName("html")[0].scrollTop, 0);
+			if(scrollTop > 200){
+				navbar.classList.add("hide")
+			}
+			else if(scrollTop < 200) {
+				navbar.classList.remove("hide")
+			}
+			// console.log(scrollTop);
+		}
+	},
+	destroyed(){
+		window.removeEventListener('scroll', this.scrollFunction)
+
 	},
 }
 </script>
@@ -105,6 +128,8 @@ $size: 40px;
 	.social_medias, .links, .bottom-bar, .name {
 		position: fixed;
 		line-height: 40px;
+		transition: all .2s linear;
+
 	}
 	.social_medias {
 		right: 0;
@@ -121,7 +146,7 @@ $size: 40px;
 		align-content: center;
 		.logo{
 			display: flex;
-			margin-top: 5px;
+			margin-top: 2px;
 			margin-left: 2px;
 			img{
 				width: 38px;
@@ -132,8 +157,8 @@ $size: 40px;
 			cursor: pointer;
 			padding: 0 3.5vw;
 			align-self: flex-end;
-			opacity: 0;
 			text-transform: uppercase;
+			opacity: 0;
 			font-size: 14px;
 			position: relative;
 			&:first-child{
@@ -143,12 +168,10 @@ $size: 40px;
 				padding-right: $size / 4;
 			}
 			span{
-				content: '';
 				position: absolute;
 				left: -2vw;
 				top: 4px;
 				display: block;
-				// opacity: 0;
 				height: 1.5px;
 				width: 0;
 				background-color: #fff;
@@ -172,7 +195,7 @@ $size: 40px;
 		height: 100%;
 		background: $bg;
 		z-index: 2;
-		padding: $size/2;
+		padding: $size/2 $size/4;
 		width: 40px;
 
 		display: flex;
@@ -210,7 +233,6 @@ $size: 40px;
 			}
 		}
 	}
-
 	.menu_btn {
 		width: $size;
 		height: $size;
@@ -222,6 +244,89 @@ $size: 40px;
 			opacity: 0;
 		}
 		cursor: pointer;
+	}
+	.bottom-bar, .name {
+		position: fixed;
+		line-height: 40px;
+	}
+	.name {
+		user-select: none;
+		left: 0;
+		bottom: 0;
+		height: 100%;
+		background: $bg;
+		z-index: 2;
+		padding: $size/2;
+		transform: initial;
+
+		width: 40px;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-end;
+		padding: 3.5vw 0 $size/2;
+		text-transform: uppercase;
+		writing-mode: vertical-rl;
+		text-orientation: mixed;
+		font-size: 14px;
+		span{
+			transform: rotateZ(180deg);
+			opacity: 0;
+		}
+	}
+	.bottom-bar{
+		padding: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1;
+		transform: translateY(0);
+		width: 100%;
+		background-color: #000;
+		height: 40px;
+		span{
+			width: 0;
+			margin-left: $size;
+			height: 1.5px;
+			margin-top: $size / 2;
+			background-color: #fff;
+			display: block;
+		}
+	}
+
+	&.hide{
+		.bottom-bar{
+			transform: translateY(100%);
+		} 
+		.name {
+			transform: translateX(-100%);
+		}
+		.bottom-bar, .name {
+			opacity: 0;
+		}
+	}
+}
+.white{
+	.navbar{
+		.logo{
+			img{
+				filter: invert(1);
+			}
+		}
+		.bottom-bar{
+			span{
+				background-color: #000;
+			}
+		}
+		.social_medias, .links,.bottom-bar, .name {
+			background-color: #fff;
+			color: #000;	
+			.item {
+				span{
+					background-color: #000;
+				}
+			}
+		}
 	}
 }
 </style>

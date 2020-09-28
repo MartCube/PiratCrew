@@ -3,7 +3,9 @@
 		<video class="lazy" autoplay muted loop playsinline>
 			<source src="/videoplayback.mp4" type="video/mp4">
 		</video>
-		<div class="logo">
+		<!-- {{this.type}} -->
+		<!-- <TextBox :text="/> -->
+		<div class="logo" >
 			<svg viewBox="0 0 512 512">
 				<path d="M80.31,207.5H57.12v35.16H30.4V128H79.89a45.34,45.34,0,0,1,16.65,3,39.34,39.34,0,0,1,13.11,8.31,37.81,37.81,0,0,1,8.55,12.6,40.72,40.72,0,0,1,3.08,16,41.47,41.47,0,0,1-3,16.06,36.8,36.8,0,0,1-8.48,12.52,38.45,38.45,0,0,1-13,8.13A45.45,45.45,0,0,1,80.31,207.5ZM57.12,184.57H78.79A14.74,14.74,0,0,0,85,183.26a16.12,16.12,0,0,0,8.38-8.81,17.3,17.3,0,0,0,1.23-6.57,17.48,17.48,0,0,0-1.23-6.54A17.07,17.07,0,0,0,90,156a16.06,16.06,0,0,0-5-3.67,14.32,14.32,0,0,0-6.16-1.35H57.12Z" />
 				<path d="M137.05,242.66V128h26.72V242.66Z" />
@@ -16,8 +18,7 @@
 				<path d="M450.7,342.51l29.43-72.17h28.15L460.82,385.08H436.71l-14.33-34.56-14.25,34.56H384L336.47,270.34h28.24l29.34,72.17,1.69,6.57h.59l1.68-6.57,10.46-25.63-19.23-46.54h28.25l29.33,72.17,1.61,6.57h.67Z" />
 			</svg>
 		</div>
-			<div class="bottom-bar"><span></span></div>
-		<div class="name"><span>PIRAT CREW DANCE GROUP</span></div>
+		
 	</section>
 </template>
 
@@ -26,14 +27,19 @@ import { fadeIn, widthStretch, introAnim } from '~/assets/anime'
 
 
 export default {
+	// props: {
+	// 	pageType: {
+	// 		type: String,
+	// 		required: true,
+	// 	},
+	// 	progectName: {
+	// 		type: String
+	// 	}
+	// },
 	data: () => ({}),
 	mounted(){
-		const LeftText = document.querySelector('.name span')
-		const bottomLine = document.querySelector('.bottom-bar span')
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
-		fadeIn(LeftText)
-		widthStretch(bottomLine)
 		const video = document.querySelector('video');
 
 		function checkLoad() {
@@ -70,6 +76,7 @@ $size: 40px;
 		width: 100vw;
 		opacity: 0;
 		position: absolute;
+		z-index: 0;
 		top: 0;
 		left: 0;
 		transition: opacity .5s 2s;
@@ -78,12 +85,16 @@ $size: 40px;
 		}
 	}
 	.logo{
-		.text_box {
-			align-self: center;	
-			text-align: center;
-			margin: 2rem 0;	
-			h2 {
-				font-size: 14em;
+		width: 30vw;
+		height: auto;
+		svg {
+			width: 100%;
+			fill: none;
+			stroke: white;
+			stroke-width: 2px;
+			stroke-miterlimit: 10;
+			path {
+				opacity: 0;
 			}
 		}
 	}
@@ -92,53 +103,16 @@ $size: 40px;
 		text-decoration: none;
 		font-size: 1em;
 	}
-	.bottom-bar, .name {
-		position: fixed;
-		line-height: 40px;
-	}
-	.name {
-		user-select: none;
-		left: 0;
-		bottom: 0;
-		height: 100%;
-		background: $bg;
-		z-index: 2;
-		padding: $size/2;
-		width: 40px;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-end;
-		padding: 3.5vw 0 $size/2;
-		text-transform: uppercase;
-		writing-mode: vertical-rl;
-		text-orientation: mixed;
-		font-size: 14px;
-		span{
-			transform: rotateZ(180deg);
-			opacity: 0;
-		}
-	}
-	.bottom-bar{
-		padding: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 1;
-		width: 100%;
-		background-color: #000;
-		height: 40px;
-		span{
-			width: 0;
-			margin-left: $size;
-			height: 1.5px;
-			margin-top: $size / 2;
-			background-color: #fff;
-			display: block;
-		}
-	}
+	
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+	.intro {
+		video {
+			width: auto;
+			height: 100vh;
+
+		}
+	}
 }
 </style>

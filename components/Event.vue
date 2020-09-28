@@ -57,6 +57,9 @@ export default {
 			margin-bottom: 1.5rem;
 			text-transform: uppercase;
 		}
+		p {
+			line-height: 1.1;
+		}
 		span {
 			margin: 10px 0;
 

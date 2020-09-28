@@ -32,6 +32,7 @@ export default {
 		flex-basis: 30vw;
 		p {
 			margin-bottom: 20px;
+			line-height: 1.1;
 		}
 	}
 }
@@ -57,9 +58,12 @@ export default {
 	}
 }
 @media (max-width: 600px) {
-	.about .image{
-		margin: 4rem 0;
-	}
+	.about{
+		.text{width: 90%;}		
+		.image{
+			margin: 4rem 0;
+		}
+	} 
 
 }
 </style>

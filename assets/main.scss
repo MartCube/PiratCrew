@@ -19,6 +19,10 @@ body {
 	}
 	color:white;
 	background-color: #000;
+	&.white{
+		background-color: #fff;
+		color:#000;
+	}
 }
 
 .container {

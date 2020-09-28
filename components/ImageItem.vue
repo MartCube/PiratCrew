@@ -65,6 +65,14 @@ export default {
 	}
 }
 
+.white {
+	.image {
+		.box{ 
+			display: none;
+		}
+	}
+}
+
 @media (max-width: 600px) {
 	.image{
 		width: 80%;

@@ -129,6 +129,19 @@ export default {
 		box-shadow: none;
 	}
 }
+.white {
+	.form_group {
+		.form_label{color: #000}
+		.form_field{
+			border-bottom: 2px solid #000;
+			color: #000;
+		}
+		.error {
+			font-weight: 700;
+			color: #ff0000;
+		}
+	}
+}
 
 @media (max-width: 600px) {
 	.form_group{
