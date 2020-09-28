@@ -80,3 +80,24 @@ export function textAnim(text, box) {
 			750,
 		)
 }
+
+export function navBarAnim(items) {
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
+	})
+
+	StartUpTimeline.add(
+		{
+			targets: items,
+			opacity: [0 , 1],
+			translateX: [ '-100%', 0],
+			delay: anime.stagger(250),
+			easing: 'easeOutCubic',
+			duration: 750,
+		},
+		0,
+	)
+	
+}
+
+
