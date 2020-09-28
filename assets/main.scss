@@ -18,7 +18,11 @@ body {
 		font-family: 'codec_bold';
 	}
 	color:white;
-	background-color: #050A10;
+	background-color: #000;
+	&.white{
+		background-color: #fff;
+		color:#000;
+	}
 }
 
 .container {

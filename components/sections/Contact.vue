@@ -1,26 +1,27 @@
 <template>
 	<section id="contact">
-		<TextBox text="contact" />
+		<TextBox text="contacts" />
 		<div class="contact">
 			<div class="info">
-				<div class="smedias">
-					<h2>fallow us</h2>
-					<a target="blank" href="https://www.facebook.com/"> <i class="icon icon-facebook" /> facebook</a>
-					<a target="blank" href="https://www.instagram.com/"> <i class="icon icon-instagram" />instagram</a>
-					<a target="blank" href="https://www.youtube.com/"><i class="icon icon-youtube" />youtube</a>
-				</div>
 				<div class="adress">
 					<h2>adress <i class="icon icon-location" /></h2>
 					<p>Ukraine, Kyiv. Kreschatik 322</p>
 				</div>
 				<div class="phone">
 					<h2>phone <i class="icon icon-phone" /></h2>
-					<p>viber +380 492 322 105</p>
-					<p>what's up +380 492 322 105</p>
+					<p>Viber <a href="tel:+380492322105">+380 492 322 105</a></p>
+					<p>WhatsApp <a href="tel:+380492322105">+380 492 322 105</a></p>
+				</div>
+				<div class="smedias">
+					<h2>Follow us </h2>
+
+					<a link="https://www.facebook.com/"> <i class="icon icon-facebook" /></a>
+					<a link="https://www.instagram.com/"> <i class="icon icon-instagram" /></a>
+					<a link="https://www.youtube.com/"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
 			<ValidationObserver ref="send_email" tag="form" class="form" @submit.prevent="Submit()">
-				<h2>write us</h2>
+				<h2>write us </h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
 				<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
@@ -74,11 +75,15 @@ export default {
 
 .contact {
 	width: 100%;
-
+	border-left: 5px solid #fff;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 	align-content: center;
+	h2 {
+		text-transform: uppercase;
+		margin:0 0 15px 0;
+	}
 	.info {
 		display: flex;
 		flex-direction: column;
@@ -86,18 +91,23 @@ export default {
 		flex-basis: 40%;
 		height: 350px;
 
-		h2 {
-			text-transform: uppercase;
-			margin-bottom: 15px;
-		}
 		p {
 			margin: 5px 0;
 			user-select: text;
+			line-height: 1.1;
+			a{margin-left: 5px;}
 		}
-
+		a {
+			font-size: 1em;
+			color: #fff;
+		}
 		.smedias {
 			display: flex;
-			flex-direction: column;
+			flex-wrap: wrap;
+			// flex-direction: column;
+			h2{
+				width: 100%;
+			}
 			a {
 				text-decoration: none;
 				font-size: 1em;
@@ -106,20 +116,35 @@ export default {
 			.icon {
 				margin-right: 10px;
 				font-size: 1.5em;
-				color: white;
-
-				&:hover {
-					&.icon-facebook {
-						color: $facebook;
-					}
-					&.icon-instagram {
-						color: $instagram;
-					}
-					&.icon-youtube {
-						color: $youtube;
-					}
+				color: inherit;
+			}
+			&:hover {
+				&.icon-facebook {
+					color: $facebook;
+				}
+				&.icon-instagram {
+					color: $instagram;
+				}
+				&.icon-youtube {
+					color: $youtube;
 				}
 			}
+		}
+		.phone {
+			p {
+				justify-content: space-between;
+				width: calc(100% - 9vw);
+				display: flex;
+			}
+		}
+		.icon-facebook {
+			color: $facebook;
+		}
+		.icon-instagram {
+			color: $instagram;
+		}
+		.icon-youtube {
+			color: $youtube;
 		}
 	}
 	.form {
@@ -129,9 +154,6 @@ export default {
 		flex-basis: 40%;
 		height: 350px;
 
-		h2 {
-			text-transform: uppercase;
-		}
 		.submit {
 			width: 100%;
 			height: 50px;
@@ -157,7 +179,51 @@ export default {
 		}
 	}
 }
+.white {
+	#contact {
+		border-top:5px solid #000;
+		margin-top: 3rem;
+	}
+	
+	.contact{
+		border-color: #000;
+		form{
+			.submit {
+				color: #000;
+				border-color: #000;
+				border-width: 2px;
+			}
+		}
+		.info {
+			.phone a,
+			.smedias a{color: #000;}
+		} 
+	} 
+}
 
 @media (max-width: 600px) {
+
+	.contact{
+		flex-direction: column-reverse;
+		padding-bottom: 5rem;
+		border: none;
+		.info {
+			flex-basis: initial; 
+			width: 100%;
+			margin-top: 4rem;
+
+			height: auto;
+			.smedias, .phone, .adress {
+				margin-bottom: 3rem;
+			}
+		}
+		.form{
+			width: 99%;
+			.submit {
+				margin-top: 2rem;
+			}
+			// margin-top: 3rem;
+		}
+	}
 }
 </style>

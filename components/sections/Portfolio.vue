@@ -31,5 +31,8 @@ export default {
 }
 
 @media (max-width: 600px) {
+	.portfolio{
+		margin-top: 2rem;
+	}
 }
 </style>

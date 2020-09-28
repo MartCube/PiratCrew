@@ -38,6 +38,8 @@ export default {
 	img {
 		width: 100%;
 		height: 100%;
+		z-index: 3;
+		position: relative;
 		object-fit: cover;
 		object-position: center;
 
@@ -51,8 +53,8 @@ export default {
 		}
 	}
 	.box {
-		display: none;
-		z-index: -1;
+		// display: none;
+		z-index: 1;
 		position: absolute;
 		bottom: -20px;
 		right: -20px;
@@ -60,6 +62,36 @@ export default {
 		width: 100%;
 		height: 100%;
 		border: 1px solid white;
+	}
+}
+
+.white {
+	.image {
+		.box{ 
+			display: none;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.image{
+		width: 80%;
+		margin: 0 0 4rem 0rem;
+		.box { 
+			bottom: -11px;
+			right: 11px;
+		}
+	}
+	.event {
+		&.reverse {
+			.image{
+				.box { 
+					bottom: -11px;
+					left: 11px;
+					right: initial;
+				}
+			}
+		}
 	}
 }
 </style>
