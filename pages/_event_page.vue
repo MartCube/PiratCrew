@@ -7,22 +7,17 @@
 			<p>loading..</p>
 		</div>
 		<div v-if="!$fetchState.error && !$fetchState.pending" class="event">
-			<ImageItem :image-src="event.main_image + imgIX" :image-alt="event.title" />
+			<ImageItem :image-src="event.main_image" :image-alt="event.title" />
 			<div class="title">
 				<h2>{{ event.title }}</h2>
 			</div>
 			<div class="text">
 				{{ event.text }}
 			</div>
-			<div class="gallery">Gallery</div>
-			<div class="video">video</div>
 
-			<!-- add slices -->
-			<div v-for="(slice, i) in event.slices" :key="'slice-' + i" class="slice">
-				<template v-if="slice.slice_type === 'gallery'">
-					<Gallery :data="slice.items" />
-				</template>
-			</div>
+			<Gallery :data="event.gallery" />
+
+			<div class="video">video</div>
 		</div>
 	</div>
 </template>
@@ -35,14 +30,13 @@ export default {
 			main_image: event.data.main_image.url,
 			title: this.$prismic.asText(event.data.title),
 			text: this.$prismic.asText(event.data.text),
-			slices: event.data.body,
+			gallery: event.data.gallery,
 		}
 
-		console.log(this.event)
+		console.log(event)
 	},
 	data: () => ({
 		event: Object,
-		imgIX: '&fit=crop&w=800&h=450&q=45&dpr=1',
 	}),
 }
 </script>

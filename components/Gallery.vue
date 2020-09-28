@@ -1,15 +1,20 @@
 <template>
 	<div class="gallery">
-		<ImageItem v-for="(item, i) in data" :key="'gallery-image' + i" :image-src="item.gallery_image.url" :image-alt="item.gallery_image.alt" />
-		<!-- <FsLightbox :toggler="toggler" :sources="['https://i.imgur.com/fsyrScY.jpg', 'https://www.youtube.com/watch?v=xshEZzpS4CQ']" /> -->
+		<ImageItem v-for="(item, i) in data" :key="'gallery-image' + i" :image-src="item.gallery_image.url" :image-alt="item.gallery_image.alt" @click.native="Toggle(i)" />
+		<!-- <img v-for="(item, i) in data" :key="'gallery-image' + i" :src="item.gallery_image.url" :alt="item.gallery_image.alt" /> -->
+
+		<div v-if="visible" class="lightbox">
+			<i class="icon-cancel" @click="Toggle()" />
+			<i class="icon-left" :class="{ disable: currentImage == 0 }" @click="Prev()" />
+			<i class="icon-right" :class="{ disable: currentImage == data.length - 1 }" @click="Next()" />
+			<img class="lazyload" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
+			<!-- <ImageItem :image-src="data[currentImage].gallery_image.url" :image-alt="data[currentImage].gallery_image.alt" /> -->
+		</div>
 	</div>
 </template>
 
 <script>
-// import FsLightbox from 'fslightbox-vue'
 export default {
-	// components: { FsLightbox },
-
 	props: {
 		data: {
 			type: Array,
@@ -17,8 +22,21 @@ export default {
 		},
 	},
 	data: () => ({
-		toggler: true,
+		visible: false,
+		currentImage: 0,
 	}),
+	methods: {
+		Toggle(index) {
+			this.currentImage = index
+			this.visible = !this.visible
+		},
+		Next() {
+			this.currentImage++
+		},
+		Prev() {
+			this.currentImage--
+		},
+	},
 }
 </script>
 
@@ -26,8 +44,11 @@ export default {
 $grid-gutter-width: 20px;
 $row-height: 300px;
 $column-count: 4;
+$transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 
 .gallery {
+	margin: 30px 0;
+
 	display: grid;
 	grid-template-columns: repeat($column-count, 1fr);
 	grid-auto-rows: $row-height;
@@ -39,6 +60,98 @@ $column-count: 4;
 	div:nth-child(3n) {
 		grid-row-end: span 2;
 	}
+}
+
+.lightbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	z-index: 999;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.85);
+
+	img {
+		max-width: 90%;
+		max-height: 90%;
+		&.lazyload,
+		&.lazyloading {
+			opacity: 0;
+		}
+		&.lazyloaded {
+			opacity: 1;
+			transition: $transition;
+		}
+	}
+
+	i {
+		opacity: 0.75;
+		&.disable {
+			display: none;
+		}
+	}
+
+	.icon-cancel {
+		cursor: pointer;
+		font-size: 40px;
+		color: white;
+
+		position: fixed;
+		top: 0;
+		right: 0;
+		margin: 10px;
+
+		transition: $transition;
+		&:hover {
+			transform: scale(1.1);
+			opacity: 0.9;
+		}
+	}
+	.icon-left {
+		cursor: pointer;
+		font-size: 50px;
+		color: white;
+
+		position: fixed;
+		top: 50;
+		left: 0;
+		padding: 10px;
+
+		transition: $transition;
+		&:hover {
+			transform: scale(1.1);
+			opacity: 0.9;
+		}
+	}
+	.icon-right {
+		cursor: pointer;
+		font-size: 50px;
+		color: white;
+
+		position: fixed;
+		top: 50;
+		right: 0;
+		padding: 10px;
+
+		transition: $transition;
+		&:hover {
+			transform: scale(1.1);
+			opacity: 0.9;
+		}
+	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: $transition;
+}
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
 }
 
 @media (max-width: 600px) {
