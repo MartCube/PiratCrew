@@ -80,3 +80,15 @@ export function textAnim(text, box) {
 			750,
 		)
 }
+
+export function introAnim(letters) {
+	anime({
+		targets: letters,
+		strokeDashoffset: [anime.setDashoffset, 0],
+		opacity: [0, 1],
+
+		easing: 'easeInOutCubic',
+		delay: anime.stagger(200, { from: 'center' }),
+		duration: 1200,
+	})
+}

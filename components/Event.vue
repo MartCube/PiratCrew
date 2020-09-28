@@ -3,7 +3,7 @@
 		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" />
 		<div class="text">
 			<h2>{{ $prismic.asText(event.data.title) }}</h2>
-			<p>{{ $prismic.asText(event.data.text) }}</p>
+			<!-- <p>{{ $prismic.asText(event.data.text) }}</p> -->
 			<n-link :to="link">see more</n-link>
 		</div>
 	</div>
