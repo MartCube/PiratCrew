@@ -21,13 +21,22 @@
 				<img src="/logo.png" alt="">
 			</a>
 			<div class="wrapper">
- 				<span class="item facebook">facebook
+ 				<span class="item facebook">
+					 facebook
+					<!-- <span class="text">facebook</span> -->
+					<!-- <i class="icon icon-facebook" /> -->
 					<span></span>
 				</span>
-				<span class="item instagram">instagram
+				<span class="item instagram">
+					instagram
+					<!-- <span class="text">instagram</span> -->
+					<!-- <i class="icon icon-instagram" /> -->
 					<span></span>
 				</span>
-				<span class="item youtube">youtube
+				<span class="item youtube">
+					youtube
+					<!-- <span class="text">youtube</span> -->
+					<!-- <i class="icon icon-youtube" /> -->
 					<span></span>
 				</span>
 			</div>
@@ -161,6 +170,7 @@ $size: 40px;
 			opacity: 0;
 			font-size: 14px;
 			position: relative;
+			i{display: none;}
 			&:first-child{
 				span{display: none;}
 			}
