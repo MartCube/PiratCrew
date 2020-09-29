@@ -41,11 +41,9 @@ export default {
 	}),
 	mounted(){
 		document.querySelector("body").classList.add("white")
-		document.querySelector("body").classList.add("event")
 	},
 	destroyed(){
 		document.querySelector("body").classList.remove("white")
-		document.querySelector("body").classList.remove("event")
 	},
 }
 </script>

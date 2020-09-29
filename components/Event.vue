@@ -38,7 +38,7 @@ export default {
 
 	width: 100%;
 	text-decoration: none;
-	color: #fff;
+	color: #000;
 	margin-bottom: 5%;
 	.text {
 		display: flex;
@@ -66,7 +66,7 @@ export default {
 			font-family: 'codec_bold';
 			font-size: 1.2em;
 			text-transform: uppercase;
-			color: white;
+			color: #000;
 			transition: 0.3s ease;
 			&:hover {
 				opacity: 0.5;
@@ -125,7 +125,7 @@ export default {
 					right: 0;
 					bottom: 0;
 					width: 2px;
-					background-color: #fff;
+					background-color: #000;
 				}
 			}
 		}

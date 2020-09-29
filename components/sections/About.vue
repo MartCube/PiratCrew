@@ -1,6 +1,8 @@
 <template>
 	<section id="about">
-		<TextBox text="about" />
+		<div class="title">
+			<TextBox text="about" />
+		</div>
 		<div class="about">
 			<ImageItem image-src="/photo.jpg" image-alt="about" />
 			<div class="text">
@@ -17,9 +19,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#about{
+	background-color: #fff;
+	color: #000;
+	.title{
+		justify-content: flex-start;
+		display: flex;
+    width: -webkit-fill-available;
+		padding: 0 3rem;
+    margin: 0;
+    position: relative;
+		&::before {
+			content: '';
+			display: flex;
+			position: absolute;
+			background-color: #000;
+			z-index: 1;
+			left: 0;
+			width: 1vw;
+			top: 34%;
+			height: 3.5rem;
+		}
+	}
+}
 .about {
 	width: 100%;
-
+	// padding: 0 10%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

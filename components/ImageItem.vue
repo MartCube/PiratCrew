@@ -73,6 +73,15 @@ export default {
 	}
 }
 
+.portfolio , .about {
+	.image {
+		.box {
+			border-color: #000;
+			border-width: 2px;
+		}
+	}
+}
+
 @media (max-width: 600px) {
 	.image{
 		width: 80%;
