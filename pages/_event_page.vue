@@ -7,19 +7,19 @@
 			<p>loading..</p>
 		</div>
 		<div v-if="!$fetchState.error && !$fetchState.pending" class="event">
-			<!-- <ImageItem :image-src="event.main_image" :image-alt="event.title" /> -->
 			<Intro />
+
 			<div class="title">
+				<n-link class="back" to="/"><i class="icon icon-back" /> </n-link>
 				<h2>{{ event.title }}</h2>
 			</div>
 			<div class="text">
 				{{ event.text }}
 			</div>
-
 			<Gallery :data="event.gallery" />
+
 			<Contact />
 		</div>
-		
 	</div>
 </template>
 
@@ -33,17 +33,14 @@ export default {
 			text: this.$prismic.asText(event.data.text),
 			gallery: event.data.gallery,
 		}
-
-		console.log(event)
 	},
 	data: () => ({
 		event: Object,
 	}),
-	mounted(){
-		document.querySelector("body").classList.add("white")
-	},
-	destroyed(){
-		document.querySelector("body").classList.remove("white")
+	beforeRouteEnter(to, from, next) {
+		next((vm) => {
+			vm.$store.commit('setTheme', 'white')
+		})
 	},
 }
 </script>
@@ -54,56 +51,60 @@ export default {
 	min-height: 100vh;
 	margin: 40px 0 0;
 	background-color: #fff;
-	color:#000;
+	color: #000;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	align-content: center;
 	.title {
+		width: 100%;
+		padding: 3rem 40px;
+		margin: 0;
+
 		display: flex;
-    width: -webkit-fill-available;
-    padding: 3rem 14vw 1rem;
-    margin: 0;
-    position: relative;
-		&::before {
-			content: '';
-			display: flex;
-			position: absolute;
-			background-color: #000;
-			z-index: 1;
-			left: 0;
-			width: 14vw;
-			top: 47%;
-			height: 2rem;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+		.back {
+			padding: 1rem;
+			margin-right: 3rem;
+
+			background: black;
+			color: white;
+			font-size: 1.5rem;
+			text-decoration: none;
+			text-align: right;
+		}
+		h2 {
+			font-size: 3em;
+			background-color: #fff;
+			position: relative;
+			z-index: 3;
 		}
 	}
-	h2 {
-		margin: 0;
-    font-size: 2.75em;
-    background-color: #fff;
-    padding: 0 8.3vw;
-    position: relative;
-    z-index: 3;
-	}
+
 	.text {
-		margin: 30px auto;
-    width: 55vw;
-    display: flex;
+		margin-bottom: 3rem;
+		width: 55vw;
+		display: flex;
 	}
 }
 @media (max-width: 600px) {
-	.event{
-		.title{
-			padding: 3rem 6vw 1rem;
+	.event {
+		.title {
+			.back {
+				margin-right: 1rem;
+				font-size: 0.8rem;
+			}
+			h2 {
+				font-size: 2rem;
+			}
 		}
-		h2{
-			padding: 0 3.3vw;
-		}
+
 		.text {
-			width: 80vw;
+			padding: 0 40px;
+			width: 100%;
 		}
 	}
-	
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-	<section id="contact">
-		<TextBox text="contacts" />
+	<section id="contact" :class="theme">
+		<TextBox text="contacts" :white="theme == 'white'" />
 		<div class="contact">
 			<div class="info">
 				<div class="adress">
@@ -13,7 +13,7 @@
 					<p>WhatsApp <a href="tel:+380492322105">+380 492 322 105</a></p>
 				</div>
 				<div class="smedias">
-					<h2>Follow us </h2>
+					<h2>Follow us</h2>
 
 					<a link="https://www.facebook.com/"> <i class="icon icon-facebook" /></a>
 					<a link="https://www.instagram.com/"> <i class="icon icon-instagram" /></a>
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<ValidationObserver ref="send_email" tag="form" class="form" @submit.prevent="Submit()">
-				<h2>write us </h2>
+				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
 				<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
@@ -50,6 +50,11 @@ export default {
 		},
 		loading: false,
 	}),
+	computed: {
+		theme() {
+			return this.$store.getters.theme
+		},
+	},
 	methods: {
 		getEmail(value) {
 			this.form.email = value
@@ -82,7 +87,7 @@ export default {
 	align-content: center;
 	h2 {
 		text-transform: uppercase;
-		margin:0 0 15px 0;
+		margin: 0 0 15px 0;
 	}
 	.info {
 		display: flex;
@@ -95,7 +100,9 @@ export default {
 			margin: 5px 0;
 			user-select: text;
 			line-height: 1.1;
-			a{margin-left: 5px;}
+			a {
+				margin-left: 5px;
+			}
 		}
 		a {
 			font-size: 1em;
@@ -105,7 +112,7 @@ export default {
 			display: flex;
 			flex-wrap: wrap;
 			// flex-direction: column;
-			h2{
+			h2 {
 				width: 100%;
 			}
 			a {
@@ -180,14 +187,11 @@ export default {
 	}
 }
 .white {
-	#contact {
-		border-top:5px solid #000;
-		margin-top: 3rem;
-	}
-	
-	.contact{
+	margin-top: 3rem;
+
+	.contact {
 		border-color: #000;
-		form{
+		form {
 			.submit {
 				color: #000;
 				border-color: #000;
@@ -196,28 +200,31 @@ export default {
 		}
 		.info {
 			.phone a,
-			.smedias a{color: #000;}
-		} 
-	} 
+			.smedias a {
+				color: #000;
+			}
+		}
+	}
 }
 
 @media (max-width: 600px) {
-
-	.contact{
+	.contact {
 		flex-direction: column-reverse;
 		padding-bottom: 5rem;
 		border: none;
 		.info {
-			flex-basis: initial; 
+			flex-basis: initial;
 			width: 100%;
 			margin-top: 4rem;
 
 			height: auto;
-			.smedias, .phone, .adress {
+			.smedias,
+			.phone,
+			.adress {
 				margin-bottom: 3rem;
 			}
 		}
-		.form{
+		.form {
 			width: 99%;
 			.submit {
 				margin-top: 2rem;

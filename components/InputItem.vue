@@ -86,7 +86,7 @@ export default {
 				top: 0;
 				display: block;
 				transition: 0.2s;
-				font-size: .7em;
+				font-size: 0.7em;
 				color: #aaaaaa;
 				font-weight: 700;
 			}
@@ -95,6 +95,11 @@ export default {
 			border-width: 3px;
 			border-color: white;
 			border-image-slice: 1;
+		}
+		/* reset input */
+		&:required,
+		&:invalid {
+			box-shadow: none;
 		}
 	}
 	.form_label {
@@ -122,17 +127,12 @@ export default {
 	}
 }
 
-/* reset input */
-.form_field {
-	&:required,
-	&:invalid {
-		box-shadow: none;
-	}
-}
 .white {
 	.form_group {
-		.form_label{color: #000}
-		.form_field{
+		.form_label {
+			color: #000;
+		}
+		.form_field {
 			border-bottom: 2px solid #000;
 			color: #000;
 			&:-webkit-autofill,
@@ -151,9 +151,9 @@ export default {
 }
 
 @media (max-width: 600px) {
-	.form_group{
+	.form_group {
 		margin-top: 1rem;
-		button{
+		button {
 			margin-top: 2rem;
 		}
 	}

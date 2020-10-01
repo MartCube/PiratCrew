@@ -1,6 +1,5 @@
 <template>
-	<!-- @click="textAnim" -->
-	<div class="text_box">
+	<div class="text_box" :class="{ white: white }">
 		<h2 ref="text">{{ text }}</h2>
 		<div ref="box" class="box"></div>
 	</div>
@@ -14,6 +13,10 @@ export default {
 		text: {
 			type: String,
 			required: true,
+		},
+		white: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	mounted() {
@@ -37,7 +40,7 @@ export default {
 		font-size: 5em;
 		text-transform: uppercase;
 		color: transparent;
-		-webkit-text-stroke: 1px white;
+		-webkit-text-stroke: 2px white;
 		opacity: 0;
 	}
 	.box {
@@ -49,23 +52,17 @@ export default {
 		height: 100%;
 		background: white;
 	}
-}
-.white {
-	.text_box {
+
+	&.white {
 		h2 {
-			-webkit-text-stroke: 3px black;
-			line-height: 1;
+			-webkit-text-stroke: 2px black;
+		}
+		.box {
+			background: black;
 		}
 	}
 }
-.title{
-	.text_box {
-		h2 {
-			-webkit-text-stroke: 3px black;
-			line-height: 1;
-		}
-	}
-}
+
 @media (max-width: 600px) {
 	.text_box {
 		margin: 3.2rem 0 3rem;

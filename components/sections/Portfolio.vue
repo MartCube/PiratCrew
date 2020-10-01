@@ -1,8 +1,7 @@
 <template>
 	<section id="portfolio">
 		<div class="title">
-			<TextBox text="portfolio" />
-
+			<TextBox text="portfolio" white />
 		</div>
 		<div v-if="!$fetchState.pending" class="portfolio">
 			<Event v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
@@ -20,26 +19,20 @@ export default {
 	data: () => ({
 		events: [Object],
 	}),
-	mounted(){
-		document.querySelector("body").classList.add("home")
-	},
-	destroyed(){
-		document.querySelector("body").classList.remove("home")
-	},
 }
 </script>
 
 <style lang="scss" scoped>
-#portfolio{
+#portfolio {
 	background-color: #fff;
 	color: #000;
-	.title{
+	.title {
 		justify-content: flex-start;
 		display: flex;
-    width: -webkit-fill-available;
+		width: -webkit-fill-available;
 		padding: 0 3rem;
-    margin: 0;
-    position: relative;
+		margin: 0;
+		position: relative;
 		&::before {
 			content: '';
 			display: flex;
@@ -56,14 +49,13 @@ export default {
 .portfolio {
 	width: 100%;
 	display: flex;
-	// padding: 0 10%;
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
 }
 
 @media (max-width: 600px) {
-	.portfolio{
+	.portfolio {
 		margin-top: 2rem;
 	}
 }

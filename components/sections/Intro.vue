@@ -1,11 +1,10 @@
 <template>
 	<section id="intro" class="intro">
 		<video class="lazy" autoplay muted loop playsinline>
-			<source src="/videoplayback.mp4" type="video/mp4">
+			<source src="/videoplayback.mp4" type="video/mp4" />
 		</video>
-		<!-- {{this.type}} -->
-		<!-- <TextBox :text="/> -->
-		<div class="logo" >
+
+		<div class="logo">
 			<svg viewBox="0 0 512 512">
 				<path d="M80.31,207.5H57.12v35.16H30.4V128H79.89a45.34,45.34,0,0,1,16.65,3,39.34,39.34,0,0,1,13.11,8.31,37.81,37.81,0,0,1,8.55,12.6,40.72,40.72,0,0,1,3.08,16,41.47,41.47,0,0,1-3,16.06,36.8,36.8,0,0,1-8.48,12.52,38.45,38.45,0,0,1-13,8.13A45.45,45.45,0,0,1,80.31,207.5ZM57.12,184.57H78.79A14.74,14.74,0,0,0,85,183.26a16.12,16.12,0,0,0,8.38-8.81,17.3,17.3,0,0,0,1.23-6.57,17.48,17.48,0,0,0-1.23-6.54A17.07,17.07,0,0,0,90,156a16.06,16.06,0,0,0-5-3.67,14.32,14.32,0,0,0-6.16-1.35H57.12Z" />
 				<path d="M137.05,242.66V128h26.72V242.66Z" />
@@ -18,40 +17,28 @@
 				<path d="M450.7,342.51l29.43-72.17h28.15L460.82,385.08H436.71l-14.33-34.56-14.25,34.56H384L336.47,270.34h28.24l29.34,72.17,1.69,6.57h.59l1.68-6.57,10.46-25.63-19.23-46.54h28.25l29.33,72.17,1.61,6.57h.67Z" />
 			</svg>
 		</div>
-		
 	</section>
 </template>
 
 <script>
-import { fadeIn, widthStretch, introAnim } from '~/assets/anime'
-
+import { introAnim } from '~/assets/anime'
 
 export default {
-	// props: {
-	// 	pageType: {
-	// 		type: String,
-	// 		required: true,
-	// 	},
-	// 	progectName: {
-	// 		type: String
-	// 	}
-	// },
 	data: () => ({}),
-	mounted(){
+	mounted() {
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
-		const video = document.querySelector('video');
+		const video = document.querySelector('video')
 
 		function checkLoad() {
 			if (video.readyState === 4) {
-				document.querySelector('.intro video').classList.add("loaded")
-				// document.querySelector('.logo').classList.add("loaded")
+				document.querySelector('.intro video').classList.add('loaded')
 			} else {
 				setTimeout(checkLoad, 100)
 			}
 		}
 
-		checkLoad();
+		checkLoad()
 	},
 }
 </script>
@@ -72,19 +59,19 @@ $size: 40px;
 	align-content: center;
 	background-color: #000;
 	overflow: hidden;
-	video{
+	video {
 		width: 100vw;
 		opacity: 0;
 		position: absolute;
 		z-index: 0;
 		top: 0;
 		left: 0;
-		transition: opacity .5s 2s;
+		transition: opacity 0.5s 2s;
 		&.loaded {
 			opacity: 1;
 		}
 	}
-	.logo{
+	.logo {
 		width: 30vw;
 		height: auto;
 		svg {
@@ -103,7 +90,6 @@ $size: 40px;
 		text-decoration: none;
 		font-size: 1em;
 	}
-	
 }
 
 @media (max-width: 900px) {
@@ -111,7 +97,6 @@ $size: 40px;
 		video {
 			width: auto;
 			height: 100vh;
-
 		}
 	}
 }
