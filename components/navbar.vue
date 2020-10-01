@@ -72,9 +72,9 @@ export default {
 		},
 	},
 	watch: {
-		theme(newValue, oldValue) {
+		async theme(newValue, oldValue) {
 			if (oldValue !== newValue) {
-				this.$nextTick() // wait DOM to render
+				await this.$nextTick() // wait DOM to render
 				const navbarTopItems = document.querySelectorAll('.top .item .text')
 				const navbarTopLines = document.querySelectorAll('.top .line')
 				navbarTop(navbarTopItems, navbarTopLines)
