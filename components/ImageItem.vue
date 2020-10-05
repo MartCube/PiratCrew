@@ -1,10 +1,10 @@
 <template>
 	<div class="image">
 		<picture>
-			<source :data-srcset="imageSrc + '&fit=crop&w=500&h=auto'" media="(max-width: 500px)" />
+			<source :data-srcset="imageSrc" media="(max-width: 500px)" />
 			<img :data-src="imageSrc" class="lazyload" :alt="imageAlt" />
 		</picture>
-		<div class="box"></div>
+		<div v-if="box" class="box"></div>
 	</div>
 </template>
 
@@ -19,9 +19,14 @@ export default {
 			type: String,
 			required: true,
 		},
+		box: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data: () => ({
-		imgIX: '&fit=crop&w=800&h=450&q=45&dpr=1',
+		imgIX_mobile: '&fit=crop&w=500&dpr=1',
+		imgIX: '&fit=crop&w=500&dpr=2',
 		thumbnail_imgIX: '',
 	}),
 	methods: {},
@@ -53,7 +58,6 @@ export default {
 		}
 	}
 	.box {
-		// display: none;
 		z-index: 1;
 		position: absolute;
 		bottom: -20px;
@@ -61,40 +65,23 @@ export default {
 
 		width: 100%;
 		height: 100%;
-		border: 1px solid white;
-	}
-}
-
-.white {
-	.image {
-		.box{ 
-			display: none;
-		}
-	}
-}
-
-.portfolio , .about {
-	.image {
-		.box {
-			border-color: #000;
-			border-width: 2px;
-		}
+		border: 2px solid black;
 	}
 }
 
 @media (max-width: 600px) {
-	.image{
+	.image {
 		width: 80%;
 		margin: 0 0 4rem 0rem;
-		.box { 
+		.box {
 			bottom: -11px;
 			right: 11px;
 		}
 	}
 	.event {
 		&.reverse {
-			.image{
-				.box { 
+			.image {
+				.box {
 					bottom: -11px;
 					left: 11px;
 					right: initial;

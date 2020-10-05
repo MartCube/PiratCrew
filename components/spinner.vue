@@ -1,10 +1,20 @@
 <template>
-	<div class="spinner">
+	<div class="spinner" :class="theme">
 		<div class="bounce1"></div>
 		<div class="bounce2"></div>
 		<div class="bounce3"></div>
 	</div>
 </template>
+
+<script>
+export default {
+	computed: {
+		theme() {
+			return this.$store.getters.theme
+		},
+	},
+}
+</script>
 
 <style scoped>
 .spinner {
@@ -20,6 +30,9 @@
 	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
+.spinner.white > div {
+	background-color: black;
+}
 .spinner .bounce1 {
 	-webkit-animation-delay: -0.32s;
 	animation-delay: -0.32s;
@@ -28,6 +41,7 @@
 	-webkit-animation-delay: -0.16s;
 	animation-delay: -0.16s;
 }
+
 @-webkit-keyframes sk-bouncedelay {
 	0%,
 	80%,

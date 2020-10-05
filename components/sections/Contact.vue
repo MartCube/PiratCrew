@@ -187,8 +187,6 @@ export default {
 	}
 }
 .white {
-	margin-top: 3rem;
-
 	.contact {
 		border-color: #000;
 		form {

@@ -1,6 +1,6 @@
 <template>
 	<n-link :to="link" class="event" :class="{ reverse: reverse }">
-		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" />
+		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" box />
 		<div class="text">
 			<h2>{{ $prismic.asText(event.data.title) }}</h2>
 			<p>{{ $prismic.asText(event.data.text) }}</p>
@@ -93,31 +93,31 @@ export default {
 		margin: 0rem 0 3rem;
 		&.reverse {
 			flex-direction: column;
-			.text{
-				h2{
+			.text {
+				h2 {
 					padding-left: 0;
 					padding-right: 1rem;
-					&::before{
+					&::before {
 						right: initial;
 						left: 0;
 					}
 				}
 			}
 		}
-		.text{
+		.text {
 			margin: 1.5rem 10%;
 			width: auto;
-			p{
+			p {
 				line-height: 1.2;
 				display: none;
 			}
-			span{
+			span {
 				text-decoration: underline;
 			}
-			h2{
+			h2 {
 				position: relative;
 				padding-right: 1rem;
-				&::before{
+				&::before {
 					content: '';
 					display: flex;
 					height: 100%;

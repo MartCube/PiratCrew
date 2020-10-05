@@ -1,6 +1,6 @@
 <template>
 	<section id="intro" class="intro">
-		<video class="lazy" autoplay muted loop playsinline>
+		<video class="lazyload" preload="none" loop muted="" data-autoplay="">
 			<source src="/videoplayback.mp4" type="video/mp4" />
 		</video>
 
@@ -28,17 +28,6 @@ export default {
 	mounted() {
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
-		const video = document.querySelector('video')
-
-		function checkLoad() {
-			if (video.readyState === 4) {
-				document.querySelector('.intro video').classList.add('loaded')
-			} else {
-				setTimeout(checkLoad, 100)
-			}
-		}
-
-		checkLoad()
 	},
 }
 </script>
@@ -51,23 +40,31 @@ $size: 40px;
 	width: 100%;
 	min-height: 100vh;
 	padding: 0;
+	background-color: #000;
 	position: relative;
+	overflow: hidden;
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
-	background-color: #000;
-	overflow: hidden;
+
 	video {
 		width: 100vw;
-		opacity: 0;
 		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		object-fit: cover;
 		z-index: 0;
-		top: 0;
-		left: 0;
-		transition: opacity 0.5s 2s;
-		&.loaded {
+
+		transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+		&.lazyload,
+		&.lazyloading {
+			opacity: 0;
+		}
+		&.lazyloaded {
 			opacity: 1;
 		}
 	}
@@ -84,11 +81,6 @@ $size: 40px;
 				opacity: 0;
 			}
 		}
-	}
-	a {
-		color: white;
-		text-decoration: none;
-		font-size: 1em;
 	}
 }
 

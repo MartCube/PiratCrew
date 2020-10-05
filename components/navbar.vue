@@ -125,7 +125,7 @@ $size: 40px;
 		.logo {
 			display: flex;
 			margin-top: 2px;
-			margin-left: 2px;
+			margin-left: $size;
 			img {
 				width: 38px;
 				// opacity: 0;	//anime
@@ -165,7 +165,7 @@ $size: 40px;
 			}
 			.line {
 				width: 0; //anime
-				height: 1.5px;
+				height: 2px;
 
 				background: #fff;
 			}
@@ -184,7 +184,7 @@ $size: 40px;
 		background: $bg;
 		.line {
 			width: 0; //anime
-			height: 1.5px;
+			height: 2px;
 			margin-top: $size / 2;
 			background: #fff;
 			display: block;
@@ -229,7 +229,7 @@ $size: 40px;
 			}
 		}
 		.line {
-			width: 1.5px;
+			width: 2px;
 			height: 0; //anime
 			background: #fff;
 		}

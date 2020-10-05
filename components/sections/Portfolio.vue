@@ -14,7 +14,6 @@ export default {
 	async fetch() {
 		const events = await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'project'), { orderings: '[document.first_publication_date desc]' })
 		this.events = events.results
-		// console.log(this.events)
 	},
 	data: () => ({
 		events: [Object],
