@@ -1,6 +1,6 @@
 <template>
 	<section id="intro" class="intro">
-		<video class="lazyload" preload="none" loop muted="" data-autoplay="">
+		<video autoplay muted loop playsinline>
 			<source src="/videoplayback.mp4" type="video/mp4" />
 		</video>
 
@@ -28,6 +28,16 @@ export default {
 	mounted() {
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
+
+		const video = document.querySelector('video')
+		function checkLoad() {
+			if (video.readyState === 4) {
+				document.querySelector('.intro video').classList.add('loaded')
+			} else {
+				setTimeout(checkLoad, 100)
+			}
+		}
+		checkLoad()
 	},
 }
 </script>
@@ -59,12 +69,9 @@ $size: 40px;
 		object-fit: cover;
 		z-index: 0;
 
-		transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-		&.lazyload,
-		&.lazyloading {
-			opacity: 0;
-		}
-		&.lazyloaded {
+		transition: opacity 0.5s ease;
+		transition-delay: 2s;
+		&.loaded {
 			opacity: 1;
 		}
 	}

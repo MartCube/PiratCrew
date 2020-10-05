@@ -4,18 +4,9 @@
 			<n-link to="/" class="logo">
 				<img src="/logo.png" alt="logo" />
 			</n-link>
-			<div class="smedias">
-				<div class="item">
-					<a class="text facebook" href="#">facebook</a>
-				</div>
+			<div class="button" @click="ToggleMenu">
 				<div class="line"></div>
-				<div class="item facebook">
-					<a class="text instagram" href="#">instagram</a>
-				</div>
 				<div class="line"></div>
-				<div class="item facebook">
-					<a class="text youtube" href="#">youtube</a>
-				</div>
 			</div>
 		</div>
 		<div class="right">
@@ -51,11 +42,63 @@
 			</template>
 		</div>
 		<div class="bottom">
+			<div class="item">
+				<p class="text">copy right &copy; {{ year }}</p>
+			</div>
 			<div class="line"></div>
 		</div>
 		<div class="left">
 			<div class="item">
-				<span class="text">pirat crew dance group</span>
+				<a class="text facebook" href="#">
+					<span>facebook</span>
+					<i class="icon icon-facebook" />
+				</a>
+			</div>
+			<div class="line"></div>
+			<div class="item">
+				<a class="text instagram" href="#">
+					<span>instagram</span>
+					<i class="icon icon-instagram" />
+				</a>
+			</div>
+			<div class="line"></div>
+			<div class="item">
+				<a class="text youtube" href="#">
+					<span>youtube</span>
+					<i class="icon icon-youtube" />
+				</a>
+			</div>
+		</div>
+
+		<div v-if="isActive" class="menu">
+			<div class="links">
+				<n-link to="/"> home</n-link>
+				<n-link to="/"> about</n-link>
+				<n-link to="/"> contact</n-link>
+				<n-link to="/"> artist form</n-link>
+			</div>
+
+			<div class="events">
+				<h2>full show</h2>
+				<n-link to="/"> jazz do it</n-link>
+				<n-link to="/"> circus art hotel giuseppe</n-link>
+				<n-link to="/"> bon voyage</n-link>
+
+				<h2>dinner show</h2>
+				<n-link to="/"> circus</n-link>
+				<n-link to="/"> jazz</n-link>
+				<n-link to="/"> vintage</n-link>
+
+				<h2>private party</h2>
+				<n-link to="/">Monaco</n-link>
+				<n-link to="/">Queen</n-link>
+				<n-link to="/">Dnepr</n-link>
+				<n-link to="/">Cruise</n-link>
+			</div>
+
+			<div class="cancel" @click="ToggleMenu">
+				<div class="line"></div>
+				<div class="line"></div>
 			</div>
 		</div>
 	</div>
@@ -65,30 +108,42 @@
 import { navbarTop, navbarBottom, navbarRight, navbarLeft } from '~/assets/anime'
 
 export default {
-	data: () => ({}),
+	data: () => ({
+		isActive: false,
+	}),
 	computed: {
 		theme() {
 			return this.$store.getters.theme
+		},
+		year() {
+			return new Date().getFullYear()
 		},
 	},
 	watch: {
 		async theme(newValue, oldValue) {
 			if (oldValue !== newValue) {
 				await this.$nextTick() // wait DOM to render
-				const navbarTopItems = document.querySelectorAll('.top .item .text')
+				const navbarLogo = document.querySelectorAll('.top .logo')
 				const navbarTopLines = document.querySelectorAll('.top .line')
-				navbarTop(navbarTopItems, navbarTopLines)
+				navbarTop(navbarLogo, navbarTopLines)
 
 				const navbarRightItems = document.querySelectorAll('.right .item .text')
 				const navbarRightLines = document.querySelectorAll('.right .line')
 				navbarRight(navbarRightItems, navbarRightLines)
 
+				const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
 				const navbarBottomLines = document.querySelectorAll('.bottom .line')
-				navbarBottom(navbarBottomLines)
+				navbarBottom(navbarBottomItems, navbarBottomLines)
 
 				const navbarLeftItems = document.querySelectorAll('.left .item .text')
-				navbarLeft(navbarLeftItems)
+				const navbarLeftLines = document.querySelectorAll('.left .line')
+				navbarLeft(navbarLeftItems, navbarLeftLines)
 			}
+		},
+	},
+	methods: {
+		ToggleMenu() {
+			this.isActive = !this.isActive
 		},
 	},
 }
@@ -114,8 +169,9 @@ $size: 40px;
 		right: 0;
 		width: 100%;
 		height: $size;
+		padding: 0 $size;
 
-		z-index: 3;
+		z-index: 2;
 		background: $bg;
 		user-select: none;
 
@@ -124,50 +180,35 @@ $size: 40px;
 		align-items: center;
 		.logo {
 			display: flex;
-			margin-top: 2px;
-			margin-left: $size;
+			padding: 5px;
+			opacity: 0; //anime
+
 			img {
-				width: 38px;
-				// opacity: 0;	//anime
+				width: 30px;
 			}
 		}
-		.smedias {
+		.button {
+			margin: 5px;
+			height: 30px;
+			width: 30px;
+			z-index: 3;
+			cursor: pointer;
+			overflow: hidden;
+
 			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			flex-direction: column;
+			justify-content: space-evenly;
+			align-items: flex-end;
 
-			padding-right: $size;
-			.item {
-				padding: 0 2vw;
-				cursor: pointer;
-				overflow: hidden;
-				.text {
-					opacity: 0; //anime
-					display: block;
-					color: white;
-					text-decoration: none;
-					text-transform: uppercase;
-					font-size: 14px;
-
-					&.facebook:hover {
-						color: $facebook;
-					}
-					&.instagram:hover {
-						color: $instagram;
-					}
-					&.youtube:hover {
-						color: $youtube;
-					}
-				}
-				&:last-child {
-					padding-right: 0;
-				}
-			}
 			.line {
-				width: 0; //anime
+				width: 100%;
 				height: 2px;
+				background: white;
+				opacity: 0; //anime
 
-				background: #fff;
+				&:nth-child(2) {
+					width: 80%;
+				}
 			}
 		}
 	}
@@ -182,10 +223,25 @@ $size: 40px;
 
 		z-index: 2;
 		background: $bg;
+		user-select: none;
+
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		.item {
+			cursor: pointer;
+			padding: 0 2vh;
+			overflow: hidden;
+
+			.text {
+				opacity: 0; //anime
+				text-transform: uppercase;
+				font-size: 12px;
+			}
+		}
 		.line {
 			width: 0; //anime
 			height: 2px;
-			margin-top: $size / 2;
 			background: #fff;
 			display: block;
 		}
@@ -206,7 +262,7 @@ $size: 40px;
 
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
+		justify-content: flex-start;
 		align-items: center;
 		align-content: center;
 		.item {
@@ -221,8 +277,8 @@ $size: 40px;
 				text-orientation: mixed;
 				font-size: 14px;
 			}
-			&:last-child {
-				padding-bottom: 0;
+			&:first-child {
+				padding-top: 0;
 			}
 			&:hover {
 				opacity: 0.75;
@@ -255,28 +311,87 @@ $size: 40px;
 		align-content: center;
 
 		.item {
+			padding: 2vh 0;
 			overflow: hidden;
 			transform: rotate(180deg);
 			.text {
 				opacity: 0; //anime
 				font-size: 14px;
+				color: white;
 				text-transform: uppercase;
 				writing-mode: vertical-rl;
 				text-orientation: mixed;
+
+				.icon {
+					color: white;
+					display: none;
+				}
+				&.facebook:hover {
+					color: $facebook;
+				}
+				&.instagram:hover {
+					color: $instagram;
+				}
+				&.youtube:hover {
+					color: $youtube;
+				}
 			}
+			&:last-child {
+				padding-top: 0;
+			}
+			.icon {
+				display: none;
+				text-decoration: none;
+				color: white;
+			}
+		}
+		.line {
+			width: 2px;
+			height: 0; //anime
+			background: #fff;
 		}
 	}
 
-	&.hide {
-		.bottom {
-			transform: translateY(100%);
+	.menu {
+		width: 100%;
+		height: 100vh;
+		z-index: 4;
+		background: black;
+
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		a {
+			text-decoration: none;
+			color: white;
 		}
-		.left {
-			transform: translateX(-100%);
-		}
-		.bottom,
-		.left {
-			opacity: 0;
+		.cancel {
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: $size;
+			height: $size;
+			margin: $size;
+			cursor: pointer;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+
+			.line {
+				width: 100%;
+				height: 2px;
+				background: white;
+				transform: translateY(2px) rotate(-45deg);
+				&:nth-child(2) {
+					transform: rotate(45deg);
+				}
+			}
+			&:hover {
+				opacity: 0.75;
+			}
 		}
 	}
 }
@@ -295,10 +410,35 @@ $size: 40px;
 		.smedias .item .text,
 		.text {
 			color: black;
+			.icon {
+				color: black;
+			}
 		}
 
 		.line {
 			background: #000;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.navbar {
+		.left .item {
+			transform: rotate(0);
+
+			.text {
+				span {
+					display: none;
+				}
+				.icon {
+					display: inline;
+				}
+			}
+
+			&:last-child {
+				padding-top: 2vh;
+				padding-bottom: 0;
+			}
 		}
 	}
 }

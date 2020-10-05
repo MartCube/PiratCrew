@@ -40,7 +40,25 @@ export function introAnim(letters) {
 	})
 }
 
-export function navbarTop(item, line) {
+export function navbarTop(logo, line) {
+	anime({
+		targets: logo,
+		opacity: [0, 1],
+		easing: 'easeOutCubic',
+		duration: 2000,
+		dellay: 0,
+	})
+	anime({
+		targets: line,
+		opacity: [0, 1],
+		translateX: ['50%', '0%'],
+		easing: 'easeOutCubic',
+		duration: 1000,
+		offset: 0,
+	})
+}
+
+export function navbarRight(item, line) {
 	const StartUpTimeline = anime.timeline({
 		autoplay: true,
 	})
@@ -48,7 +66,29 @@ export function navbarTop(item, line) {
 	StartUpTimeline.add({
 		targets: line,
 		opacity: [0, 1],
-		width: ['0%', '4vw'],
+		height: ['0%', '4vh'],
+		easing: 'easeOutCubic',
+		duration: 1000,
+		offset: 0,
+	}).add({
+		targets: item,
+		opacity: [0, 1],
+		translateY: ['-50%', '0%'],
+		easing: 'easeOutCubic',
+		duration: 1000,
+		offset: 1000,
+	})
+}
+
+export function navbarBottom(item, line) {
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
+	})
+
+	StartUpTimeline.add({
+		targets: line,
+		opacity: [0, 1],
+		width: ['0%', '4vh'],
 		easing: 'easeOutCubic',
 		duration: 1000,
 		offset: 0,
@@ -62,7 +102,7 @@ export function navbarTop(item, line) {
 	})
 }
 
-export function navbarRight(item, line) {
+export function navbarLeft(item, line) {
 	const StartUpTimeline = anime.timeline({
 		autoplay: true,
 	})
@@ -70,38 +110,16 @@ export function navbarRight(item, line) {
 	StartUpTimeline.add({
 		targets: line,
 		opacity: [0, 1],
-		height: ['0%', '4vw'],
+		height: ['0%', '4vh'],
 		easing: 'easeOutCubic',
 		duration: 1000,
 		offset: 0,
 	}).add({
 		targets: item,
 		opacity: [0, 1],
-		translateY: ['50%', '0%'],
+		translateY: ['-50%', '0%'],
 		easing: 'easeOutCubic',
 		duration: 1000,
 		offset: 1000,
-	})
-}
-
-export function navbarBottom(line) {
-	anime({
-		targets: line,
-		opacity: [0, 1],
-		width: ['0%', '20%'],
-		easing: 'easeOutCubic',
-		duration: 1000,
-		offset: 0,
-	})
-}
-
-export function navbarLeft(item) {
-	anime({
-		targets: item,
-		opacity: [0, 1],
-		translateY: ['50%', '0%'],
-		easing: 'easeOutCubic',
-		duration: 1000,
-		delay: 1000,
 	})
 }
