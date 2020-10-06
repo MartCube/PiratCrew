@@ -42,10 +42,10 @@
 			</template>
 		</div>
 		<div class="bottom">
+			<div class="line"></div>
 			<div class="item">
 				<p class="text">copy right &copy; {{ year }}</p>
 			</div>
-			<div class="line"></div>
 		</div>
 		<div class="left">
 			<div class="item">
@@ -230,7 +230,7 @@ $size: 40px;
 		align-items: center;
 		.item {
 			cursor: pointer;
-			padding: 0 2vh;
+			padding-left: 2vh;
 			overflow: hidden;
 
 			.text {

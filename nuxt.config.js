@@ -4,7 +4,7 @@ export default {
 
 	// Global page headers (https://go.nuxtjs.dev/config-head)
 	head: {
-		title: 'pirate_crew',
+		title: 'PiratCrew',
 		meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }],
 		link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
 	},
@@ -25,7 +25,7 @@ export default {
 	],
 
 	// Modules (https://go.nuxtjs.dev/config-modules)
-	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic'],
+	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios'],
 
 	prismic: {
 		endpoint: 'https://piratcrew.cdn.prismic.io/api/v2',
