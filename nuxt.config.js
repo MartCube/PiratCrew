@@ -34,6 +34,10 @@ export default {
 		preview: false,
 	},
 
+	axios: {
+		baseURL: '/',
+	},
+
 	// Build Configuration (https://go.nuxtjs.dev/config-build)
 	build: {
 		hotMiddleware: {
