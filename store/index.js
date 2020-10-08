@@ -1,5 +1,5 @@
 export const state = () => ({
-	theme: String,
+	theme: 'black',
 })
 
 // Functions that return back data contained in the state.

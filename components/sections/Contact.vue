@@ -70,10 +70,9 @@ export default {
 			if (!isValid) return
 			// trigger netlify function
 			try {
-				await this.$axios.$post('/.netlify/functions/sendmail', this.form).then(() => {
+				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
 					console.log('success')
 				})
-
 				this.resetForm('form_mail')
 			} catch (error) {
 				console.log(error)
