@@ -42,6 +42,7 @@ export default {
 	components: {
 		ValidationObserver,
 	},
+
 	data: () => ({
 		form: {
 			email: String,
@@ -68,17 +69,23 @@ export default {
 		async Submit() {
 			const isValid = await this.$refs.form_mail.validate()
 			if (!isValid) return
+
+			this.$nextTick(() => {
+				this.$refs.form_mail.reset()
+			})
+
+			console.log('submit')
 			// trigger netlify function
+			this.loading = true
+
 			try {
 				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
-					console.log('success')
+					this.loading = false
 				})
-				this.resetForm('form_mail')
 			} catch (error) {
 				console.log(error)
 			}
 			console.log('submit')
-			this.loading = !this.loading
 		},
 	},
 }

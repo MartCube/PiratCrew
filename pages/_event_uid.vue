@@ -42,6 +42,10 @@ export default {
 			vm.$store.commit('setTheme', 'white')
 		})
 	},
+	beforeRouteLeave(to, from, next) {
+		this.$store.commit('setTheme', 'black')
+		next()
+	},
 }
 </script>
 
