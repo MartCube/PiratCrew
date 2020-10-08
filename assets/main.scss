@@ -44,3 +44,10 @@ section {
 	align-items: center;
 	flex-wrap: wrap;
 }
+
+.page-enter-active, .page-leave-active {
+	transition: opacity .2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.page-enter, .page-leave-active {
+	opacity: 0
+}

@@ -1,21 +1,31 @@
-import sendgrid from '@sendgrid/mail'
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
+const data = {
+	to: 'martingjorceski@gmail.com',
+	from: process.env.DOMAIN, // Change to your verified sender
+	subject: 'subject',
+	text: 'text',
+}
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context, callback) => {
+	// const data = JSON.parse(event.body)
+	let response
+
 	try {
-		await sendgrid.send({
-			to: 'your@email.com',
-			from: 'your@email.com',
-			subject: 'jamstackfns',
-			text: 'Hello, world!',
-		})
+		response = await sgMail.send(data)
 	} catch (error) {
-		return console.log(error)
+		return {
+			statusCode: error.statusCode || 500,
+			body: JSON.stringify({
+				error: error.message,
+			}),
+		}
 	}
-
 	return {
 		statusCode: 200,
-		body: JSON.stringify({ error: '' }),
+		body: JSON.stringify({
+			result: response.message,
+		}),
 	}
 }

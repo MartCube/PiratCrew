@@ -5,28 +5,34 @@ export function textAnim(text, box) {
 		autoplay: true,
 	})
 
-	StartUpTimeline.add({
-		targets: box,
-		width: '100%',
-		easing: 'easeOutCubic',
-		duration: 750,
-		offset: 0,
-	})
-		.add({
+	StartUpTimeline.add(
+		{
 			targets: box,
-			translateX: ['0%', '110%'],
+			width: '100%',
 			easing: 'easeOutCubic',
 			duration: 750,
-			offset: 750,
-		})
-		.add({
-			targets: text,
-			opacity: [0, 1],
-			translateX: ['-100%', '0%'],
-			easing: 'easeOutCubic',
-			duration: 750,
-			offset: 750,
-		})
+		},
+		0,
+	)
+		.add(
+			{
+				targets: box,
+				translateX: ['0%', '101%'],
+				easing: 'easeOutCubic',
+				duration: 750,
+			},
+			750,
+		)
+		.add(
+			{
+				targets: text,
+				opacity: [0, 1],
+				translateX: ['-100%', '0%'],
+				easing: 'easeOutCubic',
+				duration: 750,
+			},
+			750,
+		)
 }
 
 export function introAnim(letters) {

@@ -26,7 +26,7 @@
 <script>
 export default {
 	async fetch() {
-		const event = await this.$prismic.api.getByUID('project', this.$route.params.event_page)
+		const event = await this.$prismic.api.getByUID('project', this.$route.params.event_uid)
 		this.event = {
 			main_image: event.data.main_image.url,
 			title: this.$prismic.asText(event.data.title),

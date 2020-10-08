@@ -1,8 +1,6 @@
 <template>
 	<section id="portfolio">
-		<div class="title">
-			<TextBox text="portfolio" white />
-		</div>
+		<TextBox text="portfolio" white />
 		<div v-if="!$fetchState.pending" class="portfolio">
 			<Event v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>
@@ -25,25 +23,6 @@ export default {
 #portfolio {
 	background-color: #fff;
 	color: #000;
-	.title {
-		justify-content: flex-start;
-		display: flex;
-		width: -webkit-fill-available;
-		padding: 0 3rem;
-		margin: 0;
-		position: relative;
-		&::before {
-			content: '';
-			display: flex;
-			position: absolute;
-			background-color: #000;
-			z-index: 1;
-			left: 0;
-			width: 1vw;
-			top: 34%;
-			height: 3.5rem;
-		}
-	}
 }
 .portfolio {
 	width: 100%;

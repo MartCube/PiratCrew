@@ -70,32 +70,16 @@
 			</div>
 		</div>
 
-		<div v-if="isActive" class="menu">
-			<div class="links">
+		<div v-if="showMenu" class="menu">
+			<div class="links" @click="ToggleMenu">
 				<n-link to="/"> home</n-link>
-				<n-link to="/"> about</n-link>
-				<n-link to="/"> contact</n-link>
+				<n-link to="/about"> about</n-link>
+				<n-link to="/"> events</n-link>
+				<n-link to="/contact"> contact</n-link>
 				<n-link to="/"> artist form</n-link>
 			</div>
 
-			<div class="events">
-				<h2>full show</h2>
-				<n-link to="/"> jazz do it</n-link>
-				<n-link to="/"> circus art hotel giuseppe</n-link>
-				<n-link to="/"> bon voyage</n-link>
-
-				<h2>dinner show</h2>
-				<n-link to="/"> circus</n-link>
-				<n-link to="/"> jazz</n-link>
-				<n-link to="/"> vintage</n-link>
-
-				<h2>private party</h2>
-				<n-link to="/">Monaco</n-link>
-				<n-link to="/">Queen</n-link>
-				<n-link to="/">Dnepr</n-link>
-				<n-link to="/">Cruise</n-link>
-			</div>
-
+			<img class="logo" src="/logo.png" alt="logo" />
 			<div class="cancel" @click="ToggleMenu">
 				<div class="line"></div>
 				<div class="line"></div>
@@ -109,7 +93,7 @@ import { navbarTop, navbarBottom, navbarRight, navbarLeft } from '~/assets/anime
 
 export default {
 	data: () => ({
-		isActive: false,
+		showMenu: false,
 	}),
 	computed: {
 		theme() {
@@ -143,7 +127,7 @@ export default {
 	},
 	methods: {
 		ToggleMenu() {
-			this.isActive = !this.isActive
+			this.showMenu = !this.showMenu
 		},
 	},
 }
@@ -163,6 +147,70 @@ $size: 40px;
 	align-items: center;
 	align-content: center;
 
+	.menu {
+		width: 100%;
+		height: 100vh;
+		z-index: 4;
+		background: black;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.links {
+			width: 100%;
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			a {
+				width: fit-content;
+				text-decoration: none;
+				color: white;
+				font-size: 2em;
+				text-transform: uppercase;
+				// transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+				&:hover {
+					opacity: 0.75;
+				}
+			}
+		}
+		.logo {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: $size;
+			height: $size;
+			margin: $size;
+		}
+		.cancel {
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: $size;
+			height: $size;
+			margin: $size;
+			cursor: pointer;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+
+			.line {
+				width: 100%;
+				height: 2px;
+				background: white;
+				transform: translateY(2px) rotate(-45deg);
+				&:nth-child(2) {
+					transform: rotate(45deg);
+				}
+			}
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+	}
 	.top {
 		position: fixed;
 		top: 0;
@@ -351,49 +399,6 @@ $size: 40px;
 			background: #fff;
 		}
 	}
-
-	.menu {
-		width: 100%;
-		height: 100vh;
-		z-index: 4;
-		background: black;
-
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		a {
-			text-decoration: none;
-			color: white;
-		}
-		.cancel {
-			position: fixed;
-			top: 0;
-			right: 0;
-			width: $size;
-			height: $size;
-			margin: $size;
-			cursor: pointer;
-
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			align-content: center;
-
-			.line {
-				width: 100%;
-				height: 2px;
-				background: white;
-				transform: translateY(2px) rotate(-45deg);
-				&:nth-child(2) {
-					transform: rotate(45deg);
-				}
-			}
-			&:hover {
-				opacity: 0.75;
-			}
-		}
-	}
 }
 
 .navbar.white {
@@ -421,24 +426,13 @@ $size: 40px;
 	}
 }
 
-@media (max-width: 600px) {
-	.navbar {
-		.left .item {
-			transform: rotate(0);
-
-			.text {
-				span {
-					display: none;
-				}
-				.icon {
-					display: inline;
-				}
-			}
-
-			&:last-child {
-				padding-top: 2vh;
-				padding-bottom: 0;
-			}
+@media (max-width: 800px) {
+	.navbar .menu {
+		.links {
+			width: fit-content;
+			height: 80%;
+			flex-direction: column;
+			align-items: flex-start;
 		}
 	}
 }

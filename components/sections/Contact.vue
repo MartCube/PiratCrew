@@ -20,7 +20,7 @@
 					<a link="https://www.youtube.com/"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
-			<ValidationObserver ref="send_email" tag="form" class="form" @submit.prevent="Submit()">
+			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
 				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
@@ -66,8 +66,16 @@ export default {
 			this.form.message = value
 		},
 		async Submit() {
-			const isValid = await this.$refs.send_email.validate()
+			const isValid = await this.$refs.form_mail.validate()
 			if (!isValid) return
+			// trigger netlify function
+			try {
+				await this.$axios.$post('/.netlify/functions/sendmail', this.form)
+
+				this.resetForm('form_mail')
+			} catch (error) {
+				console.log(error)
+			}
 			console.log('submit')
 			this.loading = !this.loading
 		},
@@ -140,7 +148,6 @@ export default {
 		.phone {
 			p {
 				justify-content: space-between;
-				width: calc(100% - 9vw);
 				display: flex;
 			}
 		}
@@ -204,8 +211,7 @@ export default {
 		}
 	}
 }
-
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	.contact {
 		flex-direction: column-reverse;
 		padding-bottom: 5rem;
@@ -223,7 +229,10 @@ export default {
 			}
 		}
 		.form {
-			width: 99%;
+			width: 100%;
+			.form_group {
+				margin: 10px 0;
+			}
 			.submit {
 				margin-top: 2rem;
 			}
