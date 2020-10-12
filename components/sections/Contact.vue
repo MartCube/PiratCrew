@@ -42,7 +42,6 @@ export default {
 	components: {
 		ValidationObserver,
 	},
-
 	data: () => ({
 		form: {
 			email: String,
@@ -96,7 +95,7 @@ export default {
 
 .contact {
 	width: 100%;
-	border-left: 5px solid #fff;
+	border-left: 2px solid #fff;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;

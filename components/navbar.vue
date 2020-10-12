@@ -74,9 +74,9 @@
 			<div class="links" @click="ToggleMenu">
 				<n-link to="/"> home</n-link>
 				<n-link to="/about"> about</n-link>
-				<n-link to="/"> events</n-link>
+				<n-link to="/events"> events</n-link>
 				<n-link to="/contact"> contact</n-link>
-				<n-link to="/"> artist form</n-link>
+				<n-link to="/artist"> artist form</n-link>
 			</div>
 
 			<img class="logo" src="/logo.png" alt="logo" />
