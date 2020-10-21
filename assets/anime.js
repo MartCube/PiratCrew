@@ -46,22 +46,45 @@ export function introAnim(letters) {
 	})
 }
 
-export function navbarTop(logo, line) {
+export function navbarMenu(links) {
 	anime({
-		targets: logo,
+		targets: links,
 		opacity: [0, 1],
-		easing: 'easeOutCubic',
-		duration: 2000,
-		dellay: 0,
+		translateY: ['100%', '0'],
+		easing: 'easeInOutCubic',
+		delay: anime.stagger(50, { from: 'last' }),
+		duration: 350,
 	})
-	anime({
+}
+
+export function navbarTop(logo, line, logoText) {
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
+	})
+
+	StartUpTimeline.add({
 		targets: line,
 		opacity: [0, 1],
-		translateX: ['50%', '0%'],
+		width: ['0%', '100%'],
 		easing: 'easeOutCubic',
 		duration: 1000,
 		offset: 0,
 	})
+		.add({
+			targets: logoText,
+			opacity: [0, 1],
+			translateX: ['-50%', '0%'],
+			easing: 'easeOutCubic',
+			duration: 1000,
+			offset: 1000,
+		})
+		.add({
+			targets: logo,
+			opacity: [0, 1],
+			easing: 'easeOutCubic',
+			duration: 1000,
+			offset: 1500,
+		})
 }
 
 export function navbarRight(item, line) {

@@ -38,6 +38,7 @@ export default {
 			margin-bottom: 20px;
 			line-height: 1.1;
 		}
+		position: relative;
 	}
 }
 

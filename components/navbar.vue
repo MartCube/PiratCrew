@@ -1,12 +1,19 @@
 <template>
 	<div class="navbar" :class="theme">
 		<div class="top">
-			<n-link to="/" class="logo">
-				<img src="/logo.png" alt="logo" />
-			</n-link>
-			<div class="button" @click="ToggleMenu">
+			<div class="logo">
+				<n-link to="/">
+					<img src="/logo.png" alt="logo" @click="showMenu = false" />
+				</n-link>
+				<div class="item">
+					<p class="text">pirate crew dance group</p>
+				</div>
+			</div>
+
+			<div class="button" :class="{ active: showMenu }" @click="ToggleMenu">
 				<div class="line"></div>
 				<div class="line"></div>
+				<div class="cancel"></div>
 			</div>
 		</div>
 		<div class="right">
@@ -70,7 +77,7 @@
 			</div>
 		</div>
 
-		<div v-if="showMenu" class="menu">
+		<div v-show="showMenu" class="menu">
 			<div class="links" @click="ToggleMenu">
 				<n-link to="/"> home</n-link>
 				<n-link to="/about"> about</n-link>
@@ -78,18 +85,12 @@
 				<n-link to="/contact"> contact</n-link>
 				<n-link to="/artist"> artist form</n-link>
 			</div>
-
-			<img class="logo" src="/logo.png" alt="logo" />
-			<div class="cancel" @click="ToggleMenu">
-				<div class="line"></div>
-				<div class="line"></div>
-			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { navbarTop, navbarBottom, navbarRight, navbarLeft } from '~/assets/anime'
+import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/assets/anime'
 
 export default {
 	data: () => ({
@@ -107,9 +108,10 @@ export default {
 		async theme(newValue, oldValue) {
 			if (oldValue !== newValue) {
 				await this.$nextTick() // wait DOM to render
-				const navbarLogo = document.querySelectorAll('.top .logo')
-				const navbarTopLines = document.querySelectorAll('.top .line')
-				navbarTop(navbarLogo, navbarTopLines)
+				const navbarLogo = document.querySelectorAll('.top .logo img')
+				const navbarTopText = document.querySelectorAll('.top .logo .item .text')
+				const navbarTopLines = document.querySelectorAll('.top  .line')
+				navbarTop(navbarLogo, navbarTopLines, navbarTopText)
 
 				const navbarRightItems = document.querySelectorAll('.right .item .text')
 				const navbarRightLines = document.querySelectorAll('.right .line')
@@ -124,6 +126,14 @@ export default {
 				navbarLeft(navbarLeftItems, navbarLeftLines)
 			}
 		},
+		showMenu(newValue, oldValue) {
+			if (!newValue) return
+			const links = document.querySelectorAll('.navbar .menu .links a')
+			navbarMenu(links)
+		},
+	},
+	mounted() {
+		this.$store.commit('setTheme', 'black')
 	},
 	methods: {
 		ToggleMenu() {
@@ -149,7 +159,8 @@ $size: 40px;
 
 	.menu {
 		width: 100%;
-		height: 100vh;
+		height: calc(100vh - 80px);
+		margin: 40px;
 		z-index: 4;
 		background: black;
 
@@ -163,54 +174,41 @@ $size: 40px;
 			justify-content: space-evenly;
 			align-items: center;
 			a {
+				opacity: 0; //anime
 				width: fit-content;
 				text-decoration: none;
 				color: white;
 				font-size: 2em;
 				text-transform: uppercase;
-				// transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+
+				&::after {
+					content: '';
+					display: block;
+					width: 2px;
+					height: 0px;
+					background: white;
+
+					transition: all 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+				}
+				transition: all 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+
 				&:hover {
 					opacity: 0.75;
+					&:after {
+						height: 80px;
+					}
 				}
-			}
-		}
-		.logo {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: $size;
-			height: $size;
-			margin: $size;
-		}
-		.cancel {
-			position: fixed;
-			top: 0;
-			right: 0;
-			width: $size;
-			height: $size;
-			margin: $size;
-			cursor: pointer;
 
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			align-content: center;
-
-			.line {
-				width: 100%;
-				height: 2px;
-				background: white;
-				transform: translateY(2px) rotate(-45deg);
-				&:nth-child(2) {
-					transform: rotate(45deg);
+				&.nuxt-link-exact-active {
+					opacity: 0.75;
+					&:after {
+						height: 80px;
+					}
 				}
-			}
-			&:hover {
-				opacity: 0.75;
 			}
 		}
 	}
+
 	.top {
 		position: fixed;
 		top: 0;
@@ -228,11 +226,23 @@ $size: 40px;
 		align-items: center;
 		.logo {
 			display: flex;
+			align-items: center;
+
 			padding: 5px;
-			opacity: 0; //anime
 
 			img {
+				opacity: 0; //anime
+
 				width: 30px;
+				margin-right: 15px;
+			}
+			.item {
+				overflow: hidden;
+				.text {
+					opacity: 0; //anime
+					text-transform: uppercase;
+					font-size: 14px;
+				}
 			}
 		}
 		.button {
@@ -241,22 +251,36 @@ $size: 40px;
 			width: 30px;
 			z-index: 3;
 			cursor: pointer;
+
+			position: relative;
 			overflow: hidden;
 
 			display: flex;
 			flex-direction: column;
 			justify-content: space-evenly;
-			align-items: flex-end;
 
-			.line {
+			transition: all 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+			&.active {
+				.cancel {
+					opacity: 1;
+					top: 12px;
+					transform: rotate(50deg);
+				}
+			}
+			.cancel {
+				position: absolute;
+				top: 0;
 				width: 100%;
 				height: 2px;
 				background: white;
-				opacity: 0; //anime
-
-				&:nth-child(2) {
-					width: 80%;
-				}
+				transform: rotate(0deg);
+				opacity: 0;
+				transition: all 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+			}
+			.line {
+				width: 0; //anime
+				height: 2px;
+				background: white;
 			}
 		}
 	}
@@ -420,7 +444,8 @@ $size: 40px;
 			}
 		}
 
-		.line {
+		.line,
+		.cancel {
 			background: #000;
 		}
 	}
