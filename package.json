@@ -18,7 +18,6 @@
 		"core-js": "^3.6.5",
 		"lazysizes": "^5.2.2",
 		"nuxt": "^2.14.5",
-		"nuxt-purgecss": "^1.0.0",
 		"vee-validate": "^3.4.0",
 		"vue-observe-visibility": "^0.4.6",
 		"vue-scrollto": "^2.18.2"

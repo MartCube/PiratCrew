@@ -15,9 +15,9 @@
 				<div class="smedias">
 					<h2>Follow us</h2>
 
-					<a link="https://www.facebook.com/"> <i class="icon icon-facebook" /></a>
-					<a link="https://www.instagram.com/"> <i class="icon icon-instagram" /></a>
-					<a link="https://www.youtube.com/"><i class="icon icon-youtube" /></a>
+					<a href="https://www.facebook.com/" target="blank"> <i class="icon icon-facebook" /></a>
+					<a href="https://www.instagram.com/" target="blank"> <i class="icon icon-instagram" /></a>
+					<a href="https://www.youtube.com/" target="blank"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
 			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
