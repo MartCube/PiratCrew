@@ -1,5 +1,5 @@
 <template>
-	<div class="text_box" :class="{ white: white }">
+	<div v-observe-visibility="visibilityOptions" class="text_box" :class="{ white: white }">
 		<h2 ref="text">{{ text }}</h2>
 		<div ref="box" class="box"></div>
 	</div>
@@ -19,12 +19,22 @@ export default {
 			default: false,
 		},
 	},
-	mounted() {
-		textAnim(this.$refs.text, this.$refs.box)
+	computed: {
+		visibilityOptions() {
+			return {
+				callback: this.visibilityChanged,
+				once: true,
+				intersection: {
+					threshold: 1,
+				},
+			}
+		},
 	},
 	methods: {
-		textAnim() {
-			textAnim(this.$refs.text, this.$refs.box)
+		visibilityChanged(isVisible) {
+			if (isVisible) {
+				textAnim(this.$refs.text, this.$refs.box)
+			}
 		},
 	},
 }
