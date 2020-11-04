@@ -8,8 +8,12 @@
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
 }
-::-webkit-scrollbar {
-	display: none;
+
+html {
+	scrollbar-width: none; 
+	::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 body {
