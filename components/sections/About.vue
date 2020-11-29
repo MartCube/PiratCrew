@@ -1,10 +1,17 @@
 <template>
 	<section id="about">
-		<TextBox text="about" white />
+		<TextBox text="О нас" white />
 		<div class="about">
 			<ImageItem image-src="/photo.jpg" image-alt="about" />
 			<div class="text">
-				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, facere? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi vero repellendus quae, natus eos. Fuga enim consequuntur odit soluta quod eos debitis recusandae fugit dolorum ratione nesciunt ipsam temporibus facere voluptatum quis inventore rem cumque fugiat error libero, dolore delectus. Labore obcaecati cum corporis facilis tenetur vel explicabo autem voluptas mollitia odio, dolores hic repellat suscipit reprehenderit eos porro provident expedita dolore similique officiis voluptatem quia voluptatum alias! Quod ullam nesciunt quam, enim totam laboriosam mollitia doloribus ratione aliquam nemo consectetur est modi similique, explicabo possimus illum quasi eos. Soluta quisquam eius eaque veniam, reiciendis eveniet et nisi magni.</p>
+				<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые 
+					и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты 
+					циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий. Pirate Crew – 
+					команда уникальных, креативных и свободных. Об этом – наша история.
+				</p>
+				<n-link to="/about" class="link">
+					Читать
+				</n-link>
 			</div>
 		</div>
 	</section>
@@ -23,7 +30,6 @@ export default {
 }
 .about {
 	width: 100%;
-	// padding: 0 10%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -39,6 +45,21 @@ export default {
 			line-height: 1.1;
 		}
 		position: relative;
+
+	}
+	.link{
+		margin: 10px 0;
+		font-family: 'codec_bold';
+		font-size: 1.2em;
+		display: block;
+		text-transform: uppercase;
+		color: #000;
+		transition: 0.3s ease;
+		text-decoration: none;
+		&:hover {
+			opacity: 0.5;
+			transform: translateX(10px);
+		}
 	}
 }
 
@@ -51,7 +72,7 @@ export default {
 			max-width: 80%;
 			margin-bottom: 3vw;
 			p {
-				margin-bottom: 0;
+				margin-bottom: 1rem;
 				line-height: 1.3;
 				font-size: 15px;
 				letter-spacing: 0px;
@@ -59,6 +80,7 @@ export default {
 		}
 		.image {
 			max-width: 80%;
+			margin: 2rem 0 4rem;
 		}
 	}
 }

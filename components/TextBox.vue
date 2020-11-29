@@ -48,6 +48,7 @@ export default {
 	margin: 4rem 0;
 	h2 {
 		font-size: 5em;
+		line-height: 1;
 		text-transform: uppercase;
 		color: transparent;
 		-webkit-text-stroke: 2px white;
