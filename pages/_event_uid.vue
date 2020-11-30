@@ -6,16 +6,21 @@
 		<div v-if="$fetchState.pending" class="loading">
 			<p>loading..</p>
 		</div>
-		<div v-if="!$fetchState.error && !$fetchState.pending" class="event">
+		<div v-if="!$fetchState.error && !$fetchState.pending" class="wrapper">
 			<Intro />
 
-			<div class="title">
-				<n-link class="back" to="/"><i class="icon icon-back" /> </n-link>
-				<h2>{{ event.title }}</h2>
+			<div id="event">
+				<div class="title">
+					<n-link class="back" to="/"><i class="icon icon-back" /> </n-link>
+					<h2>{{ event.title }}</h2>
+				</div>
+				<div class="text">
+					<p v-for="(slice, index) in event.text_slices" :key="'slice-' + index">
+						{{ $prismic.asText(slice.primary.text) }}
+					</p>
+				</div>
 			</div>
-			<div class="text">
-				{{ event.text }}
-			</div>
+
 			<Gallery :data="event.gallery" />
 
 			<Contact />
@@ -25,12 +30,13 @@
 
 <script>
 export default {
+	middleware: 'navigation',
 	async fetch() {
 		const event = await this.$prismic.api.getByUID('project', this.$route.params.event_uid)
 		this.event = {
 			main_image: event.data.main_image.url,
 			title: this.$prismic.asText(event.data.title),
-			text: this.$prismic.asText(event.data.text),
+			text_slices: event.data.body,
 			gallery: event.data.gallery,
 		}
 	},
@@ -50,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.event {
+.wrapper {
 	width: 100%;
 	min-height: 100vh;
 	margin: 40px 0 0;
@@ -60,37 +66,49 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	.title {
+	#event {
 		width: 100%;
-		padding: 3rem 40px;
-		margin: 0;
 
 		display: flex;
-		justify-content: flex-start;
+		flex-direction: column;
+		justify-content: center;
 		align-items: center;
-		align-content: center;
-		.back {
-			padding: 1rem;
-			margin-right: 3rem;
+		.title {
+			width: 100%;
+			padding: 3rem 40px;
+			margin: 0;
 
-			background: black;
-			color: white;
-			font-size: 1.5rem;
-			text-decoration: none;
-			text-align: right;
-		}
-		h2 {
-			font-size: 3em;
-			background-color: #fff;
-			position: relative;
-			z-index: 3;
-		}
-	}
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			align-content: center;
+			.back {
+				padding: 1rem;
+				margin-right: 3rem;
 
-	.text {
-		margin-bottom: 3rem;
-		width: 55vw;
-		display: flex;
+				background: black;
+				color: white;
+				font-size: 1.5rem;
+				text-decoration: none;
+				text-align: right;
+			}
+			h2 {
+				font-size: 3em;
+				background-color: #fff;
+				position: relative;
+				z-index: 3;
+			}
+		}
+
+		.text {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 3rem;
+			max-width: 800px;
+			p {
+				margin: 10px 0;
+			}
+		}
 	}
 }
 @media (max-width: 600px) {
