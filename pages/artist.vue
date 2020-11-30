@@ -29,6 +29,7 @@
 import { ValidationObserver } from 'vee-validate'
 
 export default {
+	middleware: 'navigation',
 	components: {
 		ValidationObserver,
 	},

@@ -17,35 +17,11 @@
 			</div>
 		</div>
 		<div class="right">
-			<template v-if="theme == 'black'">
-				<div class="item">
-					<a v-scroll-to="'#intro'" class="text">intro</a>
+			<template v-for="(item, i) in navigation">
+				<div :key="i" class="item">
+					<a v-scroll-to="'#' + item" class="text">{{ item }}</a>
 				</div>
-				<div class="line"></div>
-				<div class="item">
-					<span v-scroll-to="'#about'" class="text">about</span>
-				</div>
-				<div class="line"></div>
-				<div class="item">
-					<span v-scroll-to="'#portfolio'" class="text">portfolio</span>
-				</div>
-				<div class="line"></div>
-				<div class="item">
-					<span v-scroll-to="'#contact'" class="text">contact</span>
-				</div>
-			</template>
-			<template v-else>
-				<div class="item">
-					<a v-scroll-to="'#intro'" class="text">intro</a>
-				</div>
-				<div class="line"></div>
-				<div class="item">
-					<span v-scroll-to="'.title'" class="text">event</span>
-				</div>
-				<div class="line"></div>
-				<div class="item">
-					<span v-scroll-to="'#contact'" class="text">contact</span>
-				</div>
+				<div :key="'line' + i" class="line"></div>
 			</template>
 		</div>
 		<div class="bottom">
@@ -55,6 +31,8 @@
 			</div>
 		</div>
 		<div class="left">
+			<div class="line"></div>
+
 			<div class="item">
 				<a class="text facebook" href="#">
 					<span>facebook</span>
@@ -100,40 +78,47 @@ export default {
 		theme() {
 			return this.$store.getters.theme
 		},
+		navigation() {
+			return this.$store.getters.navigation
+		},
 		year() {
 			return new Date().getFullYear()
 		},
 	},
 	watch: {
-		async theme(newValue, oldValue) {
-			if (oldValue !== newValue) {
-				await this.$nextTick() // wait DOM to render
-				const navbarLogo = document.querySelectorAll('.top .logo img')
-				const navbarTopText = document.querySelectorAll('.top .logo .item .text')
-				const navbarTopLines = document.querySelectorAll('.top  .line')
-				navbarTop(navbarLogo, navbarTopLines, navbarTopText)
-
-				const navbarRightItems = document.querySelectorAll('.right .item .text')
-				const navbarRightLines = document.querySelectorAll('.right .line')
-				navbarRight(navbarRightItems, navbarRightLines)
-
-				const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
-				const navbarBottomLines = document.querySelectorAll('.bottom .line')
-				navbarBottom(navbarBottomItems, navbarBottomLines)
-
-				const navbarLeftItems = document.querySelectorAll('.left .item .text')
-				const navbarLeftLines = document.querySelectorAll('.left .line')
-				navbarLeft(navbarLeftItems, navbarLeftLines)
-			}
+		async navigation(newValue, oldValue) {
+			await this.$nextTick() // wait DOM to render
+			const navbarRightItems = document.querySelectorAll('.right .item .text')
+			const navbarRightLines = document.querySelectorAll('.right .line')
+			navbarRight(navbarRightItems, navbarRightLines)
 		},
+
 		showMenu(newValue, oldValue) {
 			if (!newValue) return
 			const links = document.querySelectorAll('.navbar .menu .links a')
 			navbarMenu(links)
 		},
 	},
-	mounted() {
+	async mounted() {
 		this.$store.commit('setTheme', 'black')
+		await this.$nextTick() // wait DOM to render
+
+		const navbarLogo = document.querySelectorAll('.top .logo img')
+		const navbarTopText = document.querySelectorAll('.top .logo .item .text')
+		const navbarTopLines = document.querySelectorAll('.top  .line')
+		navbarTop(navbarLogo, navbarTopLines, navbarTopText)
+
+		const navbarRightItems = document.querySelectorAll('.right .item .text')
+		const navbarRightLines = document.querySelectorAll('.right .line')
+		navbarRight(navbarRightItems, navbarRightLines)
+
+		const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
+		const navbarBottomLines = document.querySelectorAll('.bottom .line')
+		navbarBottom(navbarBottomItems, navbarBottomLines)
+
+		const navbarLeftItems = document.querySelectorAll('.left .item .text')
+		const navbarLeftLines = document.querySelectorAll('.left .line')
+		navbarLeft(navbarLeftItems, navbarLeftLines)
 	},
 	methods: {
 		ToggleMenu() {
@@ -388,6 +373,7 @@ $size: 40px;
 			transform: rotate(180deg);
 			.text {
 				opacity: 0; //anime
+				text-decoration: none;
 				font-size: 14px;
 				color: white;
 				text-transform: uppercase;
