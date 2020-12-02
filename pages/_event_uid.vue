@@ -107,6 +107,8 @@ export default {
 			max-width: 800px;
 			p {
 				margin: 10px 0;
+				font-size: 1.2rem;
+				line-height: 1.8rem;
 			}
 		}
 	}
