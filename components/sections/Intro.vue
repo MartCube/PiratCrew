@@ -33,6 +33,7 @@ export default {
 		function checkLoad() {
 			if (video.readyState === 4) {
 				document.querySelector('.intro video').classList.add('loaded')
+				document.querySelector('.intro .logo').classList.add('hide')
 			} else {
 				setTimeout(checkLoad, 100)
 			}
@@ -58,7 +59,6 @@ $size: 40px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	align-content: center;
 
 	video {
 		width: 100vw;
@@ -78,6 +78,15 @@ $size: 40px;
 	.logo {
 		width: 30vw;
 		height: auto;
+		z-index: 1;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		&.hide {
+			opacity: 0;
+		}
 		svg {
 			width: 100%;
 			fill: none;

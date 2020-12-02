@@ -99,7 +99,6 @@ export default {
 				z-index: 3;
 			}
 		}
-
 		.text {
 			display: flex;
 			flex-direction: column;
