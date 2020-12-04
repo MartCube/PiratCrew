@@ -27,7 +27,15 @@
 		<div class="bottom">
 			<div class="line"></div>
 			<div class="item">
-				<p class="text">copy right &copy; {{ year }}</p>
+				<p class="text">
+					<nuxt-link v-for="locale in availableLocales" :key="locale.code" :class="{ active: locale.code == currentLocale }" class="item" :to="switchLocalePath(locale.code)">
+						<span>{{ locale.name }}</span>
+					</nuxt-link>
+				</p>
+			</div>
+			<div class="line"></div>
+			<div class="item">
+				<p class="text year">copy right &copy; {{ year }}</p>
 			</div>
 		</div>
 		<div class="left">
@@ -84,6 +92,12 @@ export default {
 		year() {
 			return new Date().getFullYear()
 		},
+		availableLocales() {
+			return this.$i18n.locales
+		},
+		currentLocale() {
+			return this.$i18n.locale
+		},
 	},
 	watch: {
 		async navigation(newValue, oldValue) {
@@ -91,6 +105,13 @@ export default {
 			const navbarRightItems = document.querySelectorAll('.right .item .text')
 			const navbarRightLines = document.querySelectorAll('.right .line')
 			navbarRight(navbarRightItems, navbarRightLines)
+		},
+
+		async currentLocale(newValue, oldValue) {
+			await this.$nextTick() // wait DOM to render
+			const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
+			const navbarBottomLines = document.querySelectorAll('.bottom .line')
+			navbarBottom(navbarBottomItems, navbarBottomLines)
 		},
 
 		showMenu(newValue, oldValue) {
@@ -269,7 +290,6 @@ $size: 40px;
 			}
 		}
 	}
-
 	.bottom {
 		position: fixed;
 		bottom: 0;
@@ -287,13 +307,24 @@ $size: 40px;
 		align-items: center;
 		.item {
 			cursor: pointer;
-			padding-left: 2vh;
 			overflow: hidden;
 
 			.text {
 				opacity: 0; //anime
+				padding: 2vh;
+				&.year {
+					padding-right: 0;
+				}
+
 				text-transform: uppercase;
 				font-size: 12px;
+				a {
+					text-decoration: none;
+					color: white;
+				}
+				a.active {
+					display: none;
+				}
 			}
 		}
 		.line {
@@ -303,7 +334,6 @@ $size: 40px;
 			display: block;
 		}
 	}
-
 	.right {
 		position: fixed;
 		right: 0;
@@ -347,7 +377,6 @@ $size: 40px;
 			background: #fff;
 		}
 	}
-
 	.left {
 		position: fixed;
 		left: 0;

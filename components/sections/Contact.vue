@@ -29,7 +29,7 @@
 				<button v-if="!loading" type="submit" class="submit">
 					<span>submit<i class="icon icon-mail" /></span>
 				</button>
-				<div v-else class="submit"><spinner /></div>
+				<div v-else class="submit"><Spinner /></div>
 			</ValidationObserver>
 		</div>
 	</section>

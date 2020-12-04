@@ -24,13 +24,31 @@ export default {
 	],
 
 	// Modules (https://go.nuxtjs.dev/config-modules)
-	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios'],
+	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios', 'nuxt-i18n'],
 
 	prismic: {
 		endpoint: 'https://piratcrew.cdn.prismic.io/api/v2',
 		linkResolver: '@/plugins/link-resolver',
 		htmlSerializer: '@/plugins/html-serializer',
 		preview: false,
+	},
+
+	i18n: {
+		defaultLocale: 'en',
+		lazy: true,
+		langDir: 'locales/',
+		locales: [
+			{
+				code: 'en',
+				name: 'EN',
+				file: 'en.js',
+			},
+			{
+				code: 'ru',
+				name: 'RU',
+				file: 'ru.js',
+			},
+		],
 	},
 
 	axios: {
