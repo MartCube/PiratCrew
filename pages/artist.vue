@@ -2,13 +2,12 @@
 	<section id="artist">
 		<TextBox text="artist form" />
 		<div class="artist">
-			<div class="info">
-				<h2>PiratCrew casting form</h2>
-				<p>Are you an artist trying to prove your skills ?</p>
-				<p>Please fill the falloing form so we can continue to next step.</p>
-			</div>
-
 			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
+				<div class="info">
+					<h2>PiratCrew casting form</h2>
+					<p>Are you an artist trying to prove your skills ?</p>
+					<p>Please fill the falloing form so we can continue to next step.</p>
+				</div>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'name'" :rules="'required'" />
 				<InputItem :name="'location'" :rules="'required'" />
@@ -77,45 +76,41 @@ export default {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: center;
 	align-items: center;
-	align-content: center;
 	margin-bottom: 10%;
-	h2 {
-		text-transform: uppercase;
-		margin: 0 0 15px 0;
-	}
-	.info {
-		display: flex;
-		flex-direction: column;
-		border-left: 2px solid #fff;
-		padding-left: 25px;
-		margin-bottom: 25px;
-		width: 100%;
-		max-width: 500px;
 
-		p {
-			margin: 5px 0;
-			user-select: text;
-			line-height: 1.1;
-			a {
-				margin-left: 5px;
-			}
-		}
-		a {
-			font-size: 1em;
-			color: #fff;
-		}
-	}
 	.form {
 		width: 100%;
 		max-width: 500px;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
+		.info {
+			display: flex;
+			flex-direction: column;
+			border-left: 2px solid #fff;
+			padding-left: 25px;
+			margin-bottom: 25px;
+			width: 100%;
+			max-width: 500px;
 
+			h2 {
+				text-transform: uppercase;
+				margin: 0 0 15px 0;
+			}
+			p {
+				margin: 5px 0;
+				user-select: text;
+				line-height: 1.1;
+				a {
+					margin-left: 5px;
+				}
+			}
+		}
 		.form_group {
 			margin: 20px 0;
+			max-width: 500px;
 		}
 		.submit {
 			width: 100%;
@@ -144,7 +139,11 @@ export default {
 }
 
 @media (max-width: 800px) {
+	#artist {
+		padding: 40px;
+	}
 	.artist {
+		padding: 0 1rem;
 	}
 }
 </style>

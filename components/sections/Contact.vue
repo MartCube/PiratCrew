@@ -219,9 +219,12 @@ export default {
 	}
 }
 @media (max-width: 800px) {
+	#contact {
+		padding: 40px;
+	}
 	.contact {
 		flex-direction: column-reverse;
-		padding-bottom: 5rem;
+		padding: 0 1rem;
 		border: none;
 		.info {
 			flex-basis: initial;

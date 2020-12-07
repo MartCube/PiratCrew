@@ -27,11 +27,9 @@
 		<div class="bottom">
 			<div class="line"></div>
 			<div class="item">
-				<p class="text">
-					<nuxt-link v-for="locale in availableLocales" :key="locale.code" :class="{ active: locale.code == currentLocale }" class="item" :to="switchLocalePath(locale.code)">
-						<span>{{ locale.name }}</span>
-					</nuxt-link>
-				</p>
+				<nuxt-link v-for="locale in availableLocales" :key="locale.code" class="text" :class="{ active: locale.code == currentLocale }" :to="switchLocalePath(locale.code)">
+					{{ locale.name }}
+				</nuxt-link>
 			</div>
 			<div class="line"></div>
 			<div class="item">
@@ -42,24 +40,15 @@
 			<div class="line"></div>
 
 			<div class="item">
-				<a class="text facebook" href="#">
-					<span>facebook</span>
-					<i class="icon icon-facebook" />
-				</a>
+				<a class="text" target="blank" href="https://www.facebook.com/"> facebook </a>
 			</div>
 			<div class="line"></div>
 			<div class="item">
-				<a class="text instagram" href="#">
-					<span>instagram</span>
-					<i class="icon icon-instagram" />
-				</a>
+				<a class="text" target="blank" href="https://www.instagram.com/"> instagram </a>
 			</div>
 			<div class="line"></div>
 			<div class="item">
-				<a class="text youtube" href="#">
-					<span>youtube</span>
-					<i class="icon icon-youtube" />
-				</a>
+				<a class="text" target="blank" href="https://www.youtube.com/"> youtube </a>
 			</div>
 		</div>
 
@@ -312,17 +301,18 @@ $size: 40px;
 			.text {
 				opacity: 0; //anime
 				padding: 2vh;
-				&.year {
-					padding-right: 0;
-				}
 
 				text-transform: uppercase;
 				font-size: 12px;
-				a {
-					text-decoration: none;
-					color: white;
+
+				display: block;
+				text-decoration: none;
+				color: white;
+
+				&.year {
+					padding-right: 0;
 				}
-				a.active {
+				&.active {
 					display: none;
 				}
 			}
@@ -408,28 +398,12 @@ $size: 40px;
 				text-transform: uppercase;
 				writing-mode: vertical-rl;
 				text-orientation: mixed;
-
-				.icon {
-					color: white;
-					display: none;
-				}
-				&.facebook:hover {
-					color: $facebook;
-				}
-				&.instagram:hover {
-					color: $instagram;
-				}
-				&.youtube:hover {
-					color: $youtube;
-				}
+			}
+			&:hover {
+				opacity: 0.75;
 			}
 			&:last-child {
 				padding-top: 0;
-			}
-			.icon {
-				display: none;
-				text-decoration: none;
-				color: white;
 			}
 		}
 		.line {
@@ -467,12 +441,24 @@ $size: 40px;
 }
 
 @media (max-width: 800px) {
-	.navbar .menu {
-		.links {
+	.navbar {
+		.menu .links {
 			width: fit-content;
 			height: 80%;
 			flex-direction: column;
 			align-items: flex-start;
+		}
+		.top,
+		.right,
+		.bottom,
+		.left {
+			.logo .item .text {
+				font-size: 12px;
+			}
+
+			.item .text {
+				font-size: 12px;
+			}
 		}
 	}
 }
