@@ -15,13 +15,22 @@ export const mutations = {
 		state.theme = value
 	},
 	setNavigation(state, value) {
-		if (value === 'index___en') state.navigation = ['intro', 'about', 'portfolio', 'contact']
-		if (value === 'index___ru') state.navigation = ['вступление', 'около', 'портфолио', 'контакт']
-		if (value === 'event_uid') state.navigation = ['intro', 'event', 'contact']
-		if (value === 'about') state.navigation = []
-		if (value === 'events') state.navigation = []
-		if (value === 'contact') state.navigation = []
-		if (value === 'artist') state.navigation = []
+		switch (value) {
+			case 'index___en':
+				state.navigation = ['intro', 'about', 'portfolio', 'contact']
+				break
+			case 'index___ru':
+				state.navigation = ['вступление', 'около', 'портфолио', 'контакт']
+				break
+			case 'event_uid___en':
+				state.navigation = ['intro', 'event', 'contact']
+				break
+			case 'event_uid___ru':
+				state.navigation = ['вступление', 'событие', 'контакт']
+				break
+			default:
+				state.navigation = []
+		}
 	},
 }
 
