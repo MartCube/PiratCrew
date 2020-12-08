@@ -343,9 +343,13 @@ $size: 40px;
 		align-items: center;
 		align-content: center;
 		.item {
-			cursor: pointer;
+			width: $size;
 			padding: 2vh 0;
 			overflow: hidden;
+			cursor: pointer;
+
+			display: flex;
+			justify-content: center;
 
 			.text {
 				opacity: 0; //anime
