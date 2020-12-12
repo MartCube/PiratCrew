@@ -18,11 +18,11 @@ html {
 
 body {
 	font-family: 'codec', sans-serif;
-	h2 {
-		font-family: 'codec_bold';
-	}
+	// h2 {
+	// 	font-family: 'codec_bold';
+	// }
 	color:white;
-	background-color: #000;
+	background: #000;
 
 }
 
@@ -40,7 +40,7 @@ section {
 	width: 100%;
 	min-height: 100vh;
 	padding: 40px 10%;
-	user-select: none;
+	// user-select: none;
 
 	display: flex;
 	flex-direction: column;

@@ -9,9 +9,8 @@
 		<div v-if="!$fetchState.error && !$fetchState.pending" class="wrapper">
 			<Intro />
 
-			<div id="event">
+			<section id="event">
 				<div class="title">
-					<n-link class="back" to="/"><i class="icon icon-back" /> </n-link>
 					<h2>{{ event.title }}</h2>
 				</div>
 				<div class="text">
@@ -19,7 +18,7 @@
 						{{ $prismic.asText(slice.primary.text) }}
 					</p>
 				</div>
-			</div>
+			</section>
 
 			<Gallery :data="event.gallery" />
 
@@ -43,15 +42,6 @@ export default {
 	data: () => ({
 		event: Object,
 	}),
-	beforeRouteEnter(to, from, next) {
-		next((vm) => {
-			vm.$store.commit('setTheme', 'white')
-		})
-	},
-	beforeRouteLeave(to, from, next) {
-		this.$store.commit('setTheme', 'black')
-		next()
-	},
 }
 </script>
 
@@ -60,8 +50,8 @@ export default {
 	width: 100%;
 	min-height: 100vh;
 	margin: 40px 0 0;
-	background-color: #fff;
-	color: #000;
+	background-color: black;
+	color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -75,28 +65,21 @@ export default {
 		align-items: center;
 		.title {
 			width: 100%;
-			padding: 3rem 40px;
-			margin: 0;
+			max-width: 800px;
+			margin: 3rem 0;
+			padding-left: 1rem;
+			font-size: 2em;
+			position: relative;
 
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			align-content: center;
-			.back {
-				padding: 1rem;
-				margin-right: 3rem;
-
-				background: black;
-				color: white;
-				font-size: 1.5rem;
-				text-decoration: none;
-				text-align: right;
-			}
-			h2 {
-				font-size: 3em;
-				background-color: #fff;
-				position: relative;
-				z-index: 3;
+			&::before {
+				content: '';
+				display: flex;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 2px;
+				background: white;
 			}
 		}
 		.text {
@@ -112,8 +95,9 @@ export default {
 		}
 	}
 }
-@media (max-width: 600px) {
-	.event {
+
+@media (max-width: 700px) {
+	.wrapper #event {
 		.title {
 			.back {
 				margin-right: 1rem;
@@ -122,11 +106,6 @@ export default {
 			h2 {
 				font-size: 2rem;
 			}
-		}
-
-		.text {
-			padding: 0 40px;
-			width: 100%;
 		}
 	}
 }

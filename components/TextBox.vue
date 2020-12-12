@@ -46,6 +46,7 @@ export default {
 	position: relative;
 	overflow: hidden;
 	margin: 4rem 0;
+	user-select: none;
 	h2 {
 		font-size: 5em;
 		line-height: 1;

@@ -61,10 +61,10 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		grid-row-end: span 2;
 	}
 	.image {
-		transition: box-shadow 0.2s linear;
+		transition: all 0.2s linear;
 		&:hover {
 			cursor: pointer;
-			box-shadow: 0 7px 26px -3px #929292;
+			// transform: scale(1.1);
 		}
 	}
 }

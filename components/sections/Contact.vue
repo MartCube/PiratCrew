@@ -1,6 +1,6 @@
 <template>
-	<section id="contact" :class="theme">
-		<TextBox text="contacts" :white="theme == 'white'" />
+	<section id="contact">
+		<TextBox :text="$t('pages.contact')" />
 		<div class="contact">
 			<div class="info">
 				<div class="adress">
@@ -50,11 +50,7 @@ export default {
 		},
 		loading: false,
 	}),
-	computed: {
-		theme() {
-			return this.$store.getters.theme
-		},
-	},
+	computed: {},
 	methods: {
 		getEmail(value) {
 			this.form.email = value
@@ -96,6 +92,7 @@ export default {
 .contact {
 	width: 100%;
 	border-left: 2px solid #fff;
+
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -200,24 +197,7 @@ export default {
 		}
 	}
 }
-.white {
-	.contact {
-		border-color: #000;
-		form {
-			.submit {
-				color: #000;
-				border-color: #000;
-				border-width: 2px;
-			}
-		}
-		.info {
-			.phone a,
-			.smedias a {
-				color: #000;
-			}
-		}
-	}
-}
+
 @media (max-width: 800px) {
 	#contact {
 		padding: 40px;

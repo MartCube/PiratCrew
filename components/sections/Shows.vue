@@ -1,7 +1,7 @@
 <template>
-	<section id="portfolio">
-		<TextBox text="portfolio" white />
-		<div v-if="!$fetchState.pending" class="portfolio">
+	<section id="shows">
+		<TextBox :text="$t('pages.shows')" />
+		<div v-if="!$fetchState.pending" class="shows">
 			<Event v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>
 	</section>
@@ -20,11 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#portfolio {
-	background-color: #fff;
-	color: #000;
-}
-.portfolio {
+.shows {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -33,7 +29,7 @@ export default {
 }
 
 @media (max-width: 600px) {
-	.portfolio {
+	.shows {
 		margin-top: 2rem;
 	}
 }

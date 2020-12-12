@@ -1,12 +1,12 @@
 <template>
 	<section id="artist">
-		<TextBox text="artist form" />
+		<TextBox text="casting" />
 		<div class="artist">
 			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
 				<div class="info">
 					<h2>PiratCrew casting form</h2>
 					<p>Are you an artist trying to prove your skills ?</p>
-					<p>Please fill the falloing form so we can continue to next step.</p>
+					<p>Please fill the following form so we can continue to next step.</p>
 				</div>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'name'" :rules="'required'" />

@@ -3,7 +3,6 @@
 		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" box />
 		<div class="text">
 			<h2>{{ $prismic.asText(event.data.title) }}</h2>
-			<span>see more</span>
 		</div>
 	</n-link>
 </template>
@@ -37,7 +36,7 @@ export default {
 
 	width: 100%;
 	text-decoration: none;
-	color: #000;
+	color: white;
 	margin-bottom: 5%;
 	.text {
 		display: flex;
@@ -55,22 +54,6 @@ export default {
 			font-size: 2.75em;
 			margin-bottom: 1.5rem;
 			text-transform: uppercase;
-		}
-		p {
-			line-height: 1.1;
-		}
-		span {
-			margin: 10px 0;
-
-			font-family: 'codec_bold';
-			font-size: 1.2em;
-			text-transform: uppercase;
-			color: #000;
-			transition: 0.3s ease;
-			&:hover {
-				opacity: 0.5;
-				transform: translateX(10px);
-			}
 		}
 	}
 
@@ -94,8 +77,7 @@ export default {
 			flex-direction: column;
 			.text {
 				h2 {
-					padding-left: 0;
-					padding-right: 1rem;
+					padding: 0 1rem;
 					&::before {
 						right: initial;
 						left: 0;
@@ -115,6 +97,7 @@ export default {
 			}
 			h2 {
 				position: relative;
+				font-size: 2rem;
 				padding-right: 1rem;
 				&::before {
 					content: '';
@@ -124,7 +107,7 @@ export default {
 					right: 0;
 					bottom: 0;
 					width: 2px;
-					background-color: #000;
+					background-color: white;
 				}
 			}
 		}

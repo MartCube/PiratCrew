@@ -1,6 +1,6 @@
 <template>
 	<section id="about">
-		<TextBox text="О нас" white />
+		<TextBox :text="$t('pages.about')" />
 		<div class="about">
 			<ImageItem image-src="/photo.jpg" image-alt="about" />
 			<div class="text">
@@ -18,10 +18,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#about {
-	background-color: #fff;
-	color: #000;
-}
 .about {
 	width: 100%;
 	display: flex;
@@ -46,7 +42,7 @@ export default {
 		font-size: 1.2em;
 		display: block;
 		text-transform: uppercase;
-		color: #000;
+		color: white;
 		transition: 0.3s ease;
 		text-decoration: none;
 		&:hover {

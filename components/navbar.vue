@@ -1,5 +1,5 @@
 <template>
-	<div class="navbar" :class="theme">
+	<div class="navbar">
 		<div class="top">
 			<div class="logo">
 				<n-link to="/">
@@ -19,7 +19,7 @@
 		<div class="right">
 			<template v-for="(item, i) in navigation">
 				<div :key="i" class="item">
-					<a v-scroll-to="'#' + item" class="text">{{ item }}</a>
+					<a v-scroll-to="'#' + item.value" class="text">{{ item.text }}</a>
 				</div>
 				<div :key="'line' + i" class="line"></div>
 			</template>
@@ -54,11 +54,11 @@
 
 		<div v-show="showMenu" class="menu">
 			<div class="links" @click="ToggleMenu">
-				<n-link to="/"> home</n-link>
-				<n-link to="/about"> about</n-link>
-				<n-link to="/events"> events</n-link>
-				<n-link to="/contact"> contact</n-link>
-				<n-link to="/artist"> artist form</n-link>
+				<n-link :to="localePath('index')"> {{ $t('pages.home') }} </n-link>
+				<n-link :to="localePath('about')"> {{ $t('pages.about') }}</n-link>
+				<n-link :to="localePath('shows')"> {{ $t('pages.shows') }}</n-link>
+				<n-link :to="localePath('contact')"> {{ $t('pages.contact') }}</n-link>
+				<n-link :to="localePath('casting')"> {{ $t('pages.casting') }}</n-link>
 			</div>
 		</div>
 	</div>
@@ -72,9 +72,6 @@ export default {
 		showMenu: false,
 	}),
 	computed: {
-		theme() {
-			return this.$store.getters.theme
-		},
 		navigation() {
 			return this.$store.getters.navigation
 		},
@@ -95,14 +92,12 @@ export default {
 			const navbarRightLines = document.querySelectorAll('.right .line')
 			navbarRight(navbarRightItems, navbarRightLines)
 		},
-
 		async currentLocale(newValue, oldValue) {
 			await this.$nextTick() // wait DOM to render
 			const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
 			const navbarBottomLines = document.querySelectorAll('.bottom .line')
 			navbarBottom(navbarBottomItems, navbarBottomLines)
 		},
-
 		showMenu(newValue, oldValue) {
 			if (!newValue) return
 			const links = document.querySelectorAll('.navbar .menu .links a')
@@ -110,7 +105,6 @@ export default {
 		},
 	},
 	async mounted() {
-		this.$store.commit('setTheme', 'black')
 		await this.$nextTick() // wait DOM to render
 
 		const navbarLogo = document.querySelectorAll('.top .logo img')
@@ -295,8 +289,11 @@ $size: 40px;
 		justify-content: flex-end;
 		align-items: center;
 		.item {
-			cursor: pointer;
+			height: $size;
 			overflow: hidden;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
 
 			.text {
 				opacity: 0; //anime
@@ -391,9 +388,13 @@ $size: 40px;
 		align-content: center;
 
 		.item {
+			width: $size;
 			padding: 2vh 0;
 			overflow: hidden;
 			transform: rotate(180deg);
+
+			display: flex;
+			justify-content: center;
 			.text {
 				opacity: 0; //anime
 				text-decoration: none;
@@ -414,32 +415,6 @@ $size: 40px;
 			width: 2px;
 			height: 0; //anime
 			background: #fff;
-		}
-	}
-}
-
-.navbar.white {
-	.logo {
-		img {
-			filter: invert(1);
-		}
-	}
-	.top,
-	.right,
-	.bottom,
-	.left {
-		background: #fff;
-		.smedias .item .text,
-		.text {
-			color: black;
-			.icon {
-				color: black;
-			}
-		}
-
-		.line,
-		.cancel {
-			background: #000;
 		}
 	}
 }
