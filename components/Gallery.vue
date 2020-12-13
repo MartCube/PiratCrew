@@ -29,12 +29,29 @@ export default {
 		Toggle(index) {
 			this.currentImage = index
 			this.visible = !this.visible
+			if (this.visible) window.addEventListener('keydown', this.onKeydown)
+			else window.removeEventListener('keydown', this.onKeydown)
 		},
 		Next() {
 			this.currentImage++
 		},
 		Prev() {
 			this.currentImage--
+		},
+		onKeydown(e) {
+			if (this.visible) {
+				switch (e.key) {
+					case 'ArrowRight':
+						this.Next()
+						break
+					case 'ArrowLeft':
+						this.Prev()
+						break
+					case 'Escape':
+						this.Toggle()
+						break
+				}
+			}
 		},
 	},
 }
@@ -151,15 +168,6 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 			opacity: 0.9;
 		}
 	}
-}
-
-.fade-enter-active,
-.fade-leave-active {
-	transition: $transition;
-}
-.fade-enter,
-.fade-leave-to {
-	opacity: 0;
 }
 
 @media (max-width: 600px) {
