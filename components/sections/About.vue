@@ -2,10 +2,18 @@
 	<section id="about">
 		<TextBox :text="$t('pages.about')" />
 		<div class="about">
-			<ImageItem image-src="/photo.jpg" image-alt="about" />
 			<div class="text">
-				<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий. Pirate Crew – команда уникальных, креативных и свободных. Об этом – наша история.</p>
-				<n-link to="/about" class="link"> Читать </n-link>
+				<div class="wrap">
+					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
+					<p>Pirate Crew – команда уникальных, креативных и свободных. Об этом – наша история. Артистическое путешествие PIRAT CREW началось в 2010 году.</p>
+					<p>С тех пор мы побывали в 20 странах с авторскими шоу, которые дарили восторг и радость зрителям во Франции, Швеции, Финляндии, Германии, Турции, Украине, России.</p>
+				</div>
+				<div class="wrap">
+					<p>Более 3000 спектаклей, 1000 разработанных и поставленных мероприятий, 5 полномасштабных шоу.</p>
+					<p>Jazz Do It Show, Bon Voyage, Juzeppe Hotel высоко оценили во всем мире. Шоу создаются под руководством директора и хореографа PIRAT CREW Дмитрия Юдина и команды междисциплинарных артистов.</p>
+					<p>Цирковое искусство переплетается с музыкой и экспериментальной хореографией, авторские костюмы с современными технологиями, акробатика с экспрессивным замыслом. Все это вовлекает зрителя в волшебную и удивительную историю, которую мы рассказываем на новом визуальном языке.</p>
+					<p>Добро пожаловать!</p>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -22,65 +30,45 @@ export default {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	.image {
-		flex-basis: 55%;
-		max-width: 100%;
-	}
+	align-items: flex-start;
+
 	.text {
-		flex-basis: 30vw;
-		p {
-			margin-bottom: 20px;
-			line-height: 1.1;
-		}
-		position: relative;
-	}
-	.link {
-		margin: 10px 0;
-		font-family: 'codec_bold';
-		font-size: 1.2em;
-		display: block;
-		text-transform: uppercase;
-		color: white;
-		transition: 0.3s ease;
-		text-decoration: none;
-		&:hover {
-			opacity: 0.5;
-			transform: translateX(10px);
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		.wrap {
+			width: 45%;
+			p {
+				margin: 1.8rem 0;
+				font-size: 1.2rem;
+				line-height: 1.8rem;
+				&:first-child {
+					margin-top: 0;
+				}
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 		}
 	}
 }
 
-@media (max-width: 850px) {
+@media (max-width: 800px) {
 	.about {
 		flex-direction: column-reverse;
+		align-items: center;
 		padding-bottom: 3vw;
 		.text {
 			flex-basis: initial;
-			max-width: 80%;
-			margin-bottom: 3vw;
 			p {
 				margin-bottom: 1rem;
 				line-height: 1.3;
-				font-size: 15px;
+				font-size: 1rem;
 				letter-spacing: 0px;
 			}
-		}
-		.image {
-			max-width: 80%;
-			margin: 2rem 0 4rem;
 		}
 	}
 }
 @media (max-width: 600px) {
-	.about {
-		.text {
-			width: 90%;
-		}
-		.image {
-			margin: 4rem 0;
-		}
-	}
 }
 </style>

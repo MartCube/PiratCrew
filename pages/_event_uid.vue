@@ -68,7 +68,7 @@ export default {
 			max-width: 800px;
 			margin: 3rem 0;
 			padding-left: 1rem;
-			font-size: 2em;
+			font-size: 2rem;
 			position: relative;
 
 			&::before {

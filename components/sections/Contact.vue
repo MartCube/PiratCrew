@@ -87,11 +87,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
-
 .contact {
 	width: 100%;
-	border-left: 2px solid #fff;
+	border-left: 2px solid rgb(17, 15, 15);
 
 	display: flex;
 	justify-content: space-evenly;
@@ -137,32 +135,12 @@ export default {
 				font-size: 1.5em;
 				color: inherit;
 			}
-			&:hover {
-				&.icon-facebook {
-					color: $facebook;
-				}
-				&.icon-instagram {
-					color: $instagram;
-				}
-				&.icon-youtube {
-					color: $youtube;
-				}
-			}
 		}
 		.phone {
 			p {
 				justify-content: space-between;
 				display: flex;
 			}
-		}
-		.icon-facebook {
-			color: $facebook;
-		}
-		.icon-instagram {
-			color: $instagram;
-		}
-		.icon-youtube {
-			color: $youtube;
 		}
 	}
 	.form {
@@ -199,12 +177,8 @@ export default {
 }
 
 @media (max-width: 800px) {
-	#contact {
-		padding: 40px;
-	}
 	.contact {
 		flex-direction: column-reverse;
-		padding: 0 1rem;
 		border: none;
 		.info {
 			flex-basis: initial;

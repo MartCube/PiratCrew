@@ -44,7 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
 $size: 40px;
 
 .intro {

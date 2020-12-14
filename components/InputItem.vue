@@ -47,7 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
 @import '~/assets/mixins.scss';
 
 .form_group {
@@ -103,6 +102,7 @@ export default {
 		}
 	}
 	.form_label {
+		user-select: none;
 		position: absolute;
 		top: 0;
 		display: block;

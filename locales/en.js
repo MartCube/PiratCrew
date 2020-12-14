@@ -1,10 +1,11 @@
 export default {
 	pages: {
-		home: 'home',
 		about: 'about',
 		shows: 'shows',
+		events: 'events',
 		contact: 'contact',
 		casting: 'casting',
+		crew: 'crew',
 	},
 	contact: {
 		adress_title: 'adress',

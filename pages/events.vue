@@ -1,8 +1,5 @@
 <template>
-	<div>
-		<About />
-		<Crew />
-	</div>
+	<Events />
 </template>
 
 <script>

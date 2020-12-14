@@ -1,7 +1,8 @@
 <template>
-	<section id="artist">
-		<TextBox text="casting" />
-		<div class="artist">
+	<section id="casting">
+		<TextBox :text="$t('pages.casting')" />
+
+		<div class="casting">
 			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
 				<div class="info">
 					<h2>PiratCrew casting form</h2>
@@ -70,9 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
-
-.artist {
+.casting {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -139,10 +138,10 @@ export default {
 }
 
 @media (max-width: 800px) {
-	#artist {
+	#casting {
 		padding: 40px;
 	}
-	.artist {
+	.casting {
 		padding: 0 1rem;
 	}
 }

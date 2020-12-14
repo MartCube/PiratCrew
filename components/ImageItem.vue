@@ -69,9 +69,9 @@ export default {
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	.image {
-		width: 80%;
+		width: 90%;
 		margin: 0 0 4rem 0rem;
 		.box {
 			bottom: -11px;

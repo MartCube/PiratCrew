@@ -1,14 +1,13 @@
 <template>
 	<div class="navbar">
 		<div class="top">
-			<div class="logo">
-				<n-link to="/">
-					<img src="/logo.png" alt="logo" @click="showMenu = false" />
-				</n-link>
+			<n-link class="logo" :to="localePath('index')">
+				<img src="/logo.png" alt="logo" @click="showMenu = false" />
+
 				<div class="item">
 					<p class="text">pirate crew dance group</p>
 				</div>
-			</div>
+			</n-link>
 
 			<div class="button" :class="{ active: showMenu }" @click="ToggleMenu">
 				<div class="line"></div>
@@ -54,9 +53,9 @@
 
 		<div v-show="showMenu" class="menu">
 			<div class="links" @click="ToggleMenu">
-				<n-link :to="localePath('index')"> {{ $t('pages.home') }} </n-link>
 				<n-link :to="localePath('about')"> {{ $t('pages.about') }}</n-link>
 				<n-link :to="localePath('shows')"> {{ $t('pages.shows') }}</n-link>
+				<n-link :to="localePath('events')"> {{ $t('pages.events') }}</n-link>
 				<n-link :to="localePath('contact')"> {{ $t('pages.contact') }}</n-link>
 				<n-link :to="localePath('casting')"> {{ $t('pages.casting') }}</n-link>
 			</div>
@@ -133,7 +132,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
 $size: 40px;
 
 .navbar {
@@ -207,7 +205,7 @@ $size: 40px;
 		padding: 0 $size;
 
 		z-index: 2;
-		background: $bg;
+		background: black;
 		user-select: none;
 
 		display: flex;
@@ -218,7 +216,8 @@ $size: 40px;
 			align-items: center;
 
 			padding: 5px;
-
+			text-decoration: none;
+			color: white;
 			img {
 				opacity: 0; //anime
 
@@ -282,7 +281,7 @@ $size: 40px;
 		padding: 0 $size;
 
 		z-index: 2;
-		background: $bg;
+		background: black;
 		user-select: none;
 
 		display: flex;
@@ -330,7 +329,7 @@ $size: 40px;
 		padding: $size 0;
 
 		z-index: 2;
-		background: $bg;
+		background: black;
 		user-select: none;
 		transform: initial;
 
@@ -377,7 +376,7 @@ $size: 40px;
 		padding: $size 0;
 
 		user-select: none;
-		background: $bg;
+		background: black;
 		z-index: 2;
 		transform: initial;
 

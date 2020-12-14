@@ -1,9 +1,10 @@
 export default {
 	pages: {
-		home: 'главная',
 		about: 'о нас',
 		shows: 'шоу',
+		events: 'ивенты',
 		contact: 'контакты',
 		casting: 'кастинг',
+		crew: 'банда',
 	},
 }
