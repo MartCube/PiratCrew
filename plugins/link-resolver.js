@@ -3,7 +3,7 @@ export default function (doc) {
 
 	// If it is a Repeatable Custom Type with the API ID
 	if (doc.type === 'project') {
-		return '/' + doc.uid
+		return '/shows/' + doc.uid
 	}
 
 	// Default to the root

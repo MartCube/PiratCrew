@@ -27,14 +27,14 @@ export const mutations = {
 					{ value: 'contact', text: 'контакты' },
 				]
 				break
-			case 'event_uid___en':
+			case 'shows-show_uid___en':
 				state.navigation = [
 					{ value: 'intro', text: 'intro' },
 					{ value: 'event', text: 'event' },
 					{ value: 'contact', text: 'contact' },
 				]
 				break
-			case 'event_uid___ru':
+			case 'shows-show_uid___ru':
 				state.navigation = [
 					{ value: 'intro', text: 'интро' },
 					{ value: 'event', text: 'шоу' },

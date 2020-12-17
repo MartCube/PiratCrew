@@ -54,10 +54,10 @@
 		<div v-show="showMenu" class="menu">
 			<div class="links" @click="ToggleMenu">
 				<n-link :to="localePath('about')"> {{ $t('pages.about') }}</n-link>
-				<n-link :to="localePath('shows')"> {{ $t('pages.shows') }}</n-link>
 				<n-link :to="localePath('events')"> {{ $t('pages.events') }}</n-link>
-				<n-link :to="localePath('contact')"> {{ $t('pages.contact') }}</n-link>
+				<n-link :to="localePath('shows')"> {{ $t('pages.shows') }}</n-link>
 				<n-link :to="localePath('casting')"> {{ $t('pages.casting') }}</n-link>
+				<n-link :to="localePath('contact')"> {{ $t('pages.contact') }}</n-link>
 			</div>
 		</div>
 	</div>

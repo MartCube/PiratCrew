@@ -48,7 +48,8 @@ export default {
 	margin: 4rem 0;
 	user-select: none;
 	h2 {
-		font-size: 5em;
+		font-weight: 500;
+		font-size: 5rem;
 		line-height: 1;
 		text-transform: uppercase;
 		color: transparent;
@@ -80,7 +81,8 @@ export default {
 		align-self: center;
 
 		h2 {
-			font-size: 2.8em;
+			font-size: 3rem;
+			-webkit-text-stroke: 1px white;
 		}
 	}
 }

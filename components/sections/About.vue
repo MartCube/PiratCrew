@@ -54,17 +54,12 @@ export default {
 }
 
 @media (max-width: 800px) {
-	.about {
-		flex-direction: column-reverse;
-		align-items: center;
-		padding-bottom: 3vw;
-		.text {
-			flex-basis: initial;
+	.about .text {
+		flex-direction: column;
+		.wrap {
+			width: 100%;
 			p {
-				margin-bottom: 1rem;
-				line-height: 1.3;
 				font-size: 1rem;
-				letter-spacing: 0px;
 			}
 		}
 	}

@@ -64,7 +64,7 @@ $column-count: 4;
 $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 
 .gallery {
-	margin: 30px 0;
+	margin-top: 4rem;
 	max-width: 800px;
 	display: grid;
 	grid-template-columns: repeat($column-count, 1fr);
