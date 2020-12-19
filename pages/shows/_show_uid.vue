@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<template v-if="$fetchState.error" class="error">
-			<p>{{ $fetchState.error }}</p>
+			<Error />
 		</template>
 		<template v-if="$fetchState.pending" class="loading">
 			<p>loading..</p>
