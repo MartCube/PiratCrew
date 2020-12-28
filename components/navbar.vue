@@ -1,8 +1,8 @@
 <template>
 	<div class="navbar">
 		<div class="top">
-			<n-link class="logo" :to="localePath('index')">
-				<img src="/logo.png" alt="logo" @click="showMenu = false" />
+			<n-link class="logo" :to="localePath('index')" @click.native="showMenu = false">
+				<img src="/logo.png" alt="logo" />
 
 				<div class="item">
 					<p class="text">pirate crew dance group</p>

@@ -3,24 +3,19 @@
 		<TextBox :text="$t('pages.contact')" />
 		<div class="contact">
 			<div class="info">
-				<div class="adress">
-					<h2>adress <i class="icon icon-location" /></h2>
-					<p>Ukraine, Kyiv. Kreschatik 322</p>
-				</div>
 				<div class="phone">
-					<h2>phone <i class="icon icon-phone" /></h2>
+					<h2>call us</h2>
 					<p>Viber <a href="tel:+380492322105">+380 492 322 105</a></p>
 					<p>WhatsApp <a href="tel:+380492322105">+380 492 322 105</a></p>
 				</div>
 				<div class="smedias">
 					<h2>Follow us</h2>
-
 					<a href="https://www.facebook.com/" target="blank"> <i class="icon icon-facebook" /></a>
 					<a href="https://www.instagram.com/" target="blank"> <i class="icon icon-instagram" /></a>
 					<a href="https://www.youtube.com/" target="blank"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
-			<ValidationObserver ref="form_mail" tag="form" class="form" @submit.prevent="Submit()">
+			<ValidationObserver ref="form_mail" tag="form" autocomplete="off" class="form" @submit.prevent="Submit()">
 				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
@@ -65,7 +60,7 @@ export default {
 			const isValid = await this.$refs.form_mail.validate()
 			if (!isValid) return
 
-			this.$nextTick(() => {
+			await this.$nextTick(() => {
 				this.$refs.form_mail.reset()
 			})
 
@@ -89,7 +84,8 @@ export default {
 <style lang="scss" scoped>
 .contact {
 	width: 100%;
-	border-left: 2px solid rgb(17, 15, 15);
+	border-left: 2px solid white;
+	border-right: 2px solid white;
 
 	display: flex;
 	justify-content: space-evenly;
@@ -102,20 +98,22 @@ export default {
 	.info {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: flex-start;
 		flex-basis: 40%;
 		height: 350px;
+		max-width: 300px;
 
 		p {
 			margin: 5px 0;
 			user-select: text;
-			line-height: 1.1;
+			line-height: 1.5rem;
+
 			a {
 				margin-left: 5px;
 			}
 		}
 		a {
-			font-size: 1em;
+			font-size: 1rem;
 			color: #fff;
 		}
 		.smedias {
@@ -137,6 +135,7 @@ export default {
 			}
 		}
 		.phone {
+			margin-bottom: 50px;
 			p {
 				justify-content: space-between;
 				display: flex;
