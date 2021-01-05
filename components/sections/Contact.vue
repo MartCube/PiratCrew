@@ -64,18 +64,18 @@ export default {
 				this.$refs.form_mail.reset()
 			})
 
-			console.log('submit')
+			console.log('loading')
 			// trigger netlify function
 			this.loading = true
 
 			try {
 				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
 					this.loading = false
+					console.log('submited')
 				})
 			} catch (error) {
 				console.log(error)
 			}
-			console.log('submit')
 		},
 	},
 }
