@@ -7,7 +7,7 @@ exports.handler = async (event, context, callback) => {
 		to: process.env.DOMAIN,
 		from: process.env.DOMAIN,
 		subject: form.subject,
-		html: `<h4>form:</h4> <p>${form.action}</p> <h4>from:</h4> <p>${form.email}</p> <h4>message:</h4> <p>${form.message}</p>`,
+		html: `<h3>${form.action} form</h3> <h4>email:</h4> <p>${form.email}</p> <h4>message:</h4> <p>${form.message}</p>`,
 	}
 	let response
 
