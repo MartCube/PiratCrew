@@ -38,7 +38,7 @@ export default {
 		ValidationObserver,
 	},
 	data: () => ({
-		formData: {
+		form: {
 			email: String,
 			subject: String,
 			message: String,
@@ -70,7 +70,7 @@ export default {
 			this.loading = true
 
 			try {
-				await this.$axios.$post('.netlify/functions/sendmail', this.formData).then(() => {
+				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
 					this.loading = false
 					console.log('submited')
 				})
