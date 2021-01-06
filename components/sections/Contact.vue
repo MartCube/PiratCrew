@@ -15,7 +15,7 @@
 					<a href="https://www.youtube.com/" target="blank"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
-			<ValidationObserver ref="form_mail" tag="form" autocomplete="off" class="form" @submit.prevent="Submit()">
+			<ValidationObserver ref="form_contact" tag="form" autocomplete="off" class="form" @submit.prevent="Submit()">
 				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
@@ -38,10 +38,11 @@ export default {
 		ValidationObserver,
 	},
 	data: () => ({
-		form: {
+		formData: {
 			email: String,
 			subject: String,
 			message: String,
+			action: 'contact',
 		},
 		loading: false,
 	}),
@@ -57,11 +58,11 @@ export default {
 			this.form.message = value
 		},
 		async Submit() {
-			const isValid = await this.$refs.form_mail.validate()
+			const isValid = await this.$refs.form_contact.validate()
 			if (!isValid) return
 
 			await this.$nextTick(() => {
-				this.$refs.form_mail.reset()
+				this.$refs.form_contact.reset()
 			})
 
 			console.log('loading')
@@ -69,7 +70,7 @@ export default {
 			this.loading = true
 
 			try {
-				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
+				await this.$axios.$post('.netlify/functions/sendmail', this.formData).then(() => {
 					this.loading = false
 					console.log('submited')
 				})
