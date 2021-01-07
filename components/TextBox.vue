@@ -76,10 +76,8 @@ export default {
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	.text_box {
-		align-self: center;
-
 		h2 {
 			font-size: 3rem;
 			-webkit-text-stroke: 1px white;

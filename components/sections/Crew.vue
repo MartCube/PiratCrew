@@ -2,7 +2,7 @@
 	<section id="crew">
 		<TextBox :text="$t('pages.crew')" />
 
-		<div class="crew">
+		<div class="grid">
 			<Artist v-for="artist in crew" :key="artist.primary.image.alt" :image="artist.primary.image.url" :name="artist.primary.image.alt" />
 		</div>
 	</section>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.crew {
+.grid {
 	display: flex;
 	flex-wrap: wrap;
 
@@ -30,8 +30,11 @@ export default {
 }
 
 @media (max-width: 940px) {
-	.crew {
+	.grid {
 		justify-content: space-evenly;
+		.artist:last-child {
+			margin: 0;
+		}
 	}
 }
 </style>

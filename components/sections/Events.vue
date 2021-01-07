@@ -1,9 +1,6 @@
 <template>
 	<section id="events">
 		<TextBox :text="$t('pages.events')" />
-		<div v-if="!$fetchState.pending" class="events">
-			<Event v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
-		</div>
 	</section>
 </template>
 

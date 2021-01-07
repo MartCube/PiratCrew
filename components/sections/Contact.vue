@@ -42,7 +42,7 @@ export default {
 			email: String,
 			subject: String,
 			message: String,
-			action: 'contact',
+			action: 'Contact',
 		},
 		loading: false,
 	}),

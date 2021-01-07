@@ -49,7 +49,6 @@ $size: 40px;
 .intro {
 	width: 100%;
 	min-height: 100vh;
-	padding: 0;
 	background-color: #000;
 	position: relative;
 	overflow: hidden;

@@ -127,35 +127,9 @@ export default {
 	}
 }
 
-.white {
-	.form_group {
-		.form_label {
-			color: #000;
-		}
-		.form_field {
-			border-bottom: 2px solid #000;
-			color: #000;
-			&:-webkit-autofill,
-			&:-webkit-autofill:hover,
-			&:-webkit-autofill:focus {
-				-webkit-text-fill-color: #000;
-				box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
-				transition: background-color 5000s ease-in-out 0s;
-			}
-		}
-		.error {
-			font-weight: 700;
-			color: #000;
-		}
-	}
-}
-
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
 	.form_group {
 		margin-top: 1rem;
-		button {
-			margin-top: 2rem;
-		}
 	}
 }
 </style>

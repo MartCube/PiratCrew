@@ -1,28 +1,30 @@
 <template>
-	<div class="container">
-		<template v-if="$fetchState.error" class="error">
-			<Error />
-		</template>
-		<template v-if="$fetchState.pending" class="loading">
-			<p>loading..</p>
-		</template>
-		<template v-if="!$fetchState.error && !$fetchState.pending">
-			<Intro />
+	<div>
+		<Intro />
 
-			<section id="event">
-				<div class="title">
-					<h2>{{ event.title }}</h2>
-				</div>
-				<div class="text">
-					<p v-for="(slice, index) in event.text_slices" :key="'slice-' + index">
-						{{ $prismic.asText(slice.primary.text) }}
-					</p>
-				</div>
-				<Gallery :data="event.gallery" />
-			</section>
+		<div class="container">
+			<template v-if="$fetchState.error" class="error">
+				<Error />
+			</template>
+			<template v-if="$fetchState.pending" class="loading">
+				<p>loading..</p>
+			</template>
+			<template v-if="!$fetchState.error && !$fetchState.pending">
+				<section id="show">
+					<div class="title">
+						<h2>{{ event.title }}</h2>
+					</div>
+					<div class="text">
+						<p v-for="(slice, index) in event.text_slices" :key="'slice-' + index">
+							{{ $prismic.asText(slice.primary.text) }}
+						</p>
+					</div>
+					<Gallery :data="event.gallery" />
+				</section>
 
-			<Contact />
-		</template>
+				<Contact />
+			</template>
+		</div>
 	</div>
 </template>
 
@@ -45,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#event {
+#show {
 	width: 100%;
 
 	display: flex;
@@ -84,7 +86,7 @@ export default {
 }
 
 @media (max-width: 700px) {
-	#event {
+	#show {
 		.title h2 {
 			font-size: 2rem;
 		}

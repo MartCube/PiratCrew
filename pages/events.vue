@@ -1,5 +1,7 @@
 <template>
-	<Events />
+	<div class="container">
+		<Events />
+	</div>
 </template>
 
 <script>

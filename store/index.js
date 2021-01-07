@@ -30,7 +30,7 @@ export const mutations = {
 			case 'shows-show_uid___en':
 				state.navigation = [
 					{ value: 'intro', text: 'intro' },
-					{ value: 'event', text: 'event' },
+					{ value: 'show', text: 'show' },
 					{ value: 'contact', text: 'contact' },
 				]
 				break

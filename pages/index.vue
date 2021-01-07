@@ -1,9 +1,12 @@
 <template>
-	<div class="container">
-		<Intro />
-		<About />
-		<Shows />
-		<Contact />
+	<div>
+		<div class="container">
+			<Intro />
+
+			<About />
+			<Shows />
+			<Contact />
+		</div>
 	</div>
 </template>
 
