@@ -21,10 +21,7 @@
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
 				<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
 
-				<button v-if="!loading" type="submit" class="submit">
-					<span>submit<i class="icon icon-mail" /></span>
-				</button>
-				<div v-else class="submit"><Spinner /></div>
+				<Submit />
 			</ValidationObserver>
 		</div>
 	</section>
@@ -44,7 +41,6 @@ export default {
 			message: String,
 			action: 'Contact',
 		},
-		loading: false,
 	}),
 	computed: {},
 	methods: {
@@ -59,16 +55,16 @@ export default {
 		},
 		async Submit() {
 			const isValid = await this.$refs.form_contact.validate()
+			// validation
 			if (!isValid) return
 
-			await this.$nextTick(() => {
-				this.$refs.form_contact.reset()
-			})
-
-			console.log('loading')
-			// trigger netlify function
 			this.loading = true
+			console.log('loading')
 
+			// compose email template
+			this.form.emailTemplate = `<h4>email:</h4> <p>${this.form.email}</p> <h4>message:</h4> <p>${this.form.message}</p>`
+
+			// trigger netlify function
 			try {
 				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
 					this.loading = false
@@ -149,30 +145,6 @@ export default {
 		justify-content: space-between;
 		flex-basis: 40%;
 		height: 350px;
-
-		.submit {
-			width: 100%;
-			height: 50px;
-			margin-top: 10px;
-			padding: 10px 0;
-
-			color: white;
-			border: 1px solid white;
-			background: transparent;
-			cursor: pointer;
-			outline: none;
-
-			font-family: 'codec_bold';
-			letter-spacing: 2px;
-			font-size: 1em;
-			text-transform: uppercase;
-
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-		}
 	}
 }
 
@@ -196,9 +168,6 @@ export default {
 			width: 100%;
 			.form_group {
 				margin: 10px 0;
-			}
-			.submit {
-				margin-top: 2rem;
 			}
 		}
 	}

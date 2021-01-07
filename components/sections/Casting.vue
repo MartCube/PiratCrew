@@ -2,7 +2,7 @@
 	<section id="casting">
 		<TextBox :text="$t('pages.casting')" />
 
-		<ValidationObserver ref="form_mail" class="casting" tag="form" @submit.prevent="Submit()">
+		<ValidationObserver ref="form_casting" class="casting" tag="form" @submit.prevent="Submit()">
 			<div class="wrap">
 				<div class="info">
 					<h2>piratcrew casting</h2>
@@ -10,18 +10,15 @@
 					<p>Please fill the following so we can continue to next step.</p>
 				</div>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
-				<InputItem :name="'name'" :rules="'required'" />
-				<InputItem :name="'location'" :rules="'required'" />
+				<InputItem :name="'name'" :rules="'required'" @getValue="getName" />
+				<InputItem :name="'location'" :rules="'required'" @getValue="getLocation" />
 			</div>
 			<div class="wrap">
-				<InputItem :name="'education'" :rules="'required'" />
-				<InputItem :name="'experience'" :rules="'required'" />
-				<InputItem :name="'link to promo video'" :rules="'required'" />
+				<InputItem :name="'education'" :rules="'required'" @getValue="getEducation" />
+				<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
+				<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
 
-				<button v-if="!loading" type="submit" class="submit">
-					<span>submit<i class="icon icon-mail" /></span>
-				</button>
-				<div v-else class="submit"><spinner /></div>
+				<Submit />
 			</div>
 		</ValidationObserver>
 	</section>
@@ -38,22 +35,51 @@ export default {
 	data: () => ({
 		form: {
 			email: String,
-			subject: String,
-			message: String,
+			name: String,
+			location: String,
+			education: String,
+			experience: String,
+			videLink: String,
 			action: 'Casting',
+			emailTemplate: '',
 		},
-		loading: false,
 	}),
 	methods: {
 		getEmail(value) {
 			this.form.email = value
 		},
+		getName(value) {
+			this.form.name = value
+		},
+		getLocation(value) {
+			this.form.location = value
+		},
+		getEducation(value) {
+			this.form.email = value
+		},
+		getExperience(value) {
+			this.form.experience = value
+		},
+		getVideoLink(value) {
+			this.form.videLink = value
+		},
 		async Submit() {
-			const isValid = await this.$refs.form_mail.validate()
+			const isValid = await this.$refs.form_casting.validate()
+			// validation
 			if (!isValid) return
 
 			this.loading = true
 			console.log('loading')
+
+			// compose email template
+			this.form.emailTemplate = `
+				<h4>email:</h4> <p>${this.form.email}</p>
+			 	<h4>name:</h4> <p>${this.form.name}</p>
+			 	<h4>location:</h4> <p>${this.form.location}</p>
+			 	<h4>education:</h4> <p>${this.form.education}</p>
+			 	<h4>experience:</h4> <p>${this.form.experience}</p>
+			 	<h4>videLink:</h4> <p>${this.form.videLink}</p>
+			`
 
 			// trigger netlify function
 			try {
@@ -104,30 +130,6 @@ export default {
 				margin: 0;
 			}
 		}
-	}
-
-	.submit {
-		width: 100%;
-		height: 50px;
-		margin-top: 50px;
-		padding: 10px 0;
-
-		color: white;
-		border: 1px solid white;
-		background: transparent;
-		cursor: pointer;
-		outline: none;
-
-		font-family: 'codec_bold';
-		letter-spacing: 2px;
-		font-size: 1em;
-		text-transform: uppercase;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
 	}
 }
 
