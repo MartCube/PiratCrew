@@ -18,7 +18,10 @@
 				<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
 				<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
 
-				<Submit />
+				<button type="submit" class="submit">
+					<span v-if="!loading">submit<i class="icon icon-mail" /></span>
+					<spinner v-else />
+				</button>
 			</div>
 		</ValidationObserver>
 	</section>
@@ -43,6 +46,7 @@ export default {
 			action: 'Casting',
 			emailTemplate: '',
 		},
+		loading: false,
 	}),
 	methods: {
 		getEmail(value) {
@@ -130,6 +134,29 @@ export default {
 				margin: 0;
 			}
 		}
+	}
+	.submit {
+		width: 100%;
+		height: 50px;
+		margin-top: 50px;
+		padding: 10px 0;
+
+		color: white;
+		border: 1px solid white;
+		background: transparent;
+		cursor: pointer;
+		outline: none;
+
+		font-family: 'codec_bold';
+		letter-spacing: 2px;
+		font-size: 1em;
+		text-transform: uppercase;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
 	}
 }
 

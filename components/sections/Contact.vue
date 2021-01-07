@@ -21,7 +21,10 @@
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
 				<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
 
-				<Submit />
+				<button type="submit" class="submit">
+					<span v-if="!loading">submit<i class="icon icon-mail" /></span>
+					<spinner v-else />
+				</button>
 			</ValidationObserver>
 		</div>
 	</section>
@@ -41,6 +44,7 @@ export default {
 			message: String,
 			action: 'Contact',
 		},
+		loading: false,
 	}),
 	computed: {},
 	methods: {
@@ -138,6 +142,29 @@ export default {
 				display: flex;
 			}
 		}
+	}
+	.submit {
+		width: 100%;
+		height: 50px;
+		margin-top: 50px;
+		padding: 10px 0;
+
+		color: white;
+		border: 1px solid white;
+		background: transparent;
+		cursor: pointer;
+		outline: none;
+
+		font-family: 'codec_bold';
+		letter-spacing: 2px;
+		font-size: 1em;
+		text-transform: uppercase;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
 	}
 	.form {
 		display: flex;
