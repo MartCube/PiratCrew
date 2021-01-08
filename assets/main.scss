@@ -24,6 +24,10 @@ body {
 	color:white;
 	background: #000;
 
+	h2{
+		font-size: 2rem;
+	}
+
 	h2,a,p,span {
 		&::selection{
 			color: black;

@@ -15,7 +15,7 @@
 					<a href="https://www.youtube.com/" target="blank"><i class="icon icon-youtube" /></a>
 				</div>
 			</div>
-			<ValidationObserver ref="form_contact" tag="form" autocomplete="off" class="form" @submit.prevent="Submit()">
+			<ValidationObserver v-if="complete" ref="form_contact" tag="form" autocomplete="off" class="form" @submit.prevent="Submit()">
 				<h2>write us</h2>
 				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 				<InputItem :name="'subject'" :rules="'required'" @getValue="getSubject" />
@@ -43,8 +43,10 @@ export default {
 			subject: String,
 			message: String,
 			action: 'Contact',
+			emailTemplate: String,
 		},
 		loading: false,
+		complete: true,
 	}),
 	computed: {},
 	methods: {
@@ -65,8 +67,14 @@ export default {
 			this.loading = true
 			console.log('loading')
 
+			// await this.$nextTick() // wait DOM to render
+			// this.$refs.form_contact.reset()
+
 			// compose email template
-			this.form.emailTemplate = `<h4>email:</h4> <p>${this.form.email}</p> <h4>message:</h4> <p>${this.form.message}</p>`
+			this.form.emailTemplate = `
+				<h4>email:</h4> <p>${this.form.email}</p>
+				<h4>message:</h4> <p>${this.form.message}</p>
+			`
 
 			// trigger netlify function
 			try {

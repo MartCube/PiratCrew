@@ -2,28 +2,37 @@
 	<section id="casting">
 		<TextBox :text="$t('pages.casting')" />
 
-		<ValidationObserver ref="form_casting" class="casting" tag="form" @submit.prevent="Submit()">
-			<div class="wrap">
-				<div class="info">
-					<h2>piratcrew casting</h2>
-					<p>Are you an artist trying to prove your skills ?</p>
-					<p>Please fill the following so we can continue to next step.</p>
+		<transition name="page" appear mode="out-in">
+			<ValidationObserver v-if="!complete" ref="form_casting" tag="form" @submit.prevent="Submit()">
+				<div class="wrap">
+					<div class="info">
+						<h2>piratcrew casting</h2>
+						<p>Are you an artist trying to prove your skills ?</p>
+						<p>Please fill the following so we can continue to next step.</p>
+					</div>
+					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem :name="'name'" :rules="'required'" @getValue="getName" />
+					<InputItem :name="'location'" :rules="'required'" @getValue="getLocation" />
 				</div>
-				<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
-				<InputItem :name="'name'" :rules="'required'" @getValue="getName" />
-				<InputItem :name="'location'" :rules="'required'" @getValue="getLocation" />
-			</div>
-			<div class="wrap">
-				<InputItem :name="'education'" :rules="'required'" @getValue="getEducation" />
-				<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
-				<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
+				<div class="wrap">
+					<InputItem :name="'education'" :rules="'required'" @getValue="getEducation" />
+					<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
+					<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
 
-				<button type="submit" class="submit">
-					<span v-if="!loading">submit<i class="icon icon-mail" /></span>
-					<spinner v-else />
-				</button>
+					<button type="submit" class="submit">
+						<span v-if="!loading">submit<i class="icon icon-mail" /></span>
+						<spinner v-else />
+					</button>
+				</div>
+			</ValidationObserver>
+			<div v-else class="message">
+				<div class="info">
+					<h2>successfully submitted</h2>
+					<p>Thank you for filling out your information.</p>
+				</div>
+				<Btn @click.native="complete = false">okey</Btn>
 			</div>
-		</ValidationObserver>
+		</transition>
 	</section>
 </template>
 
@@ -47,26 +56,9 @@ export default {
 			emailTemplate: '',
 		},
 		loading: false,
+		complete: true,
 	}),
 	methods: {
-		getEmail(value) {
-			this.form.email = value
-		},
-		getName(value) {
-			this.form.name = value
-		},
-		getLocation(value) {
-			this.form.location = value
-		},
-		getEducation(value) {
-			this.form.email = value
-		},
-		getExperience(value) {
-			this.form.experience = value
-		},
-		getVideoLink(value) {
-			this.form.videLink = value
-		},
 		async Submit() {
 			const isValid = await this.$refs.form_casting.validate()
 			// validation
@@ -87,20 +79,39 @@ export default {
 
 			// trigger netlify function
 			try {
-				await this.$axios.$post('.netlify/functions/sendmail', this.form).then(() => {
-					this.loading = false
-					console.log('submited')
-				})
+				await this.$axios.$post('.netlify/functions/sendmail', this.form)
 			} catch (error) {
 				console.log(error)
 			}
+
+			console.log('submited')
+			this.loading = false
+			this.complete = true
+		},
+		getEmail(value) {
+			this.form.email = value
+		},
+		getName(value) {
+			this.form.name = value
+		},
+		getLocation(value) {
+			this.form.location = value
+		},
+		getEducation(value) {
+			this.form.education = value
+		},
+		getExperience(value) {
+			this.form.experience = value
+		},
+		getVideoLink(value) {
+			this.form.videLink = value
 		},
 	},
 }
 </script>
 
 <style lang="scss" scoped>
-.casting {
+form {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -128,12 +139,6 @@ export default {
 			text-transform: uppercase;
 			margin-bottom: 20px;
 		}
-		p {
-			margin-bottom: 10px;
-			&:last-child {
-				margin: 0;
-			}
-		}
 	}
 	.submit {
 		width: 100%;
@@ -158,6 +163,30 @@ export default {
 		align-items: center;
 		text-align: center;
 	}
+}
+
+.message {
+	width: 100%;
+	height: 350px;
+
+	& > * {
+		width: 100%;
+		max-width: 400px;
+		margin-bottom: 2rem;
+	}
+	.info {
+		border-left: 2px solid #fff;
+		padding-left: 1rem;
+		h2 {
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+	}
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 @media (max-width: 1200px) {
