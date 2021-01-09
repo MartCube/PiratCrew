@@ -1,12 +1,19 @@
 <template>
 	<section id="about">
-		<div class="title">
-			<TextBox text="about" />
-		</div>
+		<TextBox :text="$t('pages.about')" />
 		<div class="about">
-			<ImageItem image-src="/photo.jpg" image-alt="about" />
 			<div class="text">
-				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, facere? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi vero repellendus quae, natus eos. Fuga enim consequuntur odit soluta quod eos debitis recusandae fugit dolorum ratione nesciunt ipsam temporibus facere voluptatum quis inventore rem cumque fugiat error libero, dolore delectus. Labore obcaecati cum corporis facilis tenetur vel explicabo autem voluptas mollitia odio, dolores hic repellat suscipit reprehenderit eos porro provident expedita dolore similique officiis voluptatem quia voluptatum alias! Quod ullam nesciunt quam, enim totam laboriosam mollitia doloribus ratione aliquam nemo consectetur est modi similique, explicabo possimus illum quasi eos. Soluta quisquam eius eaque veniam, reiciendis eveniet et nisi magni.</p>
+				<div class="wrap">
+					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
+					<p>Pirate Crew – команда уникальных, креативных и свободных. Об этом – наша история. Артистическое путешествие PIRAT CREW началось в 2010 году.</p>
+					<p>С тех пор мы побывали в 20 странах с авторскими шоу, которые дарили восторг и радость зрителям во Франции, Швеции, Финляндии, Германии, Турции, Украине, России.</p>
+				</div>
+				<div class="wrap">
+					<p>Более 3000 спектаклей, 1000 разработанных и поставленных мероприятий, 5 полномасштабных шоу.</p>
+					<p>Jazz Do It Show, Bon Voyage, Juzeppe Hotel высоко оценили во всем мире. Шоу создаются под руководством директора и хореографа PIRAT CREW Дмитрия Юдина и команды междисциплинарных артистов.</p>
+					<p>Цирковое искусство переплетается с музыкой и экспериментальной хореографией, авторские костюмы с современными технологиями, акробатика с экспрессивным замыслом. Все это вовлекает зрителя в волшебную и удивительную историю, которую мы рассказываем на новом визуальном языке.</p>
+					<p>Добро пожаловать!</p>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -19,76 +26,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#about{
-	background-color: #fff;
-	color: #000;
-	.title{
-		justify-content: flex-start;
-		display: flex;
-    width: -webkit-fill-available;
-		padding: 0 3rem;
-    margin: 0;
-    position: relative;
-		&::before {
-			content: '';
-			display: flex;
-			position: absolute;
-			background-color: #000;
-			z-index: 1;
-			left: 0;
-			width: 1vw;
-			top: 34%;
-			height: 3.5rem;
-		}
-	}
-}
 .about {
 	width: 100%;
-	// padding: 0 10%;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	.image {
-		flex-basis: 55%;
-		max-width: 100%;
-	}
+	align-items: flex-start;
+
 	.text {
-		flex-basis: 30vw;
-		p {
-			margin-bottom: 20px;
-			line-height: 1.1;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		.wrap {
+			width: 45%;
+			p {
+				margin: 1.8rem 0;
+				font-size: 1.2rem;
+				line-height: 1.8rem;
+				&:first-child {
+					margin-top: 0;
+				}
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 		}
 	}
 }
 
-@media (max-width: 850px) {
-	.about{
-		flex-direction: column-reverse;
-		padding-bottom: 3vw;
-		.text{
-			flex-basis: initial;
-			max-width: 80%;
-			margin-bottom: 3vw;
-			p{
-				margin-bottom: 0;
-				line-height: 1.3;
-				font-size: 15px;
-				letter-spacing: 0px;
+@media (max-width: 800px) {
+	.about .text {
+		flex-direction: column;
+		.wrap {
+			width: 100%;
+			p {
+				font-size: 1rem;
 			}
-		}
-		.image{
-			max-width: 80%;
 		}
 	}
 }
 @media (max-width: 600px) {
-	.about{
-		.text{width: 90%;}		
-		.image{
-			margin: 4rem 0;
-		}
-	} 
-
 }
 </style>

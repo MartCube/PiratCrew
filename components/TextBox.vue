@@ -1,6 +1,5 @@
 <template>
-	<!-- @click="textAnim" -->
-	<div class="text_box">
+	<div v-observe-visibility="visibilityOptions" class="text_box" :class="{ white: white }">
 		<h2 ref="text">{{ text }}</h2>
 		<div ref="box" class="box"></div>
 	</div>
@@ -15,13 +14,27 @@ export default {
 			type: String,
 			required: true,
 		},
+		white: {
+			type: Boolean,
+			default: false,
+		},
 	},
-	mounted() {
-		textAnim(this.$refs.text, this.$refs.box)
+	computed: {
+		visibilityOptions() {
+			return {
+				callback: this.visibilityChanged,
+				once: true,
+				intersection: {
+					threshold: 1,
+				},
+			}
+		},
 	},
 	methods: {
-		textAnim() {
-			textAnim(this.$refs.text, this.$refs.box)
+		visibilityChanged(isVisible) {
+			if (isVisible) {
+				textAnim(this.$refs.text, this.$refs.box)
+			}
 		},
 	},
 }
@@ -33,8 +46,11 @@ export default {
 	position: relative;
 	overflow: hidden;
 	margin: 4rem 0;
+	user-select: none;
 	h2 {
-		font-size: 5em;
+		font-weight: 500;
+		font-size: 5rem;
+		line-height: 1;
 		text-transform: uppercase;
 		color: transparent;
 		-webkit-text-stroke: 2px #f2f2f2;
@@ -49,9 +65,8 @@ export default {
 		height: 100%;
 		background: #f2f2f2;
 	}
-}
-.white {
-	.text_box {
+
+	&.white {
 		h2 {
 			-webkit-text-stroke: 2px #080808;
 		}
@@ -60,9 +75,9 @@ export default {
 		}
 	}
 }
-@media (max-width: 600px) {
+
+@media (max-width: 800px) {
 	.text_box {
-		margin: 3.2rem 0 3rem;
 		h2 {
 			font-size: 3rem;
 			-webkit-text-stroke: 1px #f2f2f2;

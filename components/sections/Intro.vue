@@ -25,46 +25,22 @@
 				<path d="M450.7,342.51l29.43-72.17h28.15L460.82,385.08H436.71l-14.33-34.56-14.25,34.56H384L336.47,270.34h28.24l29.34,72.17,1.69,6.57h.59l1.68-6.57,10.46-25.63-19.23-46.54h28.25l29.33,72.17,1.61,6.57h.67Z" />
 			</svg>
 		</div>
-		
 	</section>
 </template>
 
 <script>
-import { fadeIn, widthStretch, introAnim } from '~/assets/anime'
-
+import { introAnim } from '~/assets/anime'
 
 export default {
-	// props: {
-	// 	pageType: {
-	// 		type: String,
-	// 		required: true,
-	// 	},
-	// 	progectName: {
-	// 		type: String
-	// 	}
-	// },
 	data: () => ({}),
-	 mounted() {
+	mounted() {
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
-		const video = document.querySelector('video');
-
-		// const video = document.querySelector('video')
-		// function checkLoad() {
-		// 	if (video.readyState === 4) {
-			// 		document.querySelector('.intro .logo').classList.add('hide')
-		// 	} else {
-					setTimeout(() => {
-						document.querySelector('.intro .plyr--video').classList.add('loaded')
-						document.querySelector('.intro .logo').classList.add('hide')
-					}, 1000)
-		// 	}
-		// }
-		// checkLoad()
-		// await this.$nextTick() // wait DOM to render
-		// document.querySelector('.intro .plyr__video-wrapper').classList.add('loaded')
-		// this.$refs.plyr.player.toggleControls(false)
-		// console.log(this.$refs.plyr.player)
+		
+		setTimeout(() => {
+			document.querySelector('.intro .plyr--video').classList.add('loaded')
+			document.querySelector('.intro .logo').classList.add('hide')
+		}, 1000)
 	},
 	// created
 }
@@ -78,6 +54,8 @@ $size: 40px;
 	min-height: 100vh;
 	background-color: #080808;
 	position: relative;
+	overflow: hidden;
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -96,9 +74,9 @@ $size: 40px;
 		transform: translate(-50%, -50%);
 		object-fit: cover;
 		z-index: 0;
-		top: 0;
-		left: 0;
-		transition: opacity .5s 2s;
+
+		transition: opacity 0.5s ease;
+		transition-delay: 2s;
 		&.loaded {
 			opacity: 1;
 		}
@@ -110,6 +88,15 @@ $size: 40px;
 	.logo {
 		width: 30vw;
 		height: auto;
+		z-index: 1;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		&.hide {
+			opacity: 0;
+		}
 		svg {
 			width: 100%;
 			fill: none;
@@ -121,12 +108,6 @@ $size: 40px;
 			}
 		}
 	}
-	a {
-		color: white;
-		text-decoration: none;
-		font-size: 1em;
-	}
-	
 }
 
 @media (max-width: 900px) {
@@ -134,7 +115,6 @@ $size: 40px;
 		video {
 			width: auto;
 			height: 100vh;
-
 		}
 	}
 }

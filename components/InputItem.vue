@@ -47,7 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/colors.scss';
 @import '~/assets/mixins.scss';
 
 .form_group {
@@ -86,7 +85,7 @@ export default {
 				top: 0;
 				display: block;
 				transition: 0.2s;
-				font-size: .7em;
+				font-size: 0.7em;
 				color: #aaaaaa;
 				font-weight: 700;
 			}
@@ -96,8 +95,14 @@ export default {
 			border-color: #f2f2f2;
 			border-image-slice: 1;
 		}
+		/* reset input */
+		&:required,
+		&:invalid {
+			box-shadow: none;
+		}
 	}
 	.form_label {
+		user-select: none;
 		position: absolute;
 		top: 0;
 		display: block;
@@ -122,40 +127,9 @@ export default {
 	}
 }
 
-/* reset input */
-.form_field {
-	&:required,
-	&:invalid {
-		box-shadow: none;
-	}
-}
-.white {
+@media (max-width: 1200px) {
 	.form_group {
-		.form_label{color: #000}
-		.form_field{
-			border-bottom: 2px solid #000;
-			color: #000;
-			&:-webkit-autofill,
-			&:-webkit-autofill:hover,
-			&:-webkit-autofill:focus {
-				-webkit-text-fill-color: #000;
-				box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
-				transition: background-color 5000s ease-in-out 0s;
-			}
-		}
-		.error {
-			font-weight: 700;
-			color: #ff0000;
-		}
-	}
-}
-
-@media (max-width: 600px) {
-	.form_group{
 		margin-top: 1rem;
-		button{
-			margin-top: 2rem;
-		}
 	}
 }
 </style>

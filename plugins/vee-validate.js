@@ -11,11 +11,6 @@ extend('email', {
 	message: 'email not valid',
 })
 
-// extend('min', {
-// 	...min,
-// 	message: 'min 8 char',
-// })
-
 // extend('regexNumber', {
 // 	...regex,
 // 	message: 'include number',
