@@ -40,7 +40,7 @@ export default {
 		setTimeout(() => {
 			document.querySelector('.intro .plyr--video').classList.add('loaded')
 			document.querySelector('.intro .logo').classList.add('hide')
-		}, 1000)
+		}, 1100)
 	},
 	// created
 }

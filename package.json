@@ -11,16 +11,18 @@
 		"lint": "npm run lint:js"
 	},
 	"dependencies": {
-		"@nuxtjs/axios": "^5.12.2",
+		"@nuxtjs/axios": "^5.12.5",
 		"@nuxtjs/prismic": "^1.2.4",
 		"@sendgrid/mail": "^7.2.6",
 		"animejs": "^3.2.0",
+		"axios": "^0.21.1",
 		"core-js": "^3.6.5",
 		"lazysizes": "^5.2.2",
 		"nuxt": "^2.14.5",
 		"nuxt-i18n": "^6.15.4",
 		"vee-validate": "^3.4.0",
 		"vue-observe-visibility": "^0.4.6",
+		"vue-plyr": "^7.0.0",
 		"vue-scrollto": "^2.18.2"
 	},
 	"devDependencies": {
