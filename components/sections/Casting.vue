@@ -56,7 +56,7 @@ export default {
 			emailTemplate: '',
 		},
 		loading: false,
-		complete: true,
+		complete: false,
 	}),
 	methods: {
 		async Submit() {
