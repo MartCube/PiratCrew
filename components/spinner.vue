@@ -14,11 +14,14 @@
 	width: 6px;
 	height: 6px;
 	margin: 0 2px;
-	background-color: white;
+	background-color: #f2f2f2;
 	border-radius: 100%;
 	display: inline-block;
 	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+.spinner.white > div {
+	background-color: #080808;
 }
 .spinner .bounce1 {
 	-webkit-animation-delay: -0.32s;

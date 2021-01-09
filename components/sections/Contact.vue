@@ -75,7 +75,9 @@ export default {
 
 .contact {
 	width: 100%;
-	border-left: 5px solid #fff;
+	border-left: 2px solid #f2f2f2;
+	border-right: 2px solid #f2f2f2;
+
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -98,8 +100,8 @@ export default {
 			a{margin-left: 5px;}
 		}
 		a {
-			font-size: 1em;
-			color: #fff;
+			font-size: 1rem;
+			color: #f2f2f2;
 		}
 		.smedias {
 			display: flex;
@@ -111,7 +113,7 @@ export default {
 			a {
 				text-decoration: none;
 				font-size: 1em;
-				color: white;
+				color: #f2f2f2;
 			}
 			.icon {
 				margin-right: 10px;
@@ -137,15 +139,29 @@ export default {
 				display: flex;
 			}
 		}
-		.icon-facebook {
-			color: $facebook;
-		}
-		.icon-instagram {
-			color: $instagram;
-		}
-		.icon-youtube {
-			color: $youtube;
-		}
+	}
+	.submit {
+		width: 100%;
+		height: 50px;
+		margin-top: 50px;
+		padding: 10px 0;
+
+		color: #f2f2f2;
+		border: 1px solid #f2f2f2;
+		background: transparent;
+		cursor: pointer;
+		outline: none;
+
+		font-family: 'codec_bold';
+		letter-spacing: 2px;
+		font-size: 1em;
+		text-transform: uppercase;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
 	}
 	.form {
 		display: flex;

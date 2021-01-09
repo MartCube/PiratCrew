@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .image {
 	max-width: 500px;
 	width: 100%;
@@ -61,7 +61,7 @@ export default {
 
 		width: 100%;
 		height: 100%;
-		border: 1px solid white;
+		border: 2px solid #f2f2f2;
 	}
 }
 

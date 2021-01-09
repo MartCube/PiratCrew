@@ -105,7 +105,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 	.icon-cancel {
 		cursor: pointer;
 		font-size: 40px;
-		color: white;
+		color: #f2f2f2;
 
 		position: fixed;
 		top: 0;
@@ -121,7 +121,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 	.icon-left {
 		cursor: pointer;
 		font-size: 50px;
-		color: white;
+		color: #f2f2f2;
 
 		position: fixed;
 		top: 50;
@@ -137,7 +137,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 	.icon-right {
 		cursor: pointer;
 		font-size: 50px;
-		color: white;
+		color: #f2f2f2;
 
 		position: fixed;
 		top: 50;

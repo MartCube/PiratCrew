@@ -1,11 +1,18 @@
 <template>
 	<section id="intro" class="intro">
-		<video class="lazy" autoplay muted loop playsinline>
-			<source src="/videoplayback.mp4" type="video/mp4">
-		</video>
-		<!-- {{this.type}} -->
-		<!-- <TextBox :text="/> -->
-		<div class="logo" >
+		<!-- <video autoplay muted loop playsinline>
+			<source src="/videoplayback.mp4" type="video/mp4" />
+		</video> -->
+		 <client-only>
+			<vue-plyr ref="plyr">
+				<video autoplay muted crossorigin playsinline >
+					<source src="/videoplayback.mp4" type="video/mp4" />
+				</video>
+			</vue-plyr>
+
+		 </client-only>
+
+		<div class="logo">
 			<svg viewBox="0 0 512 512">
 				<path d="M80.31,207.5H57.12v35.16H30.4V128H79.89a45.34,45.34,0,0,1,16.65,3,39.34,39.34,0,0,1,13.11,8.31,37.81,37.81,0,0,1,8.55,12.6,40.72,40.72,0,0,1,3.08,16,41.47,41.47,0,0,1-3,16.06,36.8,36.8,0,0,1-8.48,12.52,38.45,38.45,0,0,1-13,8.13A45.45,45.45,0,0,1,80.31,207.5ZM57.12,184.57H78.79A14.74,14.74,0,0,0,85,183.26a16.12,16.12,0,0,0,8.38-8.81,17.3,17.3,0,0,0,1.23-6.57,17.48,17.48,0,0,0-1.23-6.54A17.07,17.07,0,0,0,90,156a16.06,16.06,0,0,0-5-3.67,14.32,14.32,0,0,0-6.16-1.35H57.12Z" />
 				<path d="M137.05,242.66V128h26.72V242.66Z" />
@@ -37,45 +44,57 @@ export default {
 	// 	}
 	// },
 	data: () => ({}),
-	mounted(){
+	 mounted() {
 		const letters = document.querySelectorAll('svg path')
 		introAnim(letters)
 		const video = document.querySelector('video');
 
-		function checkLoad() {
-			if (video.readyState === 4) {
-				document.querySelector('.intro video').classList.add("loaded")
-				// document.querySelector('.logo').classList.add("loaded")
-			} else {
-				setTimeout(checkLoad, 100)
-			}
-		}
-
-		checkLoad();
+		// const video = document.querySelector('video')
+		// function checkLoad() {
+		// 	if (video.readyState === 4) {
+			// 		document.querySelector('.intro .logo').classList.add('hide')
+		// 	} else {
+					setTimeout(() => {
+						document.querySelector('.intro .plyr--video').classList.add('loaded')
+						document.querySelector('.intro .logo').classList.add('hide')
+					}, 1000)
+		// 	}
+		// }
+		// checkLoad()
+		// await this.$nextTick() // wait DOM to render
+		// document.querySelector('.intro .plyr__video-wrapper').classList.add('loaded')
+		// this.$refs.plyr.player.toggleControls(false)
+		// console.log(this.$refs.plyr.player)
 	},
+	// created
 }
 </script>
 
-<style lang="scss" scoped>
-@import '~/assets/colors.scss';
+<style lang="scss" >
 $size: 40px;
 
 .intro {
 	width: 100%;
 	min-height: 100vh;
-	padding: 0;
+	background-color: #080808;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	align-content: center;
-	background-color: #000;
-	overflow: hidden;
-	video{
-		width: 100vw;
-		opacity: 0;
+
+	.plyr--video .plyr__controls, 
+	.plyr--full-ui.plyr--video .plyr__control--overlaid{display: none !important;}
+	
+	.plyr--video{
 		position: absolute;
+		opacity: 0;
+		top: 50%;
+		left: 50%;
+		width: 100vw;
+		height: 100vh;
+		transform: translate(-50%, -50%);
+		object-fit: cover;
 		z-index: 0;
 		top: 0;
 		left: 0;
@@ -84,13 +103,17 @@ $size: 40px;
 			opacity: 1;
 		}
 	}
-	.logo{
+	video {
+		width: 100vw;
+		height: 100vh;
+	}
+	.logo {
 		width: 30vw;
 		height: auto;
 		svg {
 			width: 100%;
 			fill: none;
-			stroke: white;
+			stroke: #f2f2f2;
 			stroke-width: 2px;
 			stroke-miterlimit: 10;
 			path {

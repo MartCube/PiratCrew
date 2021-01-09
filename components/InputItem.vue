@@ -58,17 +58,17 @@ export default {
 		font-family: inherit;
 		width: 100%;
 		border: 0;
-		border-bottom: 2px solid white;
+		border-bottom: 2px solid #f2f2f2;
 		outline: 0;
 		font-size: 1em;
-		color: white;
+		color: #f2f2f2;
 		padding: 7px 0;
 		background: transparent;
 		transition: border-color 0.2s;
 		&:-webkit-autofill,
 		&:-webkit-autofill:hover,
 		&:-webkit-autofill:focus {
-			-webkit-text-fill-color: #fff;
+			-webkit-text-fill-color: #f2f2f2;
 			box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
 			transition: background-color 5000s ease-in-out 0s;
 		}
@@ -93,7 +93,7 @@ export default {
 			padding-bottom: 6px;
 			font-weight: 700;
 			border-width: 3px;
-			border-color: white;
+			border-color: #f2f2f2;
 			border-image-slice: 1;
 		}
 	}
@@ -103,14 +103,14 @@ export default {
 		display: block;
 		transition: 0.2s;
 		font-size: 1em;
-		color: white;
+		color: #f2f2f2;
 	}
 	.error {
 		position: absolute;
 		top: 0;
 		right: 0;
 		font-size: 0.8em;
-		color: white;
+		color: #f2f2f2;
 		@include d-flex(row, center, center, initial);
 		.icon {
 			color: red;

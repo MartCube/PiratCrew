@@ -37,7 +37,7 @@ export default {
 		font-size: 5em;
 		text-transform: uppercase;
 		color: transparent;
-		-webkit-text-stroke: 1px white;
+		-webkit-text-stroke: 2px #f2f2f2;
 		opacity: 0;
 	}
 	.box {
@@ -47,22 +47,16 @@ export default {
 		position: absolute;
 		width: 0%;
 		height: 100%;
-		background: white;
+		background: #f2f2f2;
 	}
 }
 .white {
 	.text_box {
 		h2 {
-			-webkit-text-stroke: 3px black;
-			line-height: 1;
+			-webkit-text-stroke: 2px #080808;
 		}
-	}
-}
-.title{
-	.text_box {
-		h2 {
-			-webkit-text-stroke: 3px black;
-			line-height: 1;
+		.box {
+			background: #080808;
 		}
 	}
 }
@@ -70,7 +64,8 @@ export default {
 	.text_box {
 		margin: 3.2rem 0 3rem;
 		h2 {
-			font-size: 3em;
+			font-size: 3rem;
+			-webkit-text-stroke: 1px #f2f2f2;
 		}
 	}
 }

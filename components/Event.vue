@@ -38,7 +38,7 @@ export default {
 
 	width: 100%;
 	text-decoration: none;
-	color: #000;
+	color: #f2f2f2;
 	margin-bottom: 5%;
 	.text {
 		display: flex;
@@ -125,7 +125,7 @@ export default {
 					right: 0;
 					bottom: 0;
 					width: 2px;
-					background-color: #000;
+					background-color: #f2f2f2;
 				}
 			}
 		}
