@@ -82,8 +82,7 @@ $size: 40px;
 		}
 	}
 	video {
-		width: 100vw;
-		height: 100vh;
+		 object-fit: cover;
 	}
 	.logo {
 		width: 30vw;
