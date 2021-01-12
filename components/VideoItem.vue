@@ -1,5 +1,8 @@
 <template>
-	<video ref="videoPlayer" class="video-js"></video>
+	<div>
+		<Letters v-show="play" @click.native="playVideo" />
+		<video ref="videoPlayer" playsinline webkit-playsinline class="video-js"></video>
+	</div>
 </template>
 
 <script>
@@ -8,6 +11,7 @@ import 'video.js/dist/video-js.css'
 
 export default {
 	data: () => ({
+		play: false,
 		player: null,
 		options: {
 			autoplay: 'muted',
@@ -21,15 +25,34 @@ export default {
 			],
 		},
 	}),
+	watch: {
+		play(newValue, oldValue) {
+			if (this.play)
+				this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+					console.log('onPlayerReady', this)
+				})
+			else {
+				this.player.dispose()
+			}
+		},
+	},
 	mounted() {
-		this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-			console.log('onPlayerReady', this)
-		})
+		this.playVideo()
 	},
 	beforeDestroy() {
 		if (this.player) {
 			this.player.dispose()
 		}
+	},
+	methods: {
+		playVideo() {
+			// this.play = true
+			// await this.$nextTick() // wait DOM to render
+
+			this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+				console.log('onPlayerReady', this)
+			})
+		},
 	},
 }
 </script>
