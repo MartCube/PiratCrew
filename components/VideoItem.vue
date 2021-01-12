@@ -17,7 +17,7 @@ export default {
 			loop: true,
 			sources: [
 				{
-					src: 'small.mp4',
+					src: 'https://vod-progressive.akamaized.net/exp=1610488683~acl=%2A%2F1290874808.mp4%2A~hmac=a92395b2df8ca4da1845365018e72841504a02b52eff0733822895f6c3342d75/vimeo-prod-skyfire-std-us/01/821/13/329108842/1290874808.mp4?filename=Lugano+Region+Highlights+-+Short.mp4',
 					type: 'video/mp4',
 				},
 			],
