@@ -15,7 +15,7 @@ export default {
 			loop: true,
 			sources: [
 				{
-					src: 'video.mp4',
+					src: 'small.mp4',
 					type: 'video/mp4',
 				},
 			],
