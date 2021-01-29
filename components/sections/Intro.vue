@@ -1,8 +1,6 @@
 <template>
 	<section id="intro">
-		<client-only>
-			<video-background src="small.mp4" class="video" />
-		</client-only>
+		<video-background src="/small.mp4" />
 	</section>
 </template>
 
@@ -21,7 +19,7 @@ section {
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	.video {
+	.vue-responsive-videobg {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -29,9 +27,6 @@ section {
 		height: 100%;
 		transform: translate(-50%, -50%);
 		object-fit: cover;
-		.plyr__controls {
-			display: none;
-		}
 	}
 }
 </style>
