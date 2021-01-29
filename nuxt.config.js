@@ -13,7 +13,16 @@ export default {
 	css: ['~/assets/main.scss'],
 
 	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-	plugins: [{ src: '@/plugins/vue-observe' }, { src: '@/plugins/vee-validate.js' }, { src: '~/plugins/vue-plyr', mode: 'client' }, { src: `~/plugins/lazysizes.client.js` }],
+	plugins: [
+		{
+			src: '~/plugins/responsive-video',
+			ssr: false,
+		},
+		{ src: '@/plugins/vue-observe' },
+		{ src: '@/plugins/vee-validate.js' },
+		{ src: '~/plugins/vue-plyr', mode: 'client' },
+		{ src: `~/plugins/lazysizes.client.js` },
+	],
 
 	// Auto import components (https://go.nuxtjs.dev/config-components)
 	components: true,

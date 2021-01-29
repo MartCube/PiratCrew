@@ -1,6 +1,8 @@
 <template>
 	<section id="intro">
-		<VideoItem />
+		<client-only>
+			<video-background src="small.mp4" class="video" />
+		</client-only>
 	</section>
 </template>
 
@@ -18,5 +20,18 @@ section {
 	height: calc(100vh - 80px);
 	justify-content: center;
 	align-items: center;
+	position: relative;
+	.video {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		height: 100%;
+		transform: translate(-50%, -50%);
+		object-fit: cover;
+		.plyr__controls {
+			display: none;
+		}
+	}
 }
 </style>

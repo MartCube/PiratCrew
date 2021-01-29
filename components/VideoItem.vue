@@ -1,36 +1,16 @@
 <template>
-	<div>
-		<video ref="videoPlayer" playsinline webkit-playsinline class="video-js"></video>
-	</div>
+	<client-only>
+		<vimeo-player ref="player" :video-id="videoID" :autoplay="true" :controls="false" />
+	</client-only>
 </template>
 
 <script>
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
-
 export default {
-	data: () => ({
-		player: null,
-		options: {
-			autoplay: 'muted',
-			controls: false,
-			loop: true,
-			sources: [
-				{
-					src: '//vjs.zencdn.net/v/oceans.mp4',
-					type: 'video/mp4',
-				},
-			],
+	props: {
+		videoID: {
+			type: String,
+			default: '500106369',
 		},
-	}),
-	mounted() {
-		this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-			console.log('onPlayerReady', this)
-			this.player.play()
-		})
-	},
-	beforeDestroy() {
-		this.player.dispose()
 	},
 }
 </script>
