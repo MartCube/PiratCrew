@@ -17,7 +17,7 @@ export function textAnim(text, box) {
 		.add(
 			{
 				targets: box,
-				translateX: ['0%', '101%'],
+				translateX: ['0%', '-98%'],
 				easing: 'easeOutCubic',
 				duration: 750,
 			},
@@ -27,7 +27,7 @@ export function textAnim(text, box) {
 			{
 				targets: text,
 				opacity: [0, 1],
-				translateX: ['-100%', '0%'],
+				translateX: ['100%', '0%'],
 				easing: 'easeOutCubic',
 				duration: 750,
 			},

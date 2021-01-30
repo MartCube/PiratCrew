@@ -42,6 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .text_box {
+	height: 60px;
 	align-self: flex-start;
 	position: relative;
 	overflow: hidden;
@@ -50,16 +51,18 @@ export default {
 	h2 {
 		font-weight: 500;
 		font-size: 5rem;
-		line-height: 1;
+		line-height: 70px;
 		text-transform: uppercase;
 		color: transparent;
 		-webkit-text-stroke: 2px white;
+
+		margin-left: 2rem;
 		opacity: 0;
 	}
 	.box {
 		position: absolute;
 		top: 0;
-		left: 0;
+		right: 0;
 		position: absolute;
 		width: 0%;
 		height: 100%;

@@ -33,10 +33,10 @@ export default {
 			else window.removeEventListener('keydown', this.onKeydown)
 		},
 		Next() {
-			this.currentImage++
+			if (this.currentImage !== this.data.length - 1) this.currentImage++
 		},
 		Prev() {
-			this.currentImage--
+			if (this.currentImage !== 0) this.currentImage--
 		},
 		onKeydown(e) {
 			if (this.visible) {

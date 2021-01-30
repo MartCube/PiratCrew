@@ -29,9 +29,26 @@ export default {
 .about {
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-start;
 
+	.piratcrew {
+		width: 100%;
+		position: relative;
+
+		img {
+			width: inherit;
+		}
+		.letters {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 2;
+		}
+	}
 	.text {
 		display: flex;
 		justify-content: space-between;
