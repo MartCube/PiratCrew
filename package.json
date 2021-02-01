@@ -20,12 +20,9 @@
 		"nuxt": "^2.14.5",
 		"nuxt-i18n": "^6.15.4",
 		"vee-validate": "^3.4.0",
-		"videojs-youtube": "^2.6.1",
 		"vue-observe-visibility": "^0.4.6",
-		"vue-plyr": "^7.0.0",
 		"vue-responsive-video-background-player": "^1.2.2",
-		"vue-scrollto": "^2.18.2",
-		"vue-vimeo-player": "^1.0.3"
+		"vue-scrollto": "^2.18.2"
 	},
 	"devDependencies": {
 		"@nuxtjs/eslint-config": "^3.1.0",
@@ -38,7 +35,6 @@
 		"node-sass": "^5.0.0",
 		"prettier": "^2.1.1",
 		"sass": "^1.28.0",
-		"sass-loader": "^10.0.5",
-		"video.js": "^7.10.2"
+		"sass-loader": "^10.0.5"
 	}
 }
