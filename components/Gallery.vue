@@ -1,14 +1,23 @@
 <template>
 	<div class="gallery">
-		<ImageItem v-for="(item, i) in data" :key="'gallery-image' + i" :image-src="item.gallery_image.url" :image-alt="item.gallery_image.alt" @click.native="Toggle(i)" />
-		<!-- <img v-for="(item, i) in data" :key="'gallery-image' + i" :src="item.gallery_image.url" :alt="item.gallery_image.alt" /> -->
+		<div v-for="(item, i) in data" :key="'gallery-image' + i" class="image">
+			<ImageItem :src="item.gallery_image.url" :alt="item.gallery_image.alt" @click.native="Toggle(i)" />
+		</div>
 
 		<div v-if="visible" class="lightbox">
-			<i class="icon-cancel" @click="Toggle()" />
-			<i class="icon-left" :class="{ disable: currentImage == 0 }" @click="Prev()" />
-			<i class="icon-right" :class="{ disable: currentImage == data.length - 1 }" @click="Next()" />
+			<svg class="cancel" viewBox="0 0 24 24" @click="Toggle()">
+				<path d="M22,4,20,2l-8,8L4,2,2,4l8,8L2,20l2,2,8-8,8,8,2-2-8-8Z" />
+			</svg>
+
+			<svg viewBox="0 0 24 24" class="left" :class="{ disable: currentImage == 0 }" @click="Prev()">
+				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
+			</svg>
+
 			<img class="lazyload" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
-			<!-- <ImageItem :image-src="data[currentImage].gallery_image.url" :image-alt="data[currentImage].gallery_image.alt" /> -->
+
+			<svg viewBox="0 0 24 24" class="right" :class="{ disable: currentImage == data.length - 1 }" @click="Next()">
+				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
+			</svg>
 		</div>
 	</div>
 </template>
@@ -79,6 +88,9 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 	}
 	.image {
 		transition: all 0.2s linear;
+		width: 100%;
+		display: flex;
+		position: relative;
 		&:hover {
 			cursor: pointer;
 			// transform: scale(1.1);
@@ -88,7 +100,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 
 .lightbox {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 
 	z-index: 999;
@@ -103,6 +115,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		user-select: none;
 		max-width: 90%;
 		max-height: 90%;
+
 		&.lazyload,
 		&.lazyloading {
 			opacity: 0;
@@ -113,64 +126,33 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		}
 	}
 
-	i {
-		opacity: 0.75;
-		&.disable {
-			display: none;
-		}
-	}
-
-	.icon-cancel {
-		cursor: pointer;
-		font-size: 40px;
-		color: white;
-
-		position: fixed;
-		top: 0;
-		right: 0;
+	svg {
+		width: 40px;
+		height: 40px;
 		margin: 10px;
-
+		fill: white;
+		&.disable {
+			fill: none;
+		}
+		cursor: pointer;
+		opacity: 0.6;
 		transition: $transition;
 		&:hover {
-			transform: scale(1.1);
 			opacity: 0.9;
 		}
-	}
-	.icon-left {
-		cursor: pointer;
-		font-size: 50px;
-		color: white;
 
-		position: fixed;
-		top: 50;
-		left: 0;
-		padding: 10px;
-
-		transition: $transition;
-		&:hover {
-			transform: scale(1.1);
-			opacity: 0.9;
+		&.cancel {
+			position: fixed;
+			top: 0;
+			right: 0;
 		}
-	}
-	.icon-right {
-		cursor: pointer;
-		font-size: 50px;
-		color: white;
-
-		position: fixed;
-		top: 50;
-		right: 0;
-		padding: 10px;
-
-		transition: $transition;
-		&:hover {
-			transform: scale(1.1);
-			opacity: 0.9;
+		&.left {
+			transform: rotate(180deg);
 		}
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 	.gallery {
 		margin: 30px 0;
 		max-width: 355px;
@@ -187,6 +169,16 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		}
 		div[data-v-74ca56c7]:nth-child(3n) {
 			grid-row-end: initial;
+		}
+	}
+
+	.lightbox {
+		svg {
+			width: 30px;
+			height: 30px;
+		}
+		img {
+			width: 100%;
 		}
 	}
 }

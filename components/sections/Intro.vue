@@ -1,7 +1,5 @@
 <template>
-	<section id="intro">
-		<video-background src="/small.mp4" />
-	</section>
+	<video-background id="intro" src="/small.mp4" />
 </template>
 
 <script>
@@ -12,7 +10,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section {
+#intro {
 	padding: 0;
 	width: calc(100vw - 80px);
 	height: calc(100vh - 80px);

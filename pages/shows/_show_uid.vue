@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<Intro />
-
 		<div class="container">
 			<template v-if="$fetchState.error" class="error">
 				<Error />
@@ -10,6 +8,8 @@
 				<p>loading..</p>
 			</template>
 			<template v-if="!$fetchState.error && !$fetchState.pending">
+				<Intro />
+
 				<section id="show">
 					<div class="title">
 						<h2>{{ event.title }}</h2>
@@ -32,7 +32,7 @@
 export default {
 	middleware: 'navigation',
 	async fetch() {
-		const event = await this.$prismic.api.getByUID('project', this.$route.params.show_uid)
+		const event = await this.$prismic.api.getByUID('show', this.$route.params.show_uid)
 		this.event = {
 			main_image: event.data.main_image.url,
 			title: this.$prismic.asText(event.data.title),
@@ -59,6 +59,8 @@ export default {
 		max-width: 800px;
 		margin: 3rem 0;
 		padding-left: 1rem;
+
+		text-transform: uppercase;
 		font-size: 2rem;
 		position: relative;
 

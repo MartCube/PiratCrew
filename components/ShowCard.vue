@@ -1,8 +1,11 @@
 <template>
-	<n-link :to="link" class="event" :class="{ reverse: reverse }">
-		<ImageItem :image-src="event.data.main_image.url" image-alt="main_image" box />
+	<n-link :to="link" class="show_card" :class="{ reverse: reverse }">
+		<div class="image">
+			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500px'" :height="'350px'" />
+			<div class="box"></div>
+		</div>
 		<div class="text">
-			<h2>{{ $prismic.asText(event.data.title) }}</h2>
+			<h2>{{ title }}</h2>
 		</div>
 	</n-link>
 </template>
@@ -22,6 +25,11 @@ export default {
 	data: () => ({
 		link: '',
 	}),
+	computed: {
+		title() {
+			return this.$prismic.asText(this.event.data.title)
+		},
+	},
 	created() {
 		this.link = this.$prismic.linkResolver(this.event)
 	},
@@ -29,9 +37,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.event {
+.show_card {
 	display: flex;
 	justify-content: flex-start;
+	justify-content: space-around;
 	align-items: center;
 
 	width: 100%;
@@ -45,15 +54,34 @@ export default {
 		align-items: flex-end;
 		align-content: flex-end;
 
-		width: fit-content;
+		width: 500px;
 		align-self: stretch;
-		margin: 0 10%;
 
 		text-align: right;
 		h2 {
 			font-size: 2.75em;
 			margin-bottom: 1.5rem;
 			text-transform: uppercase;
+		}
+	}
+
+	.image {
+		max-width: 500px;
+		height: 350px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		position: relative;
+
+		.box {
+			z-index: 1;
+			position: absolute;
+			bottom: -20px;
+			right: -20px;
+
+			width: 100%;
+			height: 100%;
+			border: 2px solid white;
 		}
 	}
 
@@ -68,8 +96,8 @@ export default {
 	}
 }
 
-@media (max-width: 600px) {
-	.event {
+@media (max-width: 800px) {
+	.show_card {
 		align-self: flex-end;
 		flex-direction: column;
 		margin: 0rem 0 3rem;
@@ -85,8 +113,9 @@ export default {
 				}
 			}
 		}
+
 		.text {
-			margin: 1.5rem 10%;
+			margin-top: 3rem;
 			width: auto;
 			p {
 				line-height: 1.2;

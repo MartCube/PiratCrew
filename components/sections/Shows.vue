@@ -2,7 +2,7 @@
 	<section id="shows">
 		<TextBox :text="$t('pages.shows')" />
 		<div v-if="!$fetchState.pending" class="shows">
-			<Event v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
+			<ShowCard v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>
 	</section>
 </template>
@@ -10,7 +10,7 @@
 <script>
 export default {
 	async fetch() {
-		const events = await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'project'))
+		const events = await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'show'))
 		this.events = events.results
 	},
 	data: () => ({

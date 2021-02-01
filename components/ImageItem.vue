@@ -1,21 +1,26 @@
 <template>
-	<div class="image">
-		<picture>
-			<source :data-srcset="imageSrc" media="(max-width: 500px)" />
-			<img :data-src="imageSrc" class="lazyload" :alt="imageAlt" />
-		</picture>
-		<div v-if="box" class="box"></div>
-	</div>
+	<picture>
+		<source :data-srcset="src + imgIXMobile" media="(max-width: 800px)" />
+		<img :data-src="src + imgIX" class="lazyload" :style="{ width: width, height: height }" :alt="alt" />
+	</picture>
 </template>
 
 <script>
 export default {
 	props: {
-		imageSrc: {
+		width: {
+			type: String,
+			default: '100%',
+		},
+		height: {
+			type: String,
+			default: '100%',
+		},
+		src: {
 			type: String,
 			required: true,
 		},
-		imageAlt: {
+		alt: {
 			type: String,
 			required: true,
 		},
@@ -24,70 +29,34 @@ export default {
 			default: false,
 		},
 	},
-	data: () => ({
-		imgIX_mobile: '&fit=crop&w=500&dpr=1',
-		imgIX: '&fit=crop&w=500&dpr=2',
-		thumbnail_imgIX: '',
-	}),
+	computed: {
+		imgIX() {
+			return `&fit=crop&w=${this.width}&h=${this.height}&dpr=1`
+		},
+		imgIXMobile() {
+			return `&fit=crop&w=${this.width}&h=${this.height}&dpr=2`
+		},
+	},
 	methods: {},
 }
 </script>
 
 <style lang="scss" scoped>
-.image {
-	max-width: 500px;
+img {
 	width: 100%;
 	height: 100%;
+	z-index: 3;
 	position: relative;
-	display: flex;
-	img {
-		width: 100%;
-		height: 100%;
-		z-index: 3;
-		position: relative;
-		object-fit: cover;
-		object-position: center;
+	object-fit: cover;
+	object-position: center;
 
-		&.lazyload,
-		&.lazyloading {
-			opacity: 0;
-		}
-		&.lazyloaded {
-			opacity: 1;
-			transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
-		}
+	&.lazyload,
+	&.lazyloading {
+		opacity: 0;
 	}
-	.box {
-		z-index: 1;
-		position: absolute;
-		bottom: -20px;
-		right: -20px;
-
-		width: 100%;
-		height: 100%;
-		border: 2px solid white;
-	}
-}
-
-@media (max-width: 800px) {
-	.image {
-		width: 90%;
-		margin: 0 0 4rem 0rem;
-		.box {
-			bottom: -11px;
-			right: 11px;
-		}
-	}
-	.event {
-		&.reverse {
-			.image {
-				.box {
-					bottom: -11px;
-					left: 11px;
-					right: initial;
-				}
-			}
-		}
+	&.lazyloaded {
+		opacity: 1;
+		transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
 	}
 }
 </style>
