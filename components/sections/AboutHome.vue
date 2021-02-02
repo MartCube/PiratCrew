@@ -94,7 +94,7 @@ export default {
 	justify-content: space-between;
 	align-items: flex-start;
 	position: relative;
-	margin-bottom: 9rem;
+	margin-bottom: 4rem;
 	.piratcrew {
 		width: 100%;
 		position: relative;
@@ -161,9 +161,6 @@ export default {
 	.about .text .wrap{
 		bottom: -10vw;
 	}
-	.about{
-		margin-bottom: 20rem;
-	}
 }
 @media (max-width: 800px) {
 	.box{
@@ -172,16 +169,17 @@ export default {
 			display: none;
 		}
 	}
-	.about .text .wrap{
-		position: relative;
-		bottom: 0;
-	}
-	.about .text {
-		flex-direction: column;
-		.wrap {
-			width: 100%;
-			p {
-				font-size: 1rem;
+	.about{
+		margin-bottom: 0;
+		.text {
+			flex-direction: column;
+			.wrap {
+				position: relative;
+				bottom: 0;
+				width: 100%;
+				p {
+					font-size: 1rem;
+				}
 			}
 		}
 	}
