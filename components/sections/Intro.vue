@@ -1,12 +1,28 @@
 <template>
-	<client-only>
-		<video-background id="intro" src="/videos/720.mp4" :sources="[{ src: '/videos/480.mp4', res: 800, autoplay: true }]" />
-	</client-only>
+	<div id="intro">
+		<Letters :text="video" />
+		<!-- eslint-disable-next-line vue/attribute-hyphenation -->
+		<client-only> <video-background ref="video" :src="video720" playsWhen="canplaythrough" /> </client-only>
+	</div>
 </template>
 
 <script>
 export default {
-	data: () => ({}),
+	props: {
+		video: {
+			type: String,
+			required: true,
+		},
+	},
+	data: () => ({
+		loading: true,
+	}),
+	computed: {
+		video720() {
+			return `/videos/${this.video}720.mp4`
+		},
+	},
+
 	methods: {},
 }
 </script>
@@ -16,8 +32,11 @@ export default {
 	padding: 0;
 	width: calc(100vw - 80px);
 	height: calc(100vh - 80px);
+
+	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	position: relative;
 	.vue-responsive-videobg {
 		position: absolute;
@@ -25,6 +44,7 @@ export default {
 		left: 50%;
 		width: 100%;
 		height: 100%;
+		padding: 0;
 		transform: translate(-50%, -50%);
 		object-fit: cover;
 	}

@@ -36,14 +36,21 @@ export function textAnim(text, box) {
 }
 
 export function introAnim(letters) {
-	anime({
-		targets: letters,
-		strokeDashoffset: [anime.setDashoffset, 0],
-		opacity: [0, 1],
-		easing: 'easeInOutCubic',
-		delay: anime.stagger(200, { from: 'center' }),
-		duration: 1000,
+	const StartUpTimeline = anime.timeline({
+		autoplay: true,
 	})
+
+	StartUpTimeline.add(
+		{
+			targets: letters,
+			strokeDashoffset: [anime.setDashoffset, 0],
+			opacity: [0, 1],
+			easing: 'easeInOutCubic',
+			delay: anime.stagger(200, { from: 'center' }),
+			duration: 1000,
+		},
+		0,
+	)
 }
 
 export function navbarMenu(links) {

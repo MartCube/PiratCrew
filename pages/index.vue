@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<Intro />
-
+			<Intro video="piratcrew" />
 			<About />
 			<Shows />
 			<Contact />

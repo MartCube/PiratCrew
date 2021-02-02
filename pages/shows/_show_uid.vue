@@ -8,7 +8,7 @@
 				<p>loading..</p>
 			</template>
 			<template v-if="!$fetchState.error && !$fetchState.pending">
-				<Intro />
+				<Intro :video="event.video" />
 
 				<section id="show">
 					<div class="title">
@@ -36,6 +36,7 @@ export default {
 		this.event = {
 			main_image: event.data.main_image.url,
 			title: this.$prismic.asText(event.data.title),
+			video: this.$prismic.asText(event.data.video),
 			text_slices: event.data.body,
 			gallery: event.data.gallery,
 		}

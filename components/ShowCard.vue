@@ -46,7 +46,7 @@ export default {
 	width: 100%;
 	text-decoration: none;
 	color: white;
-	margin-bottom: 5%;
+	margin-bottom: 4rem;
 	.text {
 		display: flex;
 		flex-direction: column;
@@ -100,7 +100,7 @@ export default {
 	.show_card {
 		align-self: flex-end;
 		flex-direction: column;
-		margin: 0rem 0 3rem;
+
 		&.reverse {
 			flex-direction: column;
 			.text {
