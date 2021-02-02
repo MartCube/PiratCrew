@@ -2,7 +2,7 @@
 	<div>
 		<div class="container">
 			<Intro video="piratcrew" />
-			<About />
+			<AboutHome />
 			<Shows />
 			<Contact />
 		</div>
