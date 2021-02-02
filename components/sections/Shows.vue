@@ -27,10 +27,4 @@ export default {
 	justify-content: center;
 	align-items: flex-start;
 }
-
-@media (max-width: 600px) {
-	.shows {
-		margin-top: 2rem;
-	}
-}
 </style>

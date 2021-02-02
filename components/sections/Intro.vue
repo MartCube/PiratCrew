@@ -1,5 +1,7 @@
 <template>
-	<video-background id="intro" src="/small.mp4" />
+	<client-only>
+		<video-background id="intro" src="/videos/720.mp4" :sources="[{ src: '/videos/480.mp4', res: 800, autoplay: true }]" />
+	</client-only>
 </template>
 
 <script>

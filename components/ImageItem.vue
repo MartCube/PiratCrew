@@ -1,7 +1,7 @@
 <template>
 	<picture>
 		<source :data-srcset="src + imgIXMobile" media="(max-width: 800px)" />
-		<img :data-src="src + imgIX" class="lazyload" :style="{ width: width, height: height }" :alt="alt" />
+		<img :data-src="src + imgIX" class="lazyload" :style="{ maxWidth: width + 'px', height: height + 'px' }" :alt="alt" />
 	</picture>
 </template>
 

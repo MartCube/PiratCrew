@@ -62,12 +62,15 @@ export default {
 				quiet: true,
 			},
 		},
+
 		transpile: ['vee-validate/dist/rules'],
 		extend(config, { isClient, loaders: { vue } }) {
 			if (isClient) {
 				vue.transformAssetUrls.img = ['data-src', 'src']
 				vue.transformAssetUrls.source = ['data-srcset', 'srcset']
 			}
+
+			config.resolve.symlinks = false
 		},
 	},
 

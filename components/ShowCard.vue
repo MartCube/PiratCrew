@@ -1,7 +1,7 @@
 <template>
 	<n-link :to="link" class="show_card" :class="{ reverse: reverse }">
 		<div class="image">
-			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500px'" :height="'350px'" />
+			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500'" :height="'350'" />
 			<div class="box"></div>
 		</div>
 		<div class="text">
@@ -67,8 +67,8 @@ export default {
 
 	.image {
 		max-width: 500px;
-		height: 350px;
 		width: 100%;
+		height: 350px;
 		display: flex;
 		justify-content: center;
 		position: relative;
@@ -127,6 +127,7 @@ export default {
 			h2 {
 				position: relative;
 				font-size: 2rem;
+				line-height: 2rem;
 				padding-right: 1rem;
 				&::before {
 					content: '';
