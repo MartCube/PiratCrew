@@ -55,13 +55,16 @@
 			</svg>
 		</template>
 		<div class="scroll">
-			<span>scroll</span>
+			<div class="text">
+				<span>scroll</span>
+			</div>
+			<div class="line"></div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { introAnim } from '~/assets/anime'
+import { lettersAnim } from '~/assets/anime'
 
 export default {
 	props: {
@@ -77,7 +80,9 @@ export default {
 	methods: {
 		Animate() {
 			const letters = document.querySelectorAll('svg path')
-			introAnim(letters)
+			const lineScroll = document.querySelector('.logo .scroll .line')
+			const textScroll = document.querySelector('.logo .scroll .text span')
+			lettersAnim(letters, lineScroll, textScroll)
 		},
 	},
 }
@@ -95,25 +100,37 @@ export default {
 	align-items: center;
 	position: relative;
 	.scroll {
-		text-transform: uppercase;
-		writing-mode: vertical-rl;
-		text-orientation: mixed;
-		font-size: 14px;
-
 		position: absolute;
 		left: 50%;
 		bottom: 0;
-		padding-left: 10px;
 		transform: translateY(-100%);
 
-		&::after {
-			content: '';
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.text {
+			text-transform: uppercase;
+			writing-mode: vertical-rl;
+			text-orientation: mixed;
+			font-size: 14px;
+			overflow: hidden;
+			span {
+				// animate opacity: 1;
+				opacity: 0;
+				display: block;
+			}
+		}
+		.line {
 			position: absolute;
 			width: 2px;
 			background: white;
-			height: 200%;
+			// animate height: 200%;
+			height: 0%;
+
 			top: 0;
-			left: 0;
+			left: -5px;
 		}
 	}
 

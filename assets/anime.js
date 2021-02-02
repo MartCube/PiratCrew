@@ -35,22 +35,39 @@ export function textAnim(text, box) {
 		)
 }
 
-export function introAnim(letters) {
+export function lettersAnim(letters, lineScroll, textScroll) {
 	const StartUpTimeline = anime.timeline({
 		autoplay: true,
 	})
 
-	StartUpTimeline.add(
-		{
-			targets: letters,
-			strokeDashoffset: [anime.setDashoffset, 0],
-			opacity: [0, 1],
-			easing: 'easeInOutCubic',
-			delay: anime.stagger(200, { from: 'center' }),
-			duration: 1000,
-		},
-		0,
-	)
+	StartUpTimeline.add({
+		targets: letters,
+		strokeDashoffset: [anime.setDashoffset, 0],
+		opacity: [0, 1],
+		easing: 'easeInOutCubic',
+		delay: anime.stagger(200, { from: 'center' }),
+		duration: 1000,
+		offset: 0,
+	})
+		.add(
+			{
+				targets: lineScroll,
+				height: ['0%', '200%'],
+				easing: 'easeOutCubic',
+				duration: 1000,
+			},
+			750,
+		)
+		.add(
+			{
+				targets: textScroll,
+				opacity: [0, 1],
+				translateY: ['-50%', '0%'],
+				easing: 'easeOutCubic',
+				duration: 1000,
+			},
+			1500,
+		)
 }
 
 export function navbarMenu(links) {
