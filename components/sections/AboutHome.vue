@@ -6,6 +6,7 @@
 				<div class="wrap">
 					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
 					<a class="more" href="#">
+<<<<<<< HEAD
 						<span>More</span>
 						<hr />
 					</a>
@@ -13,6 +14,14 @@
 				<div class="box" @mouseover="cursorMove()">
 					<div class="box-wrapper">
 						<!-- <img src="../../static/lettersTransparent.png"  alt=""> -->
+=======
+						<span>More</span>  
+						<hr>
+					</a>
+				</div>
+				<div class="box" v-on:mouseover="cursorMove()">
+					<div class="box-wrapper" >
+>>>>>>> 1f52126c1652c0b7e562881c0a4a3c93582beeb4
 						<div class="image"></div>
 					</div>
 					<div class="border"></div>
@@ -128,7 +137,6 @@ export default {
 			bottom: -17%;
 			left: 0%;
 			p {
-				// margin: 1.8rem 0;
 				font-size: 1.2rem;
 				line-height: 1.8rem;
 			}
@@ -177,9 +185,11 @@ export default {
 		.text {
 			flex-direction: column;
 			.wrap {
+				padding: 0;
 				position: relative;
 				bottom: 0;
 				width: 100%;
+				margin-bottom: 2rem;
 				p {
 					font-size: 1rem;
 				}
