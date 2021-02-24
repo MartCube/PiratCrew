@@ -2,7 +2,7 @@
 	<div id="intro">
 		<Letters :text="video" />
 		<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-		<client-only> <video-background ref="video" :src="video720" playsWhen="canplaythrough" /> </client-only>
+		<client-only> <video-background ref="video" :src="videoPath" playsWhen="canplaythrough" /> </client-only>
 	</div>
 </template>
 
@@ -18,8 +18,8 @@ export default {
 		loading: true,
 	}),
 	computed: {
-		video720() {
-			return `/videos/${this.video}720.mp4`
+		videoPath() {
+			return `/videos/${this.video}.mp4`
 		},
 	},
 

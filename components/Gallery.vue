@@ -13,7 +13,8 @@
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
 			</svg>
 
-			<img class="lazyload" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
+			<!-- <img class="lazyload" :data-src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" /> -->
+			<ImageItem width="90%" height="90%" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
 
 			<svg viewBox="0 0 24 24" class="right" :class="{ disable: currentImage == data.length - 1 }" @click="Next()">
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
@@ -111,21 +112,6 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 	left: 0;
 	background: rgba(0, 0, 0, 0.85);
 
-	img {
-		user-select: none;
-		max-width: 90%;
-		max-height: 90%;
-
-		&.lazyload,
-		&.lazyloading {
-			opacity: 0;
-		}
-		&.lazyloaded {
-			opacity: 1;
-			transition: $transition;
-		}
-	}
-
 	svg {
 		width: 40px;
 		height: 40px;
@@ -176,9 +162,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		svg {
 			width: 30px;
 			height: 30px;
-		}
-		img {
-			width: 100%;
+			z-index: 100;
 		}
 	}
 }

@@ -73,6 +73,10 @@ export default {
 		justify-content: center;
 		position: relative;
 
+		picture {
+			transition: all 0.35s ease;
+			z-index: 2;
+		}
 		.box {
 			z-index: 1;
 			position: absolute;
@@ -82,6 +86,12 @@ export default {
 			width: 100%;
 			height: 100%;
 			border: 2px solid white;
+		}
+	}
+
+	&:hover {
+		picture {
+			transform: translate(20px, 20px);
 		}
 	}
 

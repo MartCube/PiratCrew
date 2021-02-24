@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<div class="container">
-			<template v-if="$fetchState.error" class="error">
+			<template v-if="$fetchState.error">
 				<Error />
 			</template>
-			<template v-if="$fetchState.pending" class="loading">
-				<p>loading..</p>
+			<template v-if="$fetchState.pending">
+				<!-- loading animation -->
 			</template>
-			<template v-if="!$fetchState.error && !$fetchState.pending">
+			<template v-else>
 				<Intro :video="event.video" />
 
 				<section id="show">
