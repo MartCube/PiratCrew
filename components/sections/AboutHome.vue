@@ -12,7 +12,6 @@
 				</div>
 				<div class="box" @mouseover="cursorMove()">
 					<div class="box-wrapper">
-						<!-- <img src="../../static/lettersTransparent.png"  alt=""> -->
 						<div class="image"></div>
 					</div>
 					<div class="border"></div>
@@ -55,12 +54,15 @@ export default {
 	position: relative;
 	height: 30rem;
 	margin-right: 4%;
+	transform: all 0.35 ease;
 	.border {
+		transform: all 0.35 ease;
+
 		height: 100%;
 		width: 100%;
 		position: absolute;
-		top: -10px;
-		right: -40px;
+		top: -20px;
+		right: -20px;
 		border: 3px solid white;
 		z-index: 0;
 	}
@@ -71,6 +73,7 @@ export default {
 	position: relative;
 	width: inherit;
 	height: inherit;
+
 	img {
 		width: 100%;
 		height: 100%;
@@ -98,22 +101,7 @@ export default {
 	align-items: flex-start;
 	position: relative;
 	margin-bottom: 4rem;
-	.piratcrew {
-		width: 100%;
-		position: relative;
 
-		img {
-			width: inherit;
-		}
-		.letters {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			z-index: 2;
-		}
-	}
 	.text {
 		display: flex;
 		justify-content: flex-end;

@@ -1,27 +1,35 @@
 <template>
-	<section id="casting">
-		<TextBox :text="$t('pages.casting')" />
+	<section id="contact">
+		<TextBox :text="$t('pages.contact')" />
 
 		<transition name="page" appear mode="out-in">
-			<ValidationObserver v-if="!complete" ref="form_casting" tag="form" @submit.prevent="Submit()">
+			<ValidationObserver v-if="!complete" ref="form_contact" tag="form" @submit.prevent="Submit()">
 				<div class="wrap">
-					<div class="info">
-						<h2>piratcrew casting</h2>
-						<p>Are you an artist trying to prove your skills ?</p>
-						<p>Please fill the following so we can continue to next step.</p>
+					<div class="info media">
+						<h2>follow</h2>
+						<p><a href="#">facebook</a><a href="#">youtube</a><a href="#">instagram</a></p>
 					</div>
-					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'name'" :rules="'required'" @getValue="getName" />
-					<InputItem :name="'location'" :rules="'required'" @getValue="getLocation" />
+					<div class="info phone">
+						<h2>phone</h2>
+						<p>Viber <a href="tel:+380492322105">+380 492 322 105</a></p>
+						<p>WhatsApp <a href="tel:+380492322105">+380 492 322 105</a></p>
+					</div>
+					<div class="info mail">
+						<h2>email</h2>
+						<p><a href="tel:+380492322105">piratcrew@gmail.com</a></p>
+					</div>
 				</div>
 				<div class="wrap">
-					<InputItem :name="'education'" :rules="'required'" @getValue="getEducation" />
-					<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
-					<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
+					<div class="info title">
+						<h2>write us</h2>
+					</div>
+					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem :name="'number'" :rules="'required'" @getValue="getSubject" />
+					<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit<i class="icon icon-mail" /></span>
-						<spinner v-else />
+						<Spinner v-else />
 					</button>
 				</div>
 			</ValidationObserver>
@@ -30,7 +38,7 @@
 					<h2>successfully submitted</h2>
 					<p>Thank you for filling out your information.</p>
 				</div>
-				<Btn @click.native="complete = false">okey</Btn>
+				<ButtonItem @click.native="complete = false">okey</ButtonItem>
 			</div>
 		</transition>
 	</section>
@@ -40,27 +48,24 @@
 import { ValidationObserver } from 'vee-validate'
 
 export default {
-	middleware: 'navigation',
 	components: {
 		ValidationObserver,
 	},
 	data: () => ({
 		form: {
 			email: String,
-			name: String,
-			location: String,
-			education: String,
-			experience: String,
-			videLink: String,
-			action: 'Casting',
-			emailTemplate: '',
+			number: String,
+			message: String,
+			action: 'Contact',
+			emailTemplate: String,
 		},
 		loading: false,
 		complete: false,
 	}),
+	computed: {},
 	methods: {
 		async Submit() {
-			const isValid = await this.$refs.form_casting.validate()
+			const isValid = await this.$refs.form_contact.validate()
 			// validation
 			if (!isValid) return
 
@@ -70,11 +75,8 @@ export default {
 			// compose email template
 			this.form.emailTemplate = `
 				<h4>email:</h4> <p>${this.form.email}</p>
-			 	<h4>name:</h4> <p>${this.form.name}</p>
-			 	<h4>location:</h4> <p>${this.form.location}</p>
-			 	<h4>education:</h4> <p>${this.form.education}</p>
-			 	<h4>experience:</h4> <p>${this.form.experience}</p>
-			 	<h4>videLink:</h4> <p>${this.form.videLink}</p>
+			 	<h4>number:</h4> <p>${this.form.number}</p>
+			 	<h4>message:</h4> <p>${this.form.message}</p>
 			`
 
 			// trigger netlify function
@@ -91,20 +93,11 @@ export default {
 		getEmail(value) {
 			this.form.email = value
 		},
-		getName(value) {
-			this.form.name = value
+		getSubject(value) {
+			this.form.subject = value
 		},
-		getLocation(value) {
-			this.form.location = value
-		},
-		getEducation(value) {
-			this.form.education = value
-		},
-		getExperience(value) {
-			this.form.experience = value
-		},
-		getVideoLink(value) {
-			this.form.videLink = value
+		getMessage(value) {
+			this.form.message = value
 		},
 	},
 }
@@ -127,8 +120,8 @@ form {
 		justify-content: space-between;
 	}
 	.info {
-		width: 100%;
-		height: 100px;
+		width: max-content;
+		min-width: 320px;
 		border-left: 2px solid #fff;
 		padding-left: 2rem;
 
@@ -137,7 +130,25 @@ form {
 
 		h2 {
 			text-transform: uppercase;
-			margin-bottom: 20px;
+			margin-bottom: 1rem;
+		}
+		p {
+			display: flex;
+			justify-content: space-between;
+		}
+		a {
+			text-decoration: none;
+			font-size: 1rem;
+			color: #fff;
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+		&.media a {
+			text-transform: uppercase;
+		}
+		&.title h2 {
+			margin: 0;
 		}
 	}
 	.submit {
@@ -190,18 +201,23 @@ form {
 }
 
 @media (max-width: 1200px) {
-	#casting {
-		form {
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			.wrap {
-				width: 100%;
-				height: 100%;
-				.info {
-					height: max-content;
-					padding-left: 1rem;
-					margin-bottom: 50px;
+	form {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		.wrap {
+			max-width: 100%;
+			width: 100%;
+			height: 100%;
+			.info {
+				height: max-content;
+				padding-left: 1rem;
+				margin-bottom: 40px;
+				p {
+					flex-direction: column;
+					a {
+						margin-bottom: 10px;
+					}
 				}
 			}
 		}

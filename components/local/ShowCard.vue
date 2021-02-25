@@ -58,6 +58,10 @@ export default {
 		align-self: stretch;
 
 		text-align: right;
+
+		transition: all 0.75s ease;
+		transform: translateX(-50px); // translateX(0)
+		opacity: 0; // opacity: 1
 		h2 {
 			font-size: 2.75em;
 			margin-bottom: 1.5rem;
@@ -90,6 +94,10 @@ export default {
 	}
 
 	&:hover {
+		.text {
+			opacity: 1;
+			transform: translateX(0);
+		}
 		picture {
 			transform: translate(20px, 20px);
 		}
