@@ -1,5 +1,5 @@
 <template>
-	<div class="logo">
+	<div class="letters">
 		<template v-if="text == 'piratcrew'">
 			<svg viewBox="0 0 576 320">
 				<path d="M60,95.72H32.11V138H0V.1H59.49a54.35,54.35,0,0,1,20,3.6,47,47,0,0,1,15.77,10,45.55,45.55,0,0,1,10.29,15.16,48.84,48.84,0,0,1,3.7,19.21,49.7,49.7,0,0,1-3.65,19.32A44.15,44.15,0,0,1,95.43,82.44a46.18,46.18,0,0,1-15.61,9.78A54.73,54.73,0,0,1,60,95.72ZM32.11,68.14H58.17a17.58,17.58,0,0,0,7.4-1.57A19.43,19.43,0,0,0,75.66,56a21.88,21.88,0,0,0,0-15.77,20.65,20.65,0,0,0-4.06-6.49,19.64,19.64,0,0,0-6-4.41,17.17,17.17,0,0,0-7.4-1.62H32.11Z" />
@@ -80,8 +80,8 @@ export default {
 	methods: {
 		Animate() {
 			const letters = document.querySelectorAll('svg path')
-			const lineScroll = document.querySelector('.logo .scroll .line')
-			const textScroll = document.querySelector('.logo .scroll .text span')
+			const lineScroll = document.querySelector('.letters .scroll .line')
+			const textScroll = document.querySelector('.letters .scroll .text span')
 			lettersAnim(letters, lineScroll, textScroll)
 		},
 	},
@@ -89,10 +89,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.logo {
+.letters {
 	width: calc(100vw - 80px);
 	height: calc(100vh - 80px);
 	z-index: 1;
+	background-color: rgba($color: #000000, $alpha: 0.5);
 
 	display: flex;
 	flex-direction: column;
@@ -103,6 +104,7 @@ export default {
 		position: absolute;
 		left: 50%;
 		bottom: 0;
+		// anime to translateY(0);
 		transform: translateY(-100%);
 
 		display: flex;
@@ -116,6 +118,7 @@ export default {
 			text-orientation: mixed;
 			font-size: 14px;
 			overflow: hidden;
+			margin-left: 20px;
 			span {
 				// animate opacity: 1;
 				opacity: 0;
@@ -128,9 +131,7 @@ export default {
 			background: white;
 			// animate height: 200%;
 			height: 0%;
-
 			top: 0;
-			left: -5px;
 		}
 	}
 
