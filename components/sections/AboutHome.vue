@@ -5,10 +5,10 @@
 			<div class="text">
 				<div class="wrap">
 					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
-					<a class="more" href="#">
-						<span>More</span>
+					<n-link class="more" :to="localePath('about')">
+						<span>{{ $t('pages.about') }}</span>
 						<hr />
-					</a>
+					</n-link>
 				</div>
 				<div class="box" @mouseover="cursorMove()">
 					<div class="box-wrapper">
@@ -22,29 +22,61 @@
 </template>
 
 <script>
+import {TweenMax , Power2} from "gsap";
+
 export default {
 	data: () => ({}),
-	beforeDestroy() {
-		// window.removeEventListener('mousemove', this.resizeHandler);
-	},
 	methods: {
 		cursorMove() {
-			const bg = document.querySelector('.about .box .image')
-			const border = document.querySelector('.about .box .border')
-			const breakpoint = window.matchMedia('(max-width:800px)')
-			if (!breakpoint.matches) {
-				document.querySelector('.box .image').addEventListener('mousemove', (e) => {
-					const x = -(e.pageX + bg.offsetLeft) / 20
-					const y = -(e.pageY + bg.offsetTop) / 20
-					const borderx = Math.abs(-(e.pageX + bg.offsetLeft) / 40)
-					const bordery = -(e.pageY + bg.offsetTop) / 40
+			const bg = document.querySelector('.about .box .image');
+			const border = document.querySelector('.about .box .border');
+			const breakpoint = window.matchMedia('(max-width:800px)');
+			let box = document.querySelector('.about .box');
 
-					border.style.transform = `translate(${borderx}px, ${bordery}px)`
-					bg.style.backgroundPosition = `${x}px ${y}px`
+			if (!breakpoint.matches) {
+				let rect = box.getBoundingClientRect();
+
+				let request = null;
+				let mouse = {
+					x: 0,
+					y: 0
+				};
+
+				box.addEventListener("mousemove", (e) => {
+					let event = e;
+
+					mouse.x = event.pageX;
+					mouse.y = event.pageY;
+
+					cancelAnimationFrame(request);
+					request = requestAnimationFrame(() => {
+						update(event);
+					});
+				});
+
+				let update = (e) => {
+
+					var relX = e.pageX - rect.left;
+					var relY = e.pageY - rect.top;
+					
+					TweenMax.to(bg, 1, {
+						x: (relX - rect.width/2) / rect.width * 5,
+						y: (relY - rect.width/2) / rect.width * -5,
+						ease: Power2.easeOut
+					})
+					TweenMax.to(border, 1, {
+						x: (relX - rect.width/2) / rect.width * 30,
+						y: (relY - rect.width/2) / rect.width * -30,
+						ease: Power2.easeOut
+					})
+				}
+
+				window.addEventListener('resize scroll', function(){
+					rect = box.getBoundingClientRect();
 				})
 			}
-		},
-	},
+		}
+	}
 }
 </script>
 
