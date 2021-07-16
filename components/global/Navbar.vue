@@ -223,7 +223,7 @@ $size: 40px;
 				opacity: 0; //anime
 
 				width: 30px;
-				height: 100%;
+				height: 30px;
 				margin-right: 15px;
 			}
 			.item {
