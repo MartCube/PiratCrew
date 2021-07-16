@@ -7,14 +7,15 @@
 					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
 					<n-link class="more" :to="localePath('about')">
 						<span>{{ $t('pages.about') }}</span>
+						<!-- eslint-disable-next-line vue/html-self-closing -->
 						<hr />
 					</n-link>
 				</div>
 				<div class="box" @mouseover="cursorMove()">
 					<div class="box-wrapper">
-						<div class="image"></div>
+						<div class="image" />
 					</div>
-					<div class="border"></div>
+					<div class="border" />
 				</div>
 			</div>
 		</div>
@@ -22,61 +23,60 @@
 </template>
 
 <script>
-import {TweenMax , Power2} from "gsap";
+import { TweenMax, Power2 } from 'gsap'
 
 export default {
 	data: () => ({}),
 	methods: {
 		cursorMove() {
-			const bg = document.querySelector('.about .box .image');
-			const border = document.querySelector('.about .box .border');
-			const breakpoint = window.matchMedia('(max-width:800px)');
-			let box = document.querySelector('.about .box');
+			const bg = document.querySelector('.about .box .image')
+			const border = document.querySelector('.about .box .border')
+			const breakpoint = window.matchMedia('(max-width:800px)')
+			const box = document.querySelector('.about .box')
 
 			if (!breakpoint.matches) {
-				let rect = box.getBoundingClientRect();
+				let rect = box.getBoundingClientRect()
 
-				let request = null;
-				let mouse = {
+				let request = null
+				const mouse = {
 					x: 0,
-					y: 0
-				};
+					y: 0,
+				}
 
-				box.addEventListener("mousemove", (e) => {
-					let event = e;
+				box.addEventListener('mousemove', (e) => {
+					const event = e
 
-					mouse.x = event.pageX;
-					mouse.y = event.pageY;
+					mouse.x = event.pageX
+					mouse.y = event.pageY
 
-					cancelAnimationFrame(request);
+					cancelAnimationFrame(request)
 					request = requestAnimationFrame(() => {
-						update(event);
-					});
-				});
+						update(event)
+					})
+				})
 
-				let update = (e) => {
+				const update = (e) => {
+					const relX = e.pageX - rect.left
+					const relY = e.pageY - rect.top
 
-					var relX = e.pageX - rect.left;
-					var relY = e.pageY - rect.top;
-					
 					TweenMax.to(bg, 1, {
-						x: (relX - rect.width/2) / rect.width * 5,
-						y: (relY - rect.width/2) / rect.width * -5,
-						ease: Power2.easeOut
+						x: ((relX - rect.width / 2) / rect.width) * 5,
+						y: ((relY - rect.width / 2) / rect.width) * -5,
+						ease: Power2.easeOut,
 					})
 					TweenMax.to(border, 1, {
-						x: (relX - rect.width/2) / rect.width * 30,
-						y: (relY - rect.width/2) / rect.width * -30,
-						ease: Power2.easeOut
+						x: ((relX - rect.width / 2) / rect.width) * 30,
+						y: ((relY - rect.width / 2) / rect.width) * -30,
+						ease: Power2.easeOut,
 					})
 				}
 
-				window.addEventListener('resize scroll', function(){
-					rect = box.getBoundingClientRect();
+				window.addEventListener('resize scroll', function () {
+					rect = box.getBoundingClientRect()
 				})
 			}
-		}
-	}
+		},
+	},
 }
 </script>
 

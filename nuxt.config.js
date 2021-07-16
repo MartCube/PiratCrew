@@ -1,6 +1,7 @@
 export default {
 	// Target (https://go.nuxtjs.dev/config-target)
 	target: 'static',
+	components: ['~/components/forms', '~/components/icons', '~/components/global', '~/components/items', '~/components/local', '~/components/sections'],
 
 	// Global page headers (https://go.nuxtjs.dev/config-head)
 	head: {
@@ -14,9 +15,6 @@ export default {
 
 	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
 	plugins: [{ src: '~/plugins/responsive-video', ssr: false }, { src: '@/plugins/vue-observe' }, { src: '@/plugins/vee-validate.js' }, { src: `~/plugins/lazysizes.client.js` }, { src: `~/plugins/gsap.js` }],
-
-	// Auto import components (https://go.nuxtjs.dev/config-components)
-	components: true,
 
 	// Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
 	buildModules: [
