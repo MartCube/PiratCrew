@@ -1,7 +1,7 @@
 <template>
 	<picture>
 		<source v-if="mobile" :data-srcset="mobile" media="(max-width: 900px)" />
-		<img :data-src="src" loading="lazy" class="lazyload" :alt="alt" />
+		<img :data-src="src" :width="width" :height="height" loading="lazy" class="lazyload" :alt="alt" />
 	</picture>
 </template>
 
@@ -11,6 +11,14 @@ export default {
 		src: {
 			type: String,
 			required: true,
+		},
+		width: {
+			type: String,
+			default: '100',
+		},
+		height: {
+			type: String,
+			default: '100',
 		},
 		mobile: {
 			type: String,

@@ -2,7 +2,7 @@
 	<div class="navbar">
 		<div class="top">
 			<n-link class="logo" :to="localePath('index')" @click.native="showMenu = false">
-				<ImageItem src="/logo.png" alt="logo" />
+				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
 				<div class="item">
 					<p class="text">pirate crew dance group</p>
@@ -221,7 +221,6 @@ $size: 40px;
 			color: white;
 			picture {
 				opacity: 0; //anime
-
 				width: 30px;
 				height: 30px;
 				margin-right: 15px;
