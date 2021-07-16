@@ -2,7 +2,7 @@
 	<div class="navbar">
 		<div class="top">
 			<n-link class="logo" :to="localePath('index')" @click.native="showMenu = false">
-				<img src="/logo.png" alt="logo" />
+				<ImageItem src="/logo.png" alt="logo" />
 
 				<div class="item">
 					<p class="text">pirate crew dance group</p>
@@ -10,9 +10,9 @@
 			</n-link>
 
 			<div class="button" :class="{ active: showMenu }" @click="ToggleMenu">
-				<div class="line"></div>
-				<div class="line"></div>
-				<div class="cancel"></div>
+				<div class="line" />
+				<div class="line" />
+				<div class="cancel" />
 			</div>
 		</div>
 		<div class="right">
@@ -20,32 +20,32 @@
 				<div :key="i" class="item">
 					<a v-scroll-to="'#' + item.value" class="text">{{ item.text }}</a>
 				</div>
-				<div :key="'line' + i" class="line"></div>
+				<div :key="'line' + i" class="line" />
 			</template>
 		</div>
 		<div class="bottom">
-			<div class="line"></div>
+			<div class="line" />
 			<div class="item">
 				<nuxt-link v-for="locale in availableLocales" :key="locale.code" class="text" :class="{ active: locale.code == currentLocale }" :to="switchLocalePath(locale.code)">
 					{{ locale.name }}
 				</nuxt-link>
 			</div>
-			<div class="line"></div>
+			<div class="line" />
 			<div class="item">
 				<p class="text year">copy right &copy; {{ year }}</p>
 			</div>
 		</div>
 		<div class="left">
-			<div class="line"></div>
+			<div class="line" />
 
 			<div class="item">
 				<a class="text" target="blank" href="https://www.facebook.com/"> facebook </a>
 			</div>
-			<div class="line"></div>
+			<div class="line" />
 			<div class="item">
 				<a class="text" target="blank" href="https://www.instagram.com/"> instagram </a>
 			</div>
-			<div class="line"></div>
+			<div class="line" />
 			<div class="item">
 				<a class="text" target="blank" href="https://www.youtube.com/"> youtube </a>
 			</div>
@@ -106,7 +106,7 @@ export default {
 	async mounted() {
 		await this.$nextTick() // wait DOM to render
 
-		const navbarLogo = document.querySelectorAll('.top .logo img')
+		const navbarLogo = document.querySelectorAll('.top .logo picture')
 		const navbarTopText = document.querySelectorAll('.top .logo .item .text')
 		const navbarTopLines = document.querySelectorAll('.top  .line')
 		navbarTop(navbarLogo, navbarTopLines, navbarTopText)
@@ -219,10 +219,11 @@ $size: 40px;
 			padding: 5px;
 			text-decoration: none;
 			color: white;
-			img {
+			picture {
 				opacity: 0; //anime
 
 				width: 30px;
+				height: 100%;
 				margin-right: 15px;
 			}
 			.item {
