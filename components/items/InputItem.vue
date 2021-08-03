@@ -2,10 +2,9 @@
 	<ValidationProvider v-slot="{ errors, classes }" :rules="rules" :mode="mode" tag="div" class="form_group">
 		<div v-if="errors.length" class="error" :class="classes">
 			{{ errors[0] }}
-			<i class="icon icon-attention" />
 		</div>
 
-		<input :id="name" v-model="input_value" :type="type" class="form_field" :placeholder="name" :name="name" @change="emitValue" />
+		<input :id="name" v-model="input_value" :placeholder="placeholder" :type="type" class="form_field" :name="name" @change="emitValue" />
 		<label :for="name" class="form_label">{{ name }}</label>
 	</ValidationProvider>
 </template>
@@ -19,6 +18,10 @@ export default {
 	},
 	props: {
 		name: {
+			type: String,
+			required: true,
+		},
+		placeholder: {
 			type: String,
 			required: true,
 		},
@@ -89,6 +92,9 @@ export default {
 				color: #aaaaaa;
 				font-weight: 700;
 			}
+			&::placeholder {
+				color: #aaaaaa;
+			}
 			padding-bottom: 6px;
 			font-weight: 700;
 			border-width: 3px;
@@ -115,12 +121,8 @@ export default {
 		top: 0;
 		right: 0;
 		font-size: 0.8em;
-		color: white;
+		color: red;
 		@include d-flex(row, center, center, initial);
-		.icon {
-			color: red;
-			margin-left: 5px;
-		}
 		&.invalid {
 			display: flex;
 		}

@@ -10,17 +10,17 @@
 						<p>Are you an artist trying to prove your skills ?</p>
 						<p>Please fill the following so we can continue to next step.</p>
 					</div>
-					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'name'" :rules="'required'" @getValue="getName" />
-					<InputItem :name="'location'" :rules="'required'" @getValue="getLocation" />
+					<InputItem :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
+					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem :name="'phone'" placeholder="(country code) phone number" :rules="'required'" @getValue="getGenre" />
 				</div>
 				<div class="wrap">
-					<InputItem :name="'education'" :rules="'required'" @getValue="getEducation" />
-					<InputItem :name="'experience'" :rules="'required'" @getValue="getExperience" />
-					<InputItem :name="'link to promo video'" :rules="'required'" @getValue="getVideoLink" />
+					<InputItem :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getEducation" />
+					<InputItem :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
+					<InputItem :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideoLink" />
 
 					<button type="submit" class="submit">
-						<span v-if="!loading">submit<i class="icon icon-mail" /></span>
+						<span v-if="!loading">submit</span>
 						<Spinner v-else />
 					</button>
 				</div>
@@ -48,7 +48,7 @@ export default {
 		form: {
 			email: String,
 			name: String,
-			location: String,
+			genre: String,
 			education: String,
 			experience: String,
 			videLink: String,
@@ -94,8 +94,8 @@ export default {
 		getName(value) {
 			this.form.name = value
 		},
-		getLocation(value) {
-			this.form.location = value
+		getGenre(value) {
+			this.form.genre = value
 		},
 		getEducation(value) {
 			this.form.education = value
@@ -134,7 +134,7 @@ form {
 
 		display: flex;
 		flex-direction: column;
-
+		justify-content: space-around;
 		h2 {
 			text-transform: uppercase;
 			margin-bottom: 20px;

@@ -20,15 +20,14 @@
 					</div>
 				</div>
 				<div class="wrap">
-					<div class="info title">
-						<h2>write us</h2>
-					</div>
+					<h2 class="title">write us</h2>
+
 					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
 					<InputItem :name="'number'" :rules="'required'" @getValue="getSubject" />
 					<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
 
 					<button type="submit" class="submit">
-						<span v-if="!loading">submit<i class="icon icon-mail" /></span>
+						<span v-if="!loading">submit</span>
 						<Spinner v-else />
 					</button>
 				</div>
@@ -62,7 +61,6 @@ export default {
 		loading: false,
 		complete: false,
 	}),
-	computed: {},
 	methods: {
 		async Submit() {
 			const isValid = await this.$refs.form_contact.validate()
@@ -118,16 +116,24 @@ form {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		.title {
+			border-left: 2px solid #fff;
+			padding-left: 2rem;
+
+			text-transform: uppercase;
+			margin-bottom: 1rem;
+		}
 	}
 	.info {
 		width: max-content;
 		min-width: 320px;
+		min-height: 80px;
 		border-left: 2px solid #fff;
 		padding-left: 2rem;
 
 		display: flex;
 		flex-direction: column;
-
+		justify-content: space-around;
 		h2 {
 			text-transform: uppercase;
 			margin-bottom: 1rem;
@@ -146,9 +152,6 @@ form {
 		}
 		&.media a {
 			text-transform: uppercase;
-		}
-		&.title h2 {
-			margin: 0;
 		}
 	}
 	.submit {
@@ -190,14 +193,13 @@ form {
 		padding-left: 1rem;
 		h2 {
 			text-transform: uppercase;
+			line-height: 3rem;
 			margin-bottom: 20px;
 		}
 	}
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }
 
 @media (max-width: 1200px) {
