@@ -23,7 +23,7 @@
 					<h2 class="title">write us</h2>
 
 					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getSubject" />
+					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getPNumber" />
 					<InputItem :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 					<button type="submit" class="submit">
@@ -91,8 +91,8 @@ export default {
 		getEmail(value) {
 			this.form.email = value
 		},
-		getSubject(value) {
-			this.form.subject = value
+		getNumber(value) {
+			this.form.number = value
 		},
 		getMessage(value) {
 			this.form.message = value

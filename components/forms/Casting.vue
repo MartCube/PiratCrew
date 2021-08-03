@@ -12,12 +12,12 @@
 					</div>
 					<InputItem :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
 					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'phone'" placeholder="(country code) phone number" :rules="'required'" @getValue="getGenre" />
+					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
 				</div>
 				<div class="wrap">
-					<InputItem :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getEducation" />
+					<InputItem :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
 					<InputItem :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
-					<InputItem :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideoLink" />
+					<InputItem :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit</span>
@@ -48,9 +48,10 @@ export default {
 		form: {
 			email: String,
 			name: String,
+			number: String,
+
+			location: String,
 			genre: String,
-			education: String,
-			experience: String,
 			videLink: String,
 			action: 'Casting',
 			emailTemplate: '',
@@ -94,17 +95,19 @@ export default {
 		getName(value) {
 			this.form.name = value
 		},
+		getNumber(value) {
+			this.form.number = value
+		},
+
+		getLocation(value) {
+			this.form.location = value
+		},
 		getGenre(value) {
 			this.form.genre = value
 		},
-		getEducation(value) {
-			this.form.education = value
-		},
-		getExperience(value) {
-			this.form.experience = value
-		},
-		getVideoLink(value) {
-			this.form.videLink = value
+
+		getVideo(value) {
+			this.form.video = value
 		},
 	},
 }
