@@ -22,9 +22,9 @@
 				<div class="wrap">
 					<h2 class="title">write us</h2>
 
-					<InputItem :name="'email'" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'number'" :rules="'required'" @getValue="getSubject" />
-					<InputItem :name="'message'" :rules="'required'" @getValue="getMessage" />
+					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getSubject" />
+					<InputItem :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit</span>
@@ -56,7 +56,7 @@ export default {
 			number: String,
 			message: String,
 			action: 'Contact',
-			emailTemplate: String,
+			emailTemplate: '',
 		},
 		loading: false,
 		complete: false,
