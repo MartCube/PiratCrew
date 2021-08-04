@@ -17,8 +17,8 @@
 		</div>
 		<div class="right">
 			<template v-for="(item, i) in navigation">
-				<div :key="i" class="item">
-					<a v-scroll-to="'#' + item.value" class="text">{{ item.text }}</a>
+				<div :key="i" v-scroll-to="'#' + item.value" class="item">
+					<span class="text">{{ item.text }}</span>
 				</div>
 				<div :key="'line' + i" class="line" />
 			</template>
@@ -37,17 +37,16 @@
 		</div>
 		<div class="left">
 			<div class="line" />
-
 			<div class="item">
-				<a class="text" target="blank" href="https://www.facebook.com/"> facebook </a>
+				<a class="text" target="blank" rel="nofollow" href="https://www.facebook.com/piratcrewshow/"> facebook </a>
 			</div>
 			<div class="line" />
 			<div class="item">
-				<a class="text" target="blank" href="https://www.instagram.com/"> instagram </a>
+				<a class="text" target="blank" rel="nofollow" href="https://www.instagram.com/piratcrew/"> instagram </a>
 			</div>
 			<div class="line" />
 			<div class="item">
-				<a class="text" target="blank" href="https://www.youtube.com/"> youtube </a>
+				<a class="text" target="blank" rel="nofollow" href="https://www.youtube.com/channel/UCJjlUOVeQyATgVOqGss6C_Q"> youtube </a>
 			</div>
 		</div>
 

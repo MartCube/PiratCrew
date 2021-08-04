@@ -23,7 +23,7 @@
 					<h2 class="title">write us</h2>
 
 					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getPNumber" />
+					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
 					<InputItem :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 					<button type="submit" class="submit">
