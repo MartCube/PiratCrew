@@ -9,14 +9,14 @@
 				<path d="M22,4,20,2l-8,8L4,2,2,4l8,8L2,20l2,2,8-8,8,8,2-2-8-8Z" />
 			</svg>
 
-			<svg viewBox="0 0 24 24" class="left" :class="{ disable: currentImage == 0 }" @click="Prev()">
+			<svg class="left" :class="{ disable: currentImage == 0 }" viewBox="0 0 24 24" @click="Prev()">
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
 			</svg>
 
-			<!-- <img class="lazyload" :data-src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" /> -->
+			<!-- <img :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" /> -->
 			<ImageItem width="90%" height="90%" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
 
-			<svg viewBox="0 0 24 24" class="right" :class="{ disable: currentImage == data.length - 1 }" @click="Next()">
+			<svg class="right" :class="{ disable: currentImage == data.length - 1 }" viewBox="0 0 24 24" @click="Next()">
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
 			</svg>
 		</div>
@@ -42,8 +42,9 @@ export default {
 			if (this.visible) window.addEventListener('keydown', this.onKeydown)
 			else window.removeEventListener('keydown', this.onKeydown)
 		},
-		Next() {
+		async Next() {
 			if (this.currentImage !== this.data.length - 1) this.currentImage++
+			await this.$nextTick() // wait DOM to render
 		},
 		Prev() {
 			if (this.currentImage !== 0) this.currentImage--
@@ -135,6 +136,9 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 		&.left {
 			transform: rotate(180deg);
 		}
+	}
+	img {
+		width: 50%;
 	}
 }
 

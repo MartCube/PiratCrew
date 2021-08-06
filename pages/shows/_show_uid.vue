@@ -54,7 +54,6 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	.title {
 		width: 100%;
 		max-width: 800px;
