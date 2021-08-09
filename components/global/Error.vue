@@ -2,7 +2,7 @@
 	<div class="error">
 		<div class="message">
 			<h2>404</h2>
-			<h2>Ahoy Captain !</h2>
+			<h4>Ahoy Captain !</h4>
 			<p>You got the wrong map.</p>
 		</div>
 		<svg viewBox="0 0 800 600">
@@ -25,10 +25,11 @@
 .message {
 	margin-right: 40px;
 	h2 {
+		font-size: 8rem;
+	}
+	h4 {
 		font-size: 2.5rem;
-		&:first-child {
-			font-size: 8rem;
-		}
+		margin: 20px 0;
 	}
 }
 svg {
@@ -39,16 +40,18 @@ svg {
 	}
 }
 @media (max-width: 800px) {
-	.container {
+	.error {
 		flex-direction: column;
+
 		.message {
+			margin: 0;
 			margin-bottom: 40px;
 
 			h2 {
+				font-size: 5rem;
+			}
+			h4 {
 				font-size: 2rem;
-				&:first-child {
-					font-size: 5rem;
-				}
 			}
 		}
 		svg {
