@@ -76,7 +76,7 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 
 .gallery {
 	margin-top: 4rem;
-	max-width: 800px;
+	width: 100%;
 	display: grid;
 	grid-template-columns: repeat($column-count, 1fr);
 	grid-auto-rows: $row-height;

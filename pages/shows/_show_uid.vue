@@ -4,21 +4,17 @@
 			<template v-if="$fetchState.error">
 				<Error />
 			</template>
-			<template v-if="$fetchState.pending">
+			<template v-else-if="$fetchState.pending">
 				<!-- loading animation -->
 			</template>
 			<template v-else>
-				<Intro :video="event.video" />
+				<Intro :video="event.bg" />
 
 				<section id="show">
 					<div class="title">
 						<h2>{{ event.title }}</h2>
 					</div>
-					<div class="text">
-						<p v-for="(slice, index) in event.text_slices" :key="'slice-' + index">
-							{{ $prismic.asText(slice.primary.text) }}
-						</p>
-					</div>
+					<prismic-rich-text class="description rich_text" :field="event.description" />
 					<Gallery :data="event.gallery" />
 				</section>
 
@@ -34,10 +30,10 @@ export default {
 	async fetch() {
 		const event = await this.$prismic.api.getByUID('show', this.$route.params.show_uid)
 		this.event = {
-			main_image: event.data.main_image.url,
-			title: this.$prismic.asText(event.data.title),
-			video: this.$prismic.asText(event.data.video),
-			text_slices: event.data.body,
+			bg: event.data.main_image.alt,
+			title: event.data.title,
+			video: event.data.video,
+			description: event.data.description,
 			gallery: event.data.gallery,
 		}
 	},
@@ -75,15 +71,10 @@ export default {
 			background: white;
 		}
 	}
-	.text {
+	.description {
 		display: flex;
 		flex-direction: column;
 		max-width: 800px;
-		p {
-			margin: 10px 0;
-			font-size: 1.2rem;
-			line-height: 1.8rem;
-		}
 	}
 }
 

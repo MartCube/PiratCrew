@@ -27,7 +27,7 @@ export default {
 	}),
 	computed: {
 		title() {
-			return this.$prismic.asText(this.event.data.title)
+			return this.event.data.title
 		},
 	},
 	created() {

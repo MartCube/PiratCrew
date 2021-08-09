@@ -55,6 +55,14 @@ section {
 	flex-direction: column;
 }
 
+.rich_text{
+	p {
+		margin: 10px 0;
+		font-size: 1.2rem;
+		line-height: 1.8rem;
+	}
+}
+
 
 @media (max-width: 1200px) {
 	section{
