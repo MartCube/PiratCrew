@@ -94,6 +94,7 @@ export default {
 	height: calc(100vh - 80px);
 	z-index: 1;
 	background-color: rgba($color: #000000, $alpha: 0.5);
+	cursor: pointer;
 
 	display: flex;
 	flex-direction: column;

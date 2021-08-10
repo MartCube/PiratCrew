@@ -1,5 +1,5 @@
 <template>
-	<div class="gallery">
+	<div id="gallery" class="gallery">
 		<div v-for="(item, i) in data" :key="'gallery-image' + i" class="image">
 			<ImageItem :src="item.gallery_image.url" :alt="item.gallery_image.alt" @click.native="Toggle(i)" />
 		</div>

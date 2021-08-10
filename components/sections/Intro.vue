@@ -14,15 +14,12 @@ export default {
 			required: true,
 		},
 	},
-	data: () => ({
-		loading: true,
-	}),
+	data: () => ({}),
 	computed: {
 		videoPath() {
 			return `/videos/${this.video}.mp4`
 		},
 	},
-
 	methods: {},
 }
 </script>

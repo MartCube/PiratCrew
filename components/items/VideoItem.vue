@@ -3,7 +3,7 @@
 		<div class="plyr_video">
 			<vue-plyr>
 				<!-- <div data-plyr-provider="vimeo" :data-plyr-embed-id="video"></div> -->
-				<div data-plyr-provider="youtube" :data-plyr-embed-id="video"></div>
+				<div data-plyr-provider="youtube" allowfullscreen allowtransparency allow="autoplay" :data-plyr-embed-id="video"></div>
 			</vue-plyr>
 		</div>
 	</client-only>
@@ -22,10 +22,11 @@ export default {
 
 <style lang="scss">
 .plyr_video {
-	width: 50%;
+	width: 60%;
+	min-height: max-content;
 }
 :root {
-	--plyr-color-main: rgb(255, 196, 36);
+	--plyr-color-main: black;
 }
 @media (max-width: 900px) {
 	.plyr_video {

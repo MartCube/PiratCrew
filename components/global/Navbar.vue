@@ -136,7 +136,7 @@ $size: 40px;
 .navbar {
 	position: fixed;
 	top: 0;
-	z-index: 999;
+	z-index: 99;
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
@@ -147,7 +147,6 @@ $size: 40px;
 		width: 100%;
 		height: calc(100vh - 80px);
 		margin: 40px;
-		z-index: 4;
 		background: black;
 
 		display: flex;
@@ -204,7 +203,6 @@ $size: 40px;
 		height: $size;
 		padding: 0 $size;
 
-		z-index: 2;
 		background: black;
 		user-select: none;
 
@@ -237,7 +235,6 @@ $size: 40px;
 			margin: 5px;
 			height: 30px;
 			width: 30px;
-			z-index: 3;
 			cursor: pointer;
 
 			position: relative;
@@ -280,7 +277,6 @@ $size: 40px;
 		height: $size;
 		padding: 0 $size;
 
-		z-index: 2;
 		background: black;
 		user-select: none;
 
@@ -328,7 +324,6 @@ $size: 40px;
 		height: 100%;
 		padding: $size 0;
 
-		z-index: 2;
 		background: black;
 		user-select: none;
 		transform: initial;
@@ -377,7 +372,6 @@ $size: 40px;
 
 		user-select: none;
 		background: black;
-		z-index: 2;
 		transform: initial;
 
 		display: flex;

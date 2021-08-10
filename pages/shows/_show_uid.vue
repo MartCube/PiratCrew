@@ -1,26 +1,24 @@
 <template>
-	<div>
-		<div class="container">
-			<template v-if="$fetchState.error">
-				<Error />
-			</template>
-			<template v-else-if="$fetchState.pending">
-				<!-- loading animation -->
-			</template>
-			<template v-else>
-				<Intro :video="event.bg" />
+	<div class="container">
+		<template v-if="$fetchState.error">
+			<Error />
+		</template>
+		<template v-else-if="$fetchState.pending">
+			<!-- loading animation -->
+			loading
+		</template>
+		<template v-else>
+			<Intro :video="event.bg" @click.native="OpenModal" />
+			<Modal :video="event.video" />
 
-				<section id="show">
-					<div class="title">
-						<h2>{{ event.title }}</h2>
-					</div>
-					<prismic-rich-text class="description rich_text" :field="event.description" />
-					<Gallery :data="event.gallery" />
-				</section>
+			<section id="show">
+				<h2 class="title">{{ event.title }}</h2>
+				<prismic-rich-text class="description rich_text" :field="event.description" />
+			</section>
+			<Gallery :data="event.gallery" />
 
-				<Contact />
-			</template>
-		</div>
+			<Contact />
+		</template>
 	</div>
 </template>
 
@@ -40,6 +38,11 @@ export default {
 	data: () => ({
 		event: Object,
 	}),
+	methods: {
+		OpenModal() {
+			this.$store.dispatch('bindModal', true)
+		},
+	},
 }
 </script>
 
@@ -48,11 +51,13 @@ export default {
 	width: 100%;
 
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
 	.title {
 		width: 100%;
-		max-width: 800px;
+		height: 2rem;
 		margin: 3rem 0;
 		padding-left: 1rem;
 
@@ -60,9 +65,11 @@ export default {
 		font-size: 2rem;
 		position: relative;
 
+		display: flex;
+		align-items: center;
+
 		&::before {
 			content: '';
-			display: flex;
 			height: 100%;
 			position: absolute;
 			left: 0;
@@ -74,7 +81,7 @@ export default {
 	.description {
 		display: flex;
 		flex-direction: column;
-		max-width: 800px;
+		width: 60%;
 	}
 }
 
@@ -83,8 +90,8 @@ export default {
 		.title h2 {
 			font-size: 2rem;
 		}
-		.text p {
-			font-size: 1rem;
+		.description {
+			width: 100%;
 		}
 	}
 }

@@ -1,10 +1,13 @@
 export const state = () => ({
 	navigation: null,
+
+	modal: false,
 })
 
 // Functions that return back data contained in the state.
 export const getters = {
 	navigation: (state) => state.navigation,
+	modal: (state) => state.modal,
 }
 
 // Functions that directly mutate the state.
@@ -43,6 +46,7 @@ export const mutations = {
 				state.navigation = [
 					{ value: 'intro', text: 'intro' },
 					{ value: 'show', text: 'show' },
+					{ value: 'gallery', text: 'gallery' },
 					{ value: 'contact', text: 'contact' },
 				]
 				break
@@ -58,7 +62,14 @@ export const mutations = {
 				state.navigation = []
 		}
 	},
+	setModal(state, value) {
+		state.modal = value
+	},
 }
 
 // Functions that call mutations on the state. They can call multiple mutations, can call other actions, and they support asynchronous operations.
-export const actions = {}
+export const actions = {
+	bindModal(context, value) {
+		context.commit('setModal', value)
+	},
+}
