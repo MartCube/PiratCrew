@@ -61,9 +61,9 @@ export default {
 	}),
 	methods: {
 		async Submit() {
-			const isValid = await this.$refs.form_casting.validate()
+			// const isValid = await this.$refs.form_casting.validate()
 			// validation
-			if (!isValid) return
+			// if (!isValid) return
 
 			this.loading = true
 			console.log('loading')
@@ -78,9 +78,17 @@ export default {
 			 	<h4>videLink:</h4> <p>${this.form.videLink}</p>
 			`
 
-			// trigger netlify function
+			// trigger google sheets
+			const script = 'https://script.google.com/macros/s/AKfycbxbV_GeoS7VKF4j_NtZ-UILeWXQHJxTUkkZSCs0cCcntL4E8Ox9LILBv1ddp0iRarmLaQ/exec'
+			const url = script + '?name=' + this.form.name + '&action=insert'
+
 			try {
-				await this.$axios.$post('.netlify/functions/sendmail', this.form)
+				await this.$axios({
+					// eslint-disable-next-line object-shorthand
+					url: url,
+					responseType: 'jsonp',
+					type: 'get',
+				})
 			} catch (error) {
 				console.log(error)
 			}
@@ -98,14 +106,12 @@ export default {
 		getNumber(value) {
 			this.form.number = value
 		},
-
 		getLocation(value) {
 			this.form.location = value
 		},
 		getGenre(value) {
 			this.form.genre = value
 		},
-
 		getVideo(value) {
 			this.form.video = value
 		},
