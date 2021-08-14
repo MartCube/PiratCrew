@@ -72,8 +72,6 @@ export default {
 
 			this.loading = true
 			this.form.date = this.currentData
-			console.log(this.form)
-		
 
 			// compose email template
 			// this.form.emailTemplate = `
@@ -91,9 +89,10 @@ export default {
 			try {
 				await this.$axios.post(
 					// eslint-disable-next-line object-shorthand
-					url, this.form
+						url,
+						this.form,
 				).then(response => {
-					console.log(response);
+						console.log(response)
 				})
 			} catch (error) {
 				console.log(error)

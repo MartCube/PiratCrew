@@ -1,6 +1,6 @@
 <template>
 	<section id="shows">
-		<TextBox :text="$t('pages.shows')" />
+		<TextBox :text="$t('pages.shows.name')" />
 		<div v-if="!$fetchState.pending" class="shows">
 			<ShowCard v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>

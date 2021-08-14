@@ -1,7 +1,10 @@
 export default {
 	pages: {
 		about: 'about',
-		shows: 'shows',
+		shows: {
+			name: 'shows',
+			clickToWatch: 'click to watch',
+		},
 		events: 'events',
 		contact: 'contact',
 		casting: 'casting',
