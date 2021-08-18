@@ -11,6 +11,7 @@
 
 <script>
 export default {
+	name: 'Home',
 	middleware: 'navigation',
 	data: () => ({}),
 }

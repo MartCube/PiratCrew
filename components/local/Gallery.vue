@@ -13,8 +13,7 @@
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
 			</svg>
 
-			<!-- <img :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" /> -->
-			<ImageItem width="90%" height="90%" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
+			<ImageItem :key="componentKey" width="90%" height="90%" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
 
 			<svg class="right" :class="{ disable: currentImage == data.length - 1 }" viewBox="0 0 24 24" @click="Next()">
 				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
@@ -34,20 +33,29 @@ export default {
 	data: () => ({
 		visible: false,
 		currentImage: 0,
+		componentKey: 0,
 	}),
 	methods: {
+		forceRerender() {
+			this.componentKey += 1
+		},
 		Toggle(index) {
 			this.currentImage = index
 			this.visible = !this.visible
 			if (this.visible) window.addEventListener('keydown', this.onKeydown)
 			else window.removeEventListener('keydown', this.onKeydown)
 		},
-		async Next() {
-			if (this.currentImage !== this.data.length - 1) this.currentImage++
-			await this.$nextTick() // wait DOM to render
+		Next() {
+			if (this.currentImage !== this.data.length - 1) {
+				this.currentImage++
+				this.forceRerender()
+			}
 		},
 		Prev() {
-			if (this.currentImage !== 0) this.currentImage--
+			if (this.currentImage !== 0) {
+				this.currentImage--
+				this.forceRerender()
+			}
 		},
 		onKeydown(e) {
 			if (this.visible) {

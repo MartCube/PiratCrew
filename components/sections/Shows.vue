@@ -14,7 +14,7 @@ export default {
 		this.events = events.results
 	},
 	data: () => ({
-		events: [Object],
+		events: {},
 	}),
 }
 </script>

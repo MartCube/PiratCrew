@@ -46,13 +46,14 @@ export default {
 	},
 	data: () => ({
 		form: {
-			email: String,
-			name: String,
-			number: String,
+			email: '',
+			name: '',
+			number: '',
 
-			location: String,
-			genre: String,
-			videLink: String,
+			location: '',
+			genre: '',
+			videLink: '',
+
 			action: 'Casting',
 			emailTemplate: '',
 		},
@@ -79,15 +80,11 @@ export default {
 			`
 
 			// trigger google sheets
-			const script = 'https://script.google.com/macros/s/AKfycbxbV_GeoS7VKF4j_NtZ-UILeWXQHJxTUkkZSCs0cCcntL4E8Ox9LILBv1ddp0iRarmLaQ/exec'
-			const url = script + '?name=' + this.form.name + '&action=insert'
+			const url = 'https://sheet.best/api/sheets/aa7b726e-d5fc-4afe-8004-6a70356daf20'
 
 			try {
-				await this.$axios({
-					// eslint-disable-next-line object-shorthand
-					url: url,
-					responseType: 'jsonp',
-					type: 'get',
+				await this.$axios.post(url, this.form).then((res) => {
+					console.log(res)
 				})
 			} catch (error) {
 				console.log(error)
