@@ -5,7 +5,7 @@
 		</div>
 
 		<input :id="name" v-model="input_value" :placeholder="placeholder" :type="type" class="form_field" :name="name" @change="emitValue" />
-		<label :for="name" class="form_label">{{ name }}</label>
+		<label :for="name" class="form_label">{{ labelName }}</label>
 	</ValidationProvider>
 </template>
 
@@ -18,6 +18,10 @@ export default {
 	},
 	props: {
 		name: {
+			type: String,
+			required: true,
+		},
+		labelName: {
 			type: String,
 			required: true,
 		},

@@ -106,7 +106,7 @@ export default {
 		left: 50%;
 		bottom: 0;
 		// anime to translateY(0);
-		transform: translateY(-100%);
+		transform: translate(-50%, -100%);
 
 		display: flex;
 		flex-direction: column;

@@ -1,7 +1,10 @@
 export default {
 	pages: {
 		about: 'о нас',
-		shows: 'шоу',
+		shows: {
+			name: 'шоу',
+			clickToWatch: 'кликни для просмотра'
+		},
 		events: 'ивенты',
 		contact: 'контакты',
 		casting: 'кастинг',

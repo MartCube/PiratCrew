@@ -135,6 +135,8 @@ export default {
 		.text {
 			margin-top: 3rem;
 			width: auto;
+			opacity: 1;
+			transform: translateX(0);
 			p {
 				line-height: 1.2;
 				display: none;

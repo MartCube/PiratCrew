@@ -10,14 +10,16 @@
 						<p>Are you an artist trying to prove your skills ?</p>
 						<p>Please fill the following so we can continue to next step.</p>
 					</div>
-					<InputItem :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
-					<InputItem :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
+					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" @getValue="getBirthDate" />
 				</div>
 				<div class="wrap">
-					<InputItem :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
-					<InputItem :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
-					<InputItem :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
+					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
+					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
+					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
+					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" @getValue="getLink" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit</span>
@@ -55,29 +57,41 @@ export default {
 			videLink: '',
 
 			action: 'Casting',
-			emailTemplate: '',
+			// emailTemplate: '',
 		},
 		loading: false,
 		complete: false,
 	}),
+	computed: {
+		currentData() {
+			const today = new Date()
+
+			// Getting required values
+			const year = today.getFullYear()
+			const month = today.getMonth()
+			const day = today.getDate()
+
+			return `${day}-${month}-${year}`
+		},
+	},
 	methods: {
 		async Submit() {
-			// const isValid = await this.$refs.form_casting.validate()
+			const isValid = await this.$refs.form_casting.validate()
 			// validation
-			// if (!isValid) return
+			if (!isValid) return
 
 			this.loading = true
-			console.log('loading')
+			this.form.date = this.currentData
 
 			// compose email template
-			this.form.emailTemplate = `
-				<h4>email:</h4> <p>${this.form.email}</p>
-			 	<h4>name:</h4> <p>${this.form.name}</p>
-			 	<h4>location:</h4> <p>${this.form.location}</p>
-			 	<h4>education:</h4> <p>${this.form.education}</p>
-			 	<h4>experience:</h4> <p>${this.form.experience}</p>
-			 	<h4>videLink:</h4> <p>${this.form.videLink}</p>
-			`
+			// this.form.emailTemplate = `
+			// 	<h4>email:</h4> <p>${this.form.email}</p>
+			//  	<h4>name:</h4> <p>${this.form.name}</p>
+			//  	<h4>location:</h4> <p>${this.form.location}</p>
+			//  	<h4>education:</h4> <p>${this.form.education}</p>
+			//  	<h4>number:</h4> <p>${this.form.number}</p>
+			//  	<h4>video link:</h4> <p>${this.form.video}</p>
+			// `
 
 			// trigger google sheets
 			const url = 'https://sheet.best/api/sheets/aa7b726e-d5fc-4afe-8004-6a70356daf20'
@@ -111,6 +125,12 @@ export default {
 		},
 		getVideo(value) {
 			this.form.video = value
+		},
+		getLink(value) {
+			this.form.link = value
+		},
+		getBirthDate(value) {
+			this.form.birthDate = value
 		},
 	},
 }

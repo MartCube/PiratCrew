@@ -82,7 +82,7 @@ export default {
 @media (max-width: 800px) {
 	.text_box {
 		h2 {
-			font-size: 3rem;
+			font-size: 2.5rem;
 			-webkit-text-stroke: 1px white;
 		}
 	}
