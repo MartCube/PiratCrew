@@ -1,6 +1,6 @@
 <template>
 	<div id="intro">
-		<span class="open-video">{{ $t('pages.shows.clickToWatch') }}</span>
+		<span v-if="info" class="watch_video">{{ $t('pages.shows.clickToWatch') }}</span>
 		<Letters :text="video" />
 		<!-- eslint-disable-next-line vue/attribute-hyphenation -->
 		<client-only> <video-background ref="video" :src="videoPath" playsWhen="canplaythrough" /> </client-only>
@@ -13,6 +13,10 @@ export default {
 		video: {
 			type: String,
 			required: true,
+		},
+		info: {
+			type: Boolean,
+			default: true,
 		},
 	},
 	data: () => ({}),
@@ -36,7 +40,8 @@ export default {
 	align-items: center;
 
 	position: relative;
-	.open-video {
+	.watch_video {
+		cursor: pointer;
 		position: absolute;
 		z-index: 3;
 		left: 50%;

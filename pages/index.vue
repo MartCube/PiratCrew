@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<Intro video="piratcrew" />
+			<Intro :info="false" video="piratcrew" />
 			<AboutHome />
 			<Shows />
 			<Contact />

@@ -45,7 +45,7 @@ export default {
 		top: 0;
 		right: 0;
 		width: 40px;
-		height: 40px;
+		height: 35px;
 		fill: white;
 
 		cursor: pointer;
