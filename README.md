@@ -1,6 +1,6 @@
 
 ![favicon](https://github.com/MartCube/PiratCrew/blob/master/static/favicon.png?raw=true) 
-# PiratCrew
+# PiratCrew ([link](https://piratcrew.netlify.app/))
 
 ## Jamstack architecture
 
