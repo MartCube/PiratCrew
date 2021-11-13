@@ -7,6 +7,6 @@
 - Nuxt - full static site generation
 - Prismic as CMS
 - Netlify AWS Lambda functions
-- internationalization with Vue i18n ( EN, RU )
+- internationalization with Vue i18n ( En, Ru )
 
 
