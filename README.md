@@ -1,9 +1,5 @@
-# PiratCrew ![favicon](https://github.com/MartCube/PiratCrew/blob/master/static/favicon.png?raw=true)
 
-
-
-
-
+![favicon](https://github.com/MartCube/PiratCrew/blob/master/static/favicon.png?raw=true) # PiratCrew
 
 ## Jamstack architecture
 
