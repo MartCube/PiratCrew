@@ -8,5 +8,6 @@
 - Prismic as CMS
 - Netlify AWS Lambda functions
 - internationalization with Vue i18n ( En, Ru )
+- Anime.js for animations
 
 
