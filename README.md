@@ -1,7 +1,7 @@
-# PiratCrew
+# PiratCrew !(https://github.com/MartCube/PiratCrew/blob/master/static/favicon.png?raw=true)
 
 
-![](https://github.com/MartCube/PiratCrew/blob/master/static/favicon.png?raw=true)
+
 
 
 
