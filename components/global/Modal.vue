@@ -30,10 +30,12 @@ export default {
 
 <style lang="scss">
 .modal {
+	top: 0;
+	left: 0;
 	position: fixed;
-	width: calc(100vw - 80px);
-	height: calc(100vh - 80px);
-	z-index: 98;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1000;
 	background: black;
 
 	display: flex;

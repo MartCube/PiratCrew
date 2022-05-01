@@ -1,16 +1,17 @@
 <template>
 	<client-only>
-		<div class="plyr_video">
-			<vue-plyr>
-				<!-- <div data-plyr-provider="vimeo" :data-plyr-embed-id="video"></div> -->
-				<div data-plyr-provider="youtube" allowfullscreen allowtransparency allow="autoplay" :data-plyr-embed-id="video"></div>
-			</vue-plyr>
-		</div>
+		<LazyYoutube :src="video" :autoplay="true" />
 	</client-only>
 </template>
 
 <script>
+import { LazyYoutube } from 'vue-lazytube'
+
 export default {
+	components: {
+		LazyYoutube,
+		// LazyVimeo,
+	},
 	props: {
 		video: {
 			type: String,
@@ -21,16 +22,10 @@ export default {
 </script>
 
 <style lang="scss">
-.plyr_video {
-	width: 60%;
-	min-height: max-content;
-}
-:root {
-	--plyr-color-main: black;
-}
-@media (max-width: 900px) {
-	.plyr_video {
-		width: 100%;
-	}
+.ipOhDr {
+	max-width: initial;
+	padding: 5vw;
+	width: 95vw;
+	height: 95vh;
 }
 </style>

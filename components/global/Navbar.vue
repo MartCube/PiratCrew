@@ -5,7 +5,7 @@
 				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
 				<div class="item">
-					<p class="text">pirate crew dance group</p>
+					<p class="text">pirate dance acrobatic theater</p>
 				</div>
 			</n-link>
 

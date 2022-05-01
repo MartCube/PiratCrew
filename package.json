@@ -21,8 +21,9 @@
 		"nuxt": "^2.14.5",
 		"nuxt-i18n": "^6.15.4",
 		"vee-validate": "^3.4.0",
+		"vue-cool-lightbox": "^2.7.4",
+		"vue-lazytube": "^1.0.2",
 		"vue-observe-visibility": "^0.4.6",
-		"vue-plyr": "^7.0.0",
 		"vue-responsive-video-background-player": "^1.2.2",
 		"vue-scrollto": "^2.18.2"
 	},

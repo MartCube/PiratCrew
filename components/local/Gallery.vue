@@ -1,29 +1,23 @@
 <template>
 	<div id="gallery" class="gallery">
-		<div v-for="(item, i) in data" :key="'gallery-image' + i" class="image">
-			<ImageItem :src="item.gallery_image.url" :alt="item.gallery_image.alt" @click.native="Toggle(i)" />
-		</div>
+		<CoolLightBox :items="getImagesArray(data)" :index="index" @close="index = null"></CoolLightBox>
 
-		<div v-if="visible" class="lightbox">
-			<svg class="cancel" viewBox="0 0 24 24" @click="Toggle()">
-				<path d="M22,4,20,2l-8,8L4,2,2,4l8,8L2,20l2,2,8-8,8,8,2-2-8-8Z" />
-			</svg>
-
-			<svg class="left" :class="{ disable: currentImage == 0 }" viewBox="0 0 24 24" @click="Prev()">
-				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
-			</svg>
-
-			<ImageItem :key="componentKey" width="90%" height="90%" :src="data[currentImage].gallery_image.url" :alt="data[currentImage].gallery_image.alt" />
-
-			<svg class="right" :class="{ disable: currentImage == data.length - 1 }" viewBox="0 0 24 24" @click="Next()">
-				<path d="M8.17,2,5.83,4.35,13.46,12,5.83,19.65,8.17,22l10-10Z" />
-			</svg>
+		<div class="wrapper">
+			<div v-for="(item, i) in data" :key="i" class="image" @click="index = i">
+				<ImageItem :src="item.gallery_image.url" :alt="item.gallery_image.alt" />
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
+
 export default {
+	components: {
+		CoolLightBox,
+	},
 	props: {
 		data: {
 			type: Array,
@@ -31,46 +25,16 @@ export default {
 		},
 	},
 	data: () => ({
-		visible: false,
-		currentImage: 0,
-		componentKey: 0,
+		index: null,
 	}),
 	methods: {
-		forceRerender() {
-			this.componentKey += 1
-		},
-		Toggle(index) {
-			this.currentImage = index
-			this.visible = !this.visible
-			if (this.visible) window.addEventListener('keydown', this.onKeydown)
-			else window.removeEventListener('keydown', this.onKeydown)
-		},
-		Next() {
-			if (this.currentImage !== this.data.length - 1) {
-				this.currentImage++
-				this.forceRerender()
-			}
-		},
-		Prev() {
-			if (this.currentImage !== 0) {
-				this.currentImage--
-				this.forceRerender()
-			}
-		},
-		onKeydown(e) {
-			if (this.visible) {
-				switch (e.key) {
-					case 'ArrowRight':
-						this.Next()
-						break
-					case 'ArrowLeft':
-						this.Prev()
-						break
-					case 'Escape':
-						this.Toggle()
-						break
-				}
-			}
+		getImagesArray(arr) {
+			const imageUrls = []
+			arr.forEach((item) => {
+				imageUrls.push(item.gallery_image.url)
+			})
+			// console.log(imageUrls)
+			return imageUrls
 		},
 	},
 }
@@ -82,7 +46,7 @@ $row-height: 300px;
 $column-count: 4;
 $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 
-.gallery {
+.gallery .wrapper {
 	margin-top: 4rem;
 	width: 100%;
 	display: grid;

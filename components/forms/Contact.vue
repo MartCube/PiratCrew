@@ -11,12 +11,12 @@
 					</div>
 					<div class="info phone">
 						<h2>phone</h2>
-						<p>Viber <a href="tel:+380492322105">+380 492 322 105</a></p>
-						<p>WhatsApp <a href="tel:+380492322105">+380 492 322 105</a></p>
+						<p>Viber <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
+						<p>WhatsApp <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
 					</div>
 					<div class="info mail">
 						<h2>email</h2>
-						<p><a href="tel:+380492322105">piratcrew@gmail.com</a></p>
+						<p><a href="mailto:piratcrew.info@gmail.com">piratcrew.info@gmail.com</a></p>
 					</div>
 				</div>
 				<div class="wrap">

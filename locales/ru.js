@@ -10,4 +10,15 @@ export default {
 		casting: 'кастинг',
 		crew: 'банда',
 	},
+	contact: {
+		adress_title: 'Адресс',
+		adress: 'Киев, Украина',
+		phone: 'телефон',
+		follow_us: 'Следите за новостями',
+		write_us: 'напишите нам',
+		email: 'емаил',
+		subject: 'тема',
+		message: 'сообщение',
+		submit: 'отправить',
+	},
 }

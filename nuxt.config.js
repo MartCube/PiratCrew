@@ -14,7 +14,7 @@ export default {
 	css: ['~/assets/main.scss'],
 
 	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-	plugins: [{ src: '~/plugins/vue-plyr', mode: 'client' }, { src: '~/plugins/responsive-video', mode: 'client' }, { src: '@/plugins/vue-observe' }, { src: '@/plugins/vee-validate.js' }, { src: `~/plugins/lazysizes.client.js` }, { src: `~/plugins/gsap.js` }],
+	plugins: [{ src: '~/plugins/responsive-video', mode: 'client' }, { src: '@/plugins/vue-observe' }, { src: '@/plugins/vee-validate.js' }, { src: `~/plugins/lazysizes.client.js` }, { src: `~/plugins/gsap.js` }],
 
 	// Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
 	buildModules: [
