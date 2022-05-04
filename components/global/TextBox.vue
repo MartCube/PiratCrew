@@ -51,10 +51,10 @@ export default {
 	h2 {
 		font-weight: 500;
 		font-size: 5rem;
-		line-height: 70px;
+		line-height: 60px;
 		text-transform: uppercase;
-		color: transparent;
-		-webkit-text-stroke: 2px white;
+		color: white;
+		// -webkit-text-stroke: 2px white;
 
 		margin-left: 2rem;
 		opacity: 0;

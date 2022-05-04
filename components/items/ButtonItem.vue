@@ -16,7 +16,7 @@ button {
 	cursor: pointer;
 	outline: none;
 
-	font-family: 'codec_bold';
+	font-family: 'Montserrat', sans-serif;
 	letter-spacing: 2px;
 	font-size: 1em;
 	text-transform: uppercase;

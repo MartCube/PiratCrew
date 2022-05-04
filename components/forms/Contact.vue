@@ -3,7 +3,7 @@
 		<TextBox :text="$t('pages.contact')" />
 
 		<transition name="page" appear mode="out-in">
-			<ValidationObserver v-if="!complete" ref="form_contact" tag="form" @submit.prevent="Submit()">
+			<div class="wrapper">
 				<div class="wrap">
 					<div class="info media">
 						<h2>follow</h2>
@@ -21,23 +21,31 @@
 				</div>
 				<div class="wrap">
 					<h2 class="title">write us</h2>
+					<form ref="form_contact" @submit.prevent="Submit()">
+						<ValidationObserver v-if="!complete" ref="form_contact_validation" tag="div">
+							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
+							<InputItem labelName="name" :name="'name'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
+							<InputItem labelName="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
+							<InputItem labelName="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
+							<InputItem labelName="message" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
-					<InputItem labelName="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem labelName="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-					<InputItem labelName="message" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
-
-					<button type="submit" class="submit">
-						<span v-if="!loading">submit</span>
-						<Spinner v-else />
-					</button>
+							<button type="submit" class="submit">
+								<span v-if="!loading">submit</span>
+								<Spinner v-else />
+							</button>
+						</ValidationObserver>
+						<div v-else class="message">
+							<div class="info">
+								<h2>successfully submitted</h2>
+								<p>Thank you for filling out your information.</p>
+							</div>
+							<ButtonItem @click.native="complete = false">okey</ButtonItem>
+						</div>
+					</form>
 				</div>
-			</ValidationObserver>
-			<div v-else class="message">
-				<div class="info">
-					<h2>successfully submitted</h2>
-					<p>Thank you for filling out your information.</p>
-				</div>
-				<ButtonItem @click.native="complete = false">okey</ButtonItem>
 			</div>
 		</transition>
 	</section>
@@ -45,25 +53,28 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate'
+import * as emailjs from '@emailjs/browser'
 
 export default {
 	components: {
 		ValidationObserver,
 	},
 	data: () => ({
-		form: {
-			email: String,
-			number: String,
-			message: String,
-			action: 'Contact',
-			emailTemplate: '',
-		},
+		// form: {
+		// 	email: String,
+		// 	number: String,
+		// 	message: String,
+		// 	action: 'Contact',
+		// 	emailTemplate: '',
+		// },
 		loading: false,
+		isSuccess: false,
+
 		complete: false,
 	}),
 	methods: {
 		async Submit() {
-			const isValid = await this.$refs.form_contact.validate()
+			const isValid = await this.$refs.form_contact_validation.validate()
 			// validation
 			if (!isValid) return
 
@@ -71,38 +82,40 @@ export default {
 			console.log('loading')
 
 			// compose email template
-			this.form.emailTemplate = `
-				<h4>email:</h4> <p>${this.form.email}</p>
-			 	<h4>number:</h4> <p>${this.form.number}</p>
-			 	<h4>message:</h4> <p>${this.form.message}</p>
-			`
-
-			// trigger netlify function
-			try {
-				await this.$axios.$post('.netlify/functions/sendmail', this.form)
-			} catch (error) {
-				console.log(error)
-			}
+			emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.form_contact, 'wGoXfD98B08dUh-BC').then(
+				(result) => {
+					console.log('SUCCESS!', result.text)
+					this.loading = false
+					this.complete = !this.complete
+					this.isSuccess = true
+				},
+				(error) => {
+					console.log('FAILED...', error.text)
+					// this.message = !this.message
+					this.complete = !this.complete
+					// this.message = 'fail'
+				},
+			)
 
 			console.log('submited')
 			this.loading = false
 			this.complete = true
 		},
-		getEmail(value) {
-			this.form.email = value
-		},
-		getNumber(value) {
-			this.form.number = value
-		},
-		getMessage(value) {
-			this.form.message = value
-		},
+		// getEmail(value) {
+		// 	this.form.email = value
+		// },
+		// getNumber(value) {
+		// 	this.form.number = value
+		// },
+		// getMessage(value) {
+		// 	this.form.message = value
+		// },
 	},
 }
 </script>
 
 <style lang="scss" scoped>
-form {
+.wrapper {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -203,7 +216,7 @@ form {
 }
 
 @media (max-width: 1200px) {
-	form {
+	.wrapper {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;

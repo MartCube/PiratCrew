@@ -2,14 +2,15 @@
 	<section id="casting">
 		<TextBox :text="$t('pages.casting')" />
 
-		<transition name="page" appear mode="out-in">
-			<ValidationObserver v-if="!complete" ref="form_casting" tag="form" @submit.prevent="Submit()">
+		<!-- <transition name="page" appear mode="out-in"> -->
+		<div class="info">
+			<!-- <h2>piratcrew casting</h2> -->
+			<p>Are you an artist trying to prove your skills ?</p>
+			<p>Please fill the following so we can continue to next step.</p>
+		</div>
+		<form ref="casting_form" @submit.prevent="Submit()">
+			<ValidationObserver v-if="!complete" ref="casting_form_validation" tag="div">
 				<div class="wrap">
-					<div class="info">
-						<h2>piratcrew casting</h2>
-						<p>Are you an artist trying to prove your skills ?</p>
-						<p>Please fill the following so we can continue to next step.</p>
-					</div>
 					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
 					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
 					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
@@ -29,18 +30,25 @@
 			</ValidationObserver>
 			<div v-else class="message">
 				<div class="info">
-					<h2>successfully submitted</h2>
-					<p>Thank you for filling out your information.</p>
+					<template v-if="isSuccess">
+						<h2>successfully submitted</h2>
+						<p>Thank you for filling out your information.</p>
+					</template>
+					<template v-else>
+						<h2>Something went wrong</h2>
+						<p>Please try again</p>
+					</template>
 				</div>
 				<ButtonItem @click.native="complete = false">okey</ButtonItem>
 			</div>
-		</transition>
+		</form>
+		<!-- </transition> -->
 	</section>
 </template>
 
 <script>
 import { ValidationObserver } from 'vee-validate'
-
+import * as emailjs from '@emailjs/browser'
 export default {
 	middleware: 'navigation',
 	components: {
@@ -61,6 +69,7 @@ export default {
 		},
 		loading: false,
 		complete: false,
+		isSuccess: false,
 	}),
 	computed: {
 		currentData() {
@@ -76,33 +85,27 @@ export default {
 	},
 	methods: {
 		async Submit() {
-			const isValid = await this.$refs.form_casting.validate()
+			const isValid = await this.$refs.casting_form_validation.validate()
 			// validation
 			if (!isValid) return
 
 			this.loading = true
 			this.form.date = this.currentData
 
-			// compose email template
-			// this.form.emailTemplate = `
-			// 	<h4>email:</h4> <p>${this.form.email}</p>
-			//  	<h4>name:</h4> <p>${this.form.name}</p>
-			//  	<h4>location:</h4> <p>${this.form.location}</p>
-			//  	<h4>education:</h4> <p>${this.form.education}</p>
-			//  	<h4>number:</h4> <p>${this.form.number}</p>
-			//  	<h4>video link:</h4> <p>${this.form.video}</p>
-			// `
-
-			// trigger google sheets
-			const url = 'https://sheet.best/api/sheets/aa7b726e-d5fc-4afe-8004-6a70356daf20'
-
-			try {
-				await this.$axios.post(url, this.form).then((res) => {
-					console.log(res)
-				})
-			} catch (error) {
-				console.log(error)
-			}
+			emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.casting_form, 'wGoXfD98B08dUh-BC').then(
+				(result) => {
+					console.log('SUCCESS!', result.text)
+					this.loading = false
+					this.complete = !this.complete
+					this.isSuccess = true
+				},
+				(error) => {
+					console.log('FAILED...', error.text)
+					// this.message = !this.message
+					this.complete = !this.complete
+					// this.message = 'fail'
+				},
+			)
 
 			console.log('submited')
 			this.loading = false
@@ -137,7 +140,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+.info {
+	width: 100%;
+	// height: 100px;
+	border-left: 2px solid #fff;
+	padding-left: 2rem;
+	margin-bottom: 2rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	h2 {
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+}
+form div {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -152,24 +170,10 @@ form {
 		flex-direction: column;
 		justify-content: space-between;
 	}
-	.info {
-		width: 100%;
-		height: 100px;
-		border-left: 2px solid #fff;
-		padding-left: 2rem;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		h2 {
-			text-transform: uppercase;
-			margin-bottom: 20px;
-		}
-	}
 	.submit {
 		width: 100%;
 		height: 50px;
-		margin-top: 50px;
+		margin-top: 10px;
 		padding: 10px 0;
 
 		color: white;
@@ -217,7 +221,7 @@ form {
 
 @media (max-width: 1200px) {
 	#casting {
-		form {
+		form div {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
