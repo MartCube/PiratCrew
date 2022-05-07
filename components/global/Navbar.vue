@@ -292,7 +292,7 @@ $size: 40px;
 
 			.text {
 				opacity: 0; //anime
-				padding: 2vh;
+				padding: 13px;
 
 				text-transform: uppercase;
 				font-size: 12px;
