@@ -11,16 +11,16 @@
 		<form ref="casting_form" @submit.prevent="Submit()">
 			<ValidationObserver v-if="!complete" ref="casting_form_validation" tag="div">
 				<div class="wrap">
-					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
-					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" @getValue="getBirthDate" />
+					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" />
+					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
+					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
+					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" />
 				</div>
 				<div class="wrap">
-					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
-					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
-					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
-					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" @getValue="getLink" />
+					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" />
+					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" />
+					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" />
+					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit</span>
@@ -101,39 +101,14 @@ export default {
 				},
 				(error) => {
 					console.log('FAILED...', error.text)
-					// this.message = !this.message
+					this.loading = false
 					this.complete = !this.complete
-					// this.message = 'fail'
 				},
 			)
 
 			console.log('submited')
 			this.loading = false
 			this.complete = true
-		},
-		getEmail(value) {
-			this.form.email = value
-		},
-		getName(value) {
-			this.form.name = value
-		},
-		getNumber(value) {
-			this.form.number = value
-		},
-		getLocation(value) {
-			this.form.location = value
-		},
-		getGenre(value) {
-			this.form.genre = value
-		},
-		getVideo(value) {
-			this.form.video = value
-		},
-		getLink(value) {
-			this.form.link = value
-		},
-		getBirthDate(value) {
-			this.form.birthDate = value
 		},
 	},
 }

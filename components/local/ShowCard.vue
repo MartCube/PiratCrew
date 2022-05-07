@@ -161,6 +161,18 @@ export default {
 				}
 			}
 		}
+		&:hover {
+			picture {
+				transform: initial;
+			}
+		}
+		.image {
+			.box {
+				z-index: 2;
+				bottom: 0;
+				right: 0;
+			}
+		}
 	}
 }
 </style>

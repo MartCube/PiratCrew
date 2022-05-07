@@ -115,11 +115,11 @@ $transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
 }
 
 @media (max-width: 700px) {
-	.gallery {
+	.gallery .wrapper {
 		margin: 30px 0;
 		max-width: 355px;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 		grid-auto-rows: 300px;
 		grid-auto-flow: row dense;
 		grid-gap: 3px;

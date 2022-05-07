@@ -7,7 +7,11 @@
 				<div class="wrap">
 					<div class="info media">
 						<h2>follow</h2>
-						<p><a href="#">facebook</a><a href="#">youtube</a><a href="#">instagram</a></p>
+						<p>
+							<a href="https://www.facebook.com/piratcrewshow/">facebook</a>
+							<a href="https://www.youtube.com/channel/UCJjlUOVeQyATgVOqGss6C_Q">youtube</a>
+							<a href="https://www.instagram.com/piratcrew/">instagram</a>
+						</p>
 					</div>
 					<div class="info phone">
 						<h2>phone</h2>
@@ -24,13 +28,13 @@
 					<form ref="form_contact" @submit.prevent="Submit()">
 						<ValidationObserver v-if="!complete" ref="form_contact_validation" tag="div">
 							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem labelName="name" :name="'name'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<InputItem label-name="name" :name="'name'" placeholder="Alice Wonder" :rules="'required'" />
 							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem labelName="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
 							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem labelName="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+							<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
 							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem labelName="message" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
+							<InputItem label-name="message" :name="'message'" placeholder="your message .." :rules="'required'" />
 
 							<button type="submit" class="submit">
 								<span v-if="!loading">submit</span>
@@ -82,7 +86,7 @@ export default {
 			console.log('loading')
 
 			// compose email template
-			emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.form_contact, 'wGoXfD98B08dUh-BC').then(
+			emailjs.sendForm('default_service', 'template_wy3mrgb', this.$refs.form_contact, 'wGoXfD98B08dUh-BC').then(
 				(result) => {
 					console.log('SUCCESS!', result.text)
 					this.loading = false
@@ -179,7 +183,7 @@ export default {
 		cursor: pointer;
 		outline: none;
 
-		font-family: 'codec_bold';
+		// font-family: 'codec_bold';
 		letter-spacing: 2px;
 		font-size: 1em;
 		text-transform: uppercase;
@@ -215,7 +219,7 @@ export default {
 	flex-direction: column;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
 	.wrapper {
 		flex-direction: column;
 		justify-content: center;
@@ -226,6 +230,7 @@ export default {
 			height: 100%;
 			.info {
 				height: max-content;
+				width: 100%;
 				padding-left: 1rem;
 				margin-bottom: 40px;
 				p {

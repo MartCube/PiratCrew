@@ -4,7 +4,7 @@
 			{{ errors[0] }}
 		</div>
 
-		<input :id="name" v-model="input_value" :placeholder="placeholder" :type="type" class="form_field" :name="name" @change="emitValue" />
+		<input :id="name" v-model="input_value" :placeholder="placeholder" :type="type" class="form_field" :name="name" />
 		<label :for="name" class="form_label">{{ labelName }}</label>
 	</ValidationProvider>
 </template>
@@ -45,11 +45,11 @@ export default {
 	data: () => ({
 		input_value: '',
 	}),
-	methods: {
-		emitValue(event) {
-			this.$emit('getValue', this.input_value)
-		},
-	},
+	// methods: {
+	// 	emitValue(event) {
+	// 		this.$emit('getValue', this.input_value)
+	// 	},
+	// },
 }
 </script>
 
@@ -85,6 +85,7 @@ export default {
 			font-size: 1.1rem;
 			cursor: text;
 			top: 20px;
+			color: white;
 		}
 		&:focus {
 			~ .form_label {
@@ -117,8 +118,9 @@ export default {
 		top: 0;
 		display: block;
 		transition: 0.2s;
-		font-size: 1em;
-		color: white;
+		font-size: 0.8rem;
+		color: #aaaaaa;
+
 	}
 	.error {
 		position: absolute;
@@ -133,7 +135,7 @@ export default {
 	}
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
 	.form_group {
 		margin-top: 1rem;
 	}

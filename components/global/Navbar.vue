@@ -5,7 +5,7 @@
 				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
 				<div class="item">
-					<p class="text">pirate dance acrobatic theater</p>
+					<p class="text">pirat crew dance acrobatic theater</p>
 				</div>
 			</n-link>
 
@@ -419,6 +419,28 @@ $size: 40px;
 			height: 80%;
 			flex-direction: column;
 			align-items: flex-start;
+
+			a {
+				&:hover {
+					opacity: initial;
+					&:after {
+						height: initial;
+					}
+				}
+				&:focus {
+					opacity: 0.75;
+					&:after {
+						height: 80px;
+					}
+				}
+				&.nuxt-link-active,
+				&.nuxt-link-exact-active {
+					opacity: 0.75;
+					&:after {
+						height: 80px;
+					}
+				}
+			}
 		}
 		.top,
 		.right,
