@@ -1,7 +1,22 @@
 <template>
 	<section id="about">
 		<TextBox :text="$t('pages.about')" />
-		<div class="about">
+		<div v-if="currentLocale === 'en'" class="about">
+			<div class="text">
+				<div class="wrap">
+					<p>Show production <b>PIRAT CREW</b> 10 years of experience creating captivating world-class shows. He is heading for new and unexplored paths on the map of modern theatrical and choreographic art. His team includes circus artists, dancers, costume designers, choreographers, directors of shows and events.</p>
+					<p>Pirate Crew is a team of unique, creative and free. This is our story. PIRAT CREW's artistic journey began in 2010.</p>
+					<p>Since then, we have visited 20 countries with original shows that gave delight and joy to viewers in France, Sweden, Finland, Germany, Turkey, Ukraine, Russia.</p>
+				</div>
+				<div class="wrap">
+					<p>More than 3,000 performances, 1,000 designed and staged events, 5 full-scale shows.</p>
+					<p>Jazz Do It Show, Bon Voyage, Juzeppe Hotel are highly appreciated all over the world. The shows are created under the direction of PIRAT CREW director and choreographer Dmitry Yudin and a team of interdisciplinary artists.</p>
+					<p>Circus art is intertwined with music and experimental choreography, designer costumes with modern technologies, acrobatics with an expressive design. All this involves the viewer in a magical and amazing story that we tell in a new visual language.</p>
+					<p>Welcome!</p>
+				</div>
+			</div>
+		</div>
+		<div v-else class="about">
 			<div class="text">
 				<div class="wrap">
 					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
@@ -22,6 +37,11 @@
 <script>
 export default {
 	data: () => ({}),
+	computed: {
+		currentLocale() {
+			return this.$i18n.localeProperties.code
+		},
+	},
 }
 </script>
 

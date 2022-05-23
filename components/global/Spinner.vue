@@ -19,6 +19,7 @@ export default {
 <style scoped>
 .spinner {
 	align-self: center;
+	width: 3rem;
 }
 .spinner > div {
 	width: 6px;

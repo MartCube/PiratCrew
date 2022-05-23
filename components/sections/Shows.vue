@@ -4,15 +4,25 @@
 		<div v-if="!$fetchState.pending" class="shows">
 			<ShowCard v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>
+		<div v-if="$fetchState.error" class="error">
+			<h2>Упс что-то пошло не так, перезагрузите страницу пожалуйста</h2>
+		</div>
 	</section>
 </template>
 
 <script>
 export default {
 	async fetch() {
-		const events = await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'show'))
-		this.events = events.results
+		await this.$prismic.api
+			.query(this.$prismic.predicates.at('document.type', 'show'))
+			.then((data) => {
+				this.events = data.results
+			})
+			.catch((err) => {
+				console.error(err)
+			})
 	},
+	fetchKey: 'shows',
 	data: () => ({
 		events: {},
 	}),

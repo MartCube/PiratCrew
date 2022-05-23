@@ -27,14 +27,10 @@
 					<h2 class="title">write us</h2>
 					<form ref="form_contact" @submit.prevent="Submit()">
 						<ValidationObserver v-if="!complete" ref="form_contact_validation" tag="div">
-							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem label-name="name" :name="'name'" placeholder="Alice Wonder" :rules="'required'" />
-							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
-							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
-							<!-- eslint-disable-next-line vue/attribute-hyphenation -->
-							<InputItem label-name="message" :name="'message'" placeholder="your message .." :rules="'required'" />
+							<InputItem label-name="name" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
+							<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+							<InputItem label-name="message" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 							<button type="submit" class="submit">
 								<span v-if="!loading">submit</span>
@@ -43,8 +39,14 @@
 						</ValidationObserver>
 						<div v-else class="message">
 							<div class="info">
-								<h2>successfully submitted</h2>
-								<p>Thank you for filling out your information.</p>
+								<template v-if="isSuccess">
+									<h2>successfully submitted</h2>
+									<p>Thank you for filling out your information.</p>
+								</template>
+								<template v-else>
+									<h2>Something went wrong</h2>
+									<p>Please try again</p>
+								</template>
 							</div>
 							<ButtonItem @click.native="complete = false">okey</ButtonItem>
 						</div>
@@ -64,13 +66,12 @@ export default {
 		ValidationObserver,
 	},
 	data: () => ({
-		// form: {
-		// 	email: String,
-		// 	number: String,
-		// 	message: String,
-		// 	action: 'Contact',
-		// 	emailTemplate: '',
-		// },
+		form: {
+			email: String,
+			number: String,
+			name: String,
+			message: String,
+		},
 		loading: false,
 		isSuccess: false,
 
@@ -86,34 +87,38 @@ export default {
 			console.log('loading')
 
 			// compose email template
-			emailjs.sendForm('default_service', 'template_wy3mrgb', this.$refs.form_contact, 'wGoXfD98B08dUh-BC').then(
-				(result) => {
-					console.log('SUCCESS!', result.text)
+			emailjs
+				.sendForm('default_service', 'template_wy3mrgb', this.$refs.form_contact, 'wGoXfD98B08dUh-BC')
+				.then(
+					(result) => {
+						console.log('SUCCESS!', result.text)
+						this.isSuccess = true
+					},
+					(error) => {
+						console.log('FAILED...', error.text)
+					},
+				)
+				.finally(() => {
 					this.loading = false
-					this.complete = !this.complete
-					this.isSuccess = true
-				},
-				(error) => {
-					console.log('FAILED...', error.text)
-					// this.message = !this.message
-					this.complete = !this.complete
-					// this.message = 'fail'
-				},
-			)
+					this.complete = true
+				})
 
-			console.log('submited')
-			this.loading = false
-			this.complete = true
+			// console.log('submited')
+			// this.loading = false
+			// this.complete = true
 		},
-		// getEmail(value) {
-		// 	this.form.email = value
-		// },
-		// getNumber(value) {
-		// 	this.form.number = value
-		// },
-		// getMessage(value) {
-		// 	this.form.message = value
-		// },
+		getName(value) {
+			this.form.name = value
+		},
+		getEmail(value) {
+			this.form.email = value
+		},
+		getNumber(value) {
+			this.form.number = value
+		},
+		getMessage(value) {
+			this.form.message = value
+		},
 	},
 }
 </script>

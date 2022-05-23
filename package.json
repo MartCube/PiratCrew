@@ -21,6 +21,7 @@
 		"lazysizes": "^5.2.2",
 		"nuxt": "^2.14.5",
 		"nuxt-i18n": "^6.15.4",
+		"sheetdb-js": "^1.0.3",
 		"vee-validate": "^3.4.0",
 		"vue-cool-lightbox": "^2.7.4",
 		"vue-lazytube": "^1.0.2",

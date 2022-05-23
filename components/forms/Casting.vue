@@ -2,7 +2,6 @@
 	<section id="casting">
 		<TextBox :text="$t('pages.casting')" />
 
-		<!-- <transition name="page" appear mode="out-in"> -->
 		<div class="info">
 			<!-- <h2>piratcrew casting</h2> -->
 			<p>Are you an artist trying to prove your skills ?</p>
@@ -11,16 +10,16 @@
 		<form ref="casting_form" @submit.prevent="Submit()">
 			<ValidationObserver v-if="!complete" ref="casting_form_validation" tag="div">
 				<div class="wrap">
-					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" />
-					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
-					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
-					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" />
+					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
+					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" @getValue="getBday" />
 				</div>
 				<div class="wrap">
-					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" />
-					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" />
-					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" />
-					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" />
+					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
+					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
+					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
+					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" @getValue="getLink" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">submit</span>
@@ -42,13 +41,14 @@
 				<ButtonItem @click.native="complete = false">okey</ButtonItem>
 			</div>
 		</form>
-		<!-- </transition> -->
 	</section>
 </template>
 
 <script>
 import { ValidationObserver } from 'vee-validate'
 import * as emailjs from '@emailjs/browser'
+import SheetDB from 'sheetdb-js'
+
 export default {
 	middleware: 'navigation',
 	components: {
@@ -56,16 +56,15 @@ export default {
 	},
 	data: () => ({
 		form: {
-			email: '',
+			date: '',
 			name: '',
-			number: '',
-
+			email: '',
+			phone: '',
+			birth: '',
 			location: '',
 			genre: '',
-			videLink: '',
-
-			action: 'Casting',
-			// emailTemplate: '',
+			video: '',
+			instagram: '',
 		},
 		loading: false,
 		complete: false,
@@ -73,14 +72,7 @@ export default {
 	}),
 	computed: {
 		currentData() {
-			const today = new Date()
-
-			// Getting required values
-			const year = today.getFullYear()
-			const month = today.getMonth()
-			const day = today.getDate()
-
-			return `${day}-${month}-${year}`
+			return new Date().toLocaleDateString()
 		},
 	},
 	methods: {
@@ -92,23 +84,62 @@ export default {
 			this.loading = true
 			this.form.date = this.currentData
 
-			emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.casting_form, 'wGoXfD98B08dUh-BC').then(
+			await emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.casting_form, 'wGoXfD98B08dUh-BC').then(
 				(result) => {
 					console.log('SUCCESS!', result.text)
 					this.loading = false
-					this.complete = !this.complete
+					this.complete = true
 					this.isSuccess = true
 				},
 				(error) => {
 					console.log('FAILED...', error.text)
 					this.loading = false
-					this.complete = !this.complete
+					this.complete = true
 				},
 			)
 
+			await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
+				sheet: 'ArtistForm',
+				data: this.form,
+			})
+				.then((result) => {
+					console.log(result.created)
+					this.isSuccess = true
+					this.complete = true
+					this.loading = false
+				})
+				.catch((error) => {
+					console.log(error)
+					this.isSuccess = false
+					this.complete = true
+					this.loading = false
+				})
+
 			console.log('submited')
-			this.loading = false
-			this.complete = true
+		},
+		getEmail(value) {
+			this.form.email = value
+		},
+		getName(value) {
+			this.form.name = value
+		},
+		getNumber(value) {
+			this.form.phone = value
+		},
+		getLocation(value) {
+			this.form.location = value
+		},
+		getBday(value) {
+			this.form.birth = value
+		},
+		getGenre(value) {
+			this.form.genre = value
+		},
+		getVideo(value) {
+			this.form.video = value
+		},
+		getLink(value) {
+			this.form.instagram = value
 		},
 	},
 }
@@ -155,9 +186,8 @@ form div {
 		border: 1px solid white;
 		background: transparent;
 		cursor: pointer;
-		outline: none;
 
-		font-family: 'codec_bold';
+		// font-family: 'codec_bold';
 		letter-spacing: 2px;
 		font-size: 1em;
 		text-transform: uppercase;
