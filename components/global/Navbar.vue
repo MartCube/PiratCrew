@@ -32,7 +32,11 @@
 			</div>
 			<div class="line" />
 			<div class="item">
-				<p class="text year">copy right &copy; {{ year }}</p>
+				<n-link class="text" to="/privacy-policy"> Privacy Policy </n-link>
+			</div>
+			<div class="line" />
+			<div class="item">
+				<p class="text year">copy right {{ year }}</p>
 			</div>
 		</div>
 		<div class="left">
@@ -307,6 +311,9 @@ $size: 40px;
 				&.active {
 					display: none;
 				}
+			}
+			&:hover {
+				opacity: 0.75;
 			}
 		}
 		.line {

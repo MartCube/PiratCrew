@@ -1,17 +1,14 @@
 <template>
 	<div>
 		<div class="container">
-			<Intro video="piratcrew" />
-			<AboutHome />
-			<Shows />
-			<Contact />
+			<h1>Privacy Policy Page</h1>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'Home',
+	name: 'PrivacyPolicy',
 	middleware: 'navigation',
 	data: () => ({}),
 }

@@ -22,7 +22,7 @@ export default {
 	],
 
 	// Modules (https://go.nuxtjs.dev/config-modules)
-	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios', 'nuxt-i18n'],
+	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios', 'nuxt-i18n', '@nuxtjs/sitemap'],
 
 	prismic: {
 		endpoint: 'https://piratcrew.cdn.prismic.io/api/v2',
@@ -45,6 +45,35 @@ export default {
 				code: 'ru',
 				name: 'RU',
 				file: 'ru.js',
+			},
+		],
+	},
+
+	sitemap: {
+		hostname: 'https://piratcrew.com',
+		defaults: {
+			changefreq: 'yearly',
+			priority: 1,
+			lastmod: new Date(),
+		},
+		routes: [
+			{
+				url: '/shows/jazzdoit',
+			},
+			{
+				url: '/ru/shows/jazzdoit',
+			},
+			{
+				url: '/shows/juzeppe-art-hotel',
+			},
+			{
+				url: '/ru/shows/juzeppe-art-hotel',
+			},
+			{
+				url: '/shows/bon-voyage',
+			},
+			{
+				url: '/ru/shows/bon-voyage',
 			},
 		],
 	},
