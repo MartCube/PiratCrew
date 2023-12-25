@@ -42,9 +42,9 @@ export default {
 				file: 'en.js',
 			},
 			{
-				code: 'ru',
-				name: 'RU',
-				file: 'ru.js',
+				code: 'ua',
+				name: 'UA',
+				file: 'ua.js',
 			},
 		],
 	},

@@ -3,7 +3,7 @@ export default {
 		about: 'о нас',
 		shows: {
 			name: 'шоу',
-			clickToWatch: 'кликни для просмотра'
+			clickToWatch: 'кликни для просмотра',
 		},
 		events: 'ивенты',
 		contact: 'контакты',
