@@ -20,5 +20,12 @@ export default {
 		subject: 'subject',
 		message: 'message',
 		submit: 'submit',
+		follow: 'follow',
+		name:"name",
+		okey:'okey',
+		success_title:"successfully submitted",
+		success_message:"Thank you for filling out your information.",
+		error_title:"Something went wrong",
+    error_message:"Please try again",
 	},
 }

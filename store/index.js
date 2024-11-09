@@ -22,7 +22,7 @@ export const mutations = {
 					{ value: 'contact', text: 'contact' },
 				]
 				break
-			case 'index___ru':
+			case 'index___ua':
 				state.navigation = [
 					{ value: 'intro', text: 'интро' },
 					{ value: 'about', text: 'о нас' },
@@ -36,7 +36,7 @@ export const mutations = {
 					{ value: 'crew', text: 'crew' },
 				]
 				break
-			case 'about___ru':
+			case 'about___ua':
 				state.navigation = [
 					{ value: 'about', text: 'о нас' },
 					{ value: 'crew', text: 'банда' },
@@ -50,7 +50,7 @@ export const mutations = {
 					{ value: 'contact', text: 'contact' },
 				]
 				break
-			case 'shows-show_uid___ru':
+			case 'shows-show_uid___ua':
 				state.navigation = [
 					{ value: 'intro', text: 'интро' },
 					{ value: 'event', text: 'шоу' },

@@ -1,5 +1,5 @@
 <template>
-	<n-link :to="link" class="show_card" :class="{ reverse: reverse }">
+	<n-link :to="localePath(link)" class="show_card" :class="{ reverse: reverse }">
 		<div class="image">
 			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500'" :height="'350'" />
 			<div class="box"></div>

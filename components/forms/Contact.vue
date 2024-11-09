@@ -6,7 +6,7 @@
 			<div class="wrapper">
 				<div class="wrap">
 					<div class="info media">
-						<h2>follow</h2>
+						<h2>{{$t('contact.follow')}}</h2>
 						<p>
 							<a href="https://www.facebook.com/piratcrewshow/">facebook</a>
 							<a href="https://www.youtube.com/channel/UCJjlUOVeQyATgVOqGss6C_Q">youtube</a>
@@ -14,41 +14,41 @@
 						</p>
 					</div>
 					<div class="info phone">
-						<h2>phone</h2>
+						<h2>{{$t('contact.phone')}}</h2>
 						<p>Viber <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
 						<p>WhatsApp <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
 					</div>
 					<div class="info mail">
-						<h2>email</h2>
+						<h2>{{$t('contact.email')}}</h2>
 						<p><a href="mailto:piratcrew.info@gmail.com">piratcrew.info@gmail.com</a></p>
 					</div>
 				</div>
 				<div class="wrap">
-					<h2 class="title">write us</h2>
+					<h2 class="title">{{$t('contact.write_us')}}</h2>
 					<form ref="form_contact" @submit.prevent="Submit()">
 						<ValidationObserver v-if="!complete" ref="form_contact_validation" tag="div">
-							<InputItem label-name="name" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
-							<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-							<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-							<InputItem label-name="message" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
+							<InputItem :label-name="$t('contact.name')" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
+							<InputItem :label-name="$t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<InputItem :label-name="$t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+							<InputItem :label-name="$t('contact.message')" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 							<button type="submit" class="submit">
-								<span v-if="!loading">submit</span>
+								<span v-if="!loading">{{ $t('contact.submit') }}</span>
 								<Spinner v-else />
 							</button>
 						</ValidationObserver>
 						<div v-else class="message">
 							<div class="info">
 								<template v-if="isSuccess">
-									<h2>successfully submitted</h2>
-									<p>Thank you for filling out your information.</p>
+									<h2>{{ $t('contact.success_title') }}</h2>
+									<p>{{ $t('contact.success_message') }}</p>
 								</template>
 								<template v-else>
-									<h2>Something went wrong</h2>
-									<p>Please try again</p>
+									<h2>{{ $t('contact.error_title') }}</h2>
+									<p>{{ $t('contact.error_message') }}</p>
 								</template>
 							</div>
-							<ButtonItem @click.native="complete = false">okey</ButtonItem>
+							<ButtonItem @click.native="complete = false">{{ $t('contact.okey') }}</ButtonItem>
 						</div>
 					</form>
 				</div>
@@ -74,7 +74,6 @@ export default {
 		},
 		loading: false,
 		isSuccess: false,
-
 		complete: false,
 	}),
 	methods: {
@@ -102,10 +101,6 @@ export default {
 					this.loading = false
 					this.complete = true
 				})
-
-			// console.log('submited')
-			// this.loading = false
-			// this.complete = true
 		},
 		getName(value) {
 			this.form.name = value
@@ -144,6 +139,7 @@ export default {
 
 			text-transform: uppercase;
 			margin-bottom: 1rem;
+			font-weight: 400;
 		}
 	}
 	.info {
@@ -159,6 +155,7 @@ export default {
 		h2 {
 			text-transform: uppercase;
 			margin-bottom: 1rem;
+			font-weight: 400;
 		}
 		p {
 			display: flex;
@@ -207,16 +204,16 @@ export default {
 
 	& > * {
 		width: 100%;
-		max-width: 400px;
 		margin-bottom: 2rem;
 	}
 	.info {
 		border-left: 2px solid #fff;
-		padding-left: 1rem;
+		padding-left: 2rem;
 		h2 {
 			text-transform: uppercase;
 			line-height: 3rem;
 			margin-bottom: 20px;
+			font-weight: 400;
 		}
 	}
 
@@ -236,7 +233,7 @@ export default {
 			.info {
 				height: max-content;
 				width: 100%;
-				padding-left: 1rem;
+				// padding-left: 1rem;
 				margin-bottom: 40px;
 				p {
 					flex-direction: column;

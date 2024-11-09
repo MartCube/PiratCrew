@@ -16,12 +16,12 @@
 			</div>
 		</div>
 		<div class="right">
-			<template v-for="(item, i) in navigation">
-				<div :key="i" v-scroll-to="'#' + item.value" class="item">
+			<div v-for="(item, i) in navigation" :key="i" class="item">
+				<div v-scroll-to="'#' + item.value" class="text-wrap">
 					<span class="text">{{ item.text }}</span>
 				</div>
 				<div :key="'line' + i" class="line" />
-			</template>
+			</div>
 		</div>
 		<div class="bottom">
 			<div class="line" />
@@ -221,7 +221,6 @@ $size: 40px;
 			text-decoration: none;
 			color: white;
 			picture {
-				opacity: 0; //anime
 				width: 30px;
 				height: 30px;
 				margin-right: 15px;
@@ -342,12 +341,17 @@ $size: 40px;
 		align-content: center;
 		.item {
 			width: $size;
-			padding: 2vh 0;
 			overflow: hidden;
 			cursor: pointer;
 
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
+			align-items: center;
+			.text-wrap{
+				padding: 2vh 0;
+
+			}
 
 			.text {
 				opacity: 0; //anime
@@ -355,6 +359,7 @@ $size: 40px;
 				writing-mode: vertical-rl;
 				text-orientation: mixed;
 				font-size: 14px;
+
 			}
 			&:first-child {
 				padding-top: 0;
@@ -362,12 +367,13 @@ $size: 40px;
 			&:hover {
 				opacity: 0.75;
 			}
+			.line {
+				width: 2px;
+				height: 0; //anime
+				background: #fff;
+			}
 		}
-		.line {
-			width: 2px;
-			height: 0; //anime
-			background: #fff;
-		}
+		
 	}
 	.left {
 		position: fixed;
