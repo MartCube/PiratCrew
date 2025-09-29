@@ -1,60 +1,71 @@
 <template>
-	<ValidationProvider v-slot="{ errors, classes }" :rules="rules" :mode="mode" tag="div" class="form_group">
-		<div v-if="errors.length" class="error" :class="classes">
-			{{ errors[0] }}
+	<div class="form_group">
+		<div v-if="errorMessage" class="error">
+			{{ errorMessage }}
 		</div>
 
-		<input :id="name" v-model="input_value" :placeholder="placeholder" :type="type" class="form_field" :name="name" @change="emitValue" />
+		<input
+			:id="name"
+			v-model="value"
+			:placeholder="placeholder"
+			:type="type"
+			class="form_field"
+			:name="name"
+			@blur="handleBlur"
+			@change="emitValue"
+		/>
 		<label :for="name" class="form_label">{{ labelName }}</label>
-	</ValidationProvider>
+	</div>
 </template>
 
-<script>
-import { ValidationProvider } from 'vee-validate'
+<script setup>
+import { useField } from 'vee-validate'
+import { watch } from 'vue'
 
-export default {
-	components: {
-		ValidationProvider,
+const props = defineProps({
+	name: {
+		type: String,
+		required: true,
 	},
-	props: {
-		name: {
-			type: String,
-			required: true,
-		},
-		labelName: {
-			type: String,
-			required: true,
-		},
-		placeholder: {
-			type: String,
-			required: true,
-		},
-		type: {
-			type: String,
-			default: 'input',
-		},
-		rules: {
-			type: [Object, String],
-			required: true,
-		},
-		mode: {
-			type: String,
-			default: 'lazy',
-		},
+	labelName: {
+		type: String,
+		required: true,
 	},
-	data: () => ({
-		input_value: '',
-	}),
-	methods: {
-		emitValue(event) {
-			this.$emit('getValue', this.input_value)
-		},
+	placeholder: {
+		type: String,
+		required: true,
 	},
+	type: {
+		type: String,
+		default: 'input',
+	},
+	rules: {
+		type: [Object, String],
+		required: true,
+	},
+	mode: {
+		type: String,
+		default: 'lazy',
+	},
+})
+
+const emit = defineEmits(['getValue'])
+
+// Use vee-validate v4 useField composable
+const { value, errorMessage, handleBlur } = useField(() => props.name, props.rules)
+
+// Watch for value changes and emit to parent
+watch(value, (newValue) => {
+	emit('getValue', newValue)
+})
+
+const emitValue = () => {
+	emit('getValue', value.value)
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/mixins.scss';
+@use '~/assets/mixins.scss' as *;
 
 .form_group {
 	position: relative;

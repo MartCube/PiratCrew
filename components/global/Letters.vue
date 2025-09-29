@@ -63,29 +63,22 @@
 	</div>
 </template>
 
-<script>
+<script setup>
+import { onMounted } from 'vue'
 import { lettersAnim } from '~/assets/anime'
 
-export default {
-	props: {
-		text: {
-			type: String,
-			required: true,
-		},
-	},
-	data: () => ({}),
-	mounted() {
-		this.Animate()
-	},
-	methods: {
-		Animate() {
-			const letters = document.querySelectorAll('svg path')
-			const lineScroll = document.querySelector('.letters .scroll .line')
-			const textScroll = document.querySelector('.letters .scroll .text span')
-			lettersAnim(letters, lineScroll, textScroll)
-		},
-	},
+const props = defineProps(['text'])
+
+const Animate = () => {
+	const letters = document.querySelectorAll('svg path')
+	const lineScroll = document.querySelector('.letters .scroll .line')
+	const textScroll = document.querySelector('.letters .scroll .text span')
+	lettersAnim(letters, lineScroll, textScroll)
 }
+
+onMounted(() => {
+	Animate()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -115,7 +108,7 @@ export default {
 
 		.text {
 			text-transform: uppercase;
-			writing-mode: vertical-rl;
+			// writing-mode: vertical-rl;
 			text-orientation: mixed;
 			font-size: 14px;
 			overflow: hidden;

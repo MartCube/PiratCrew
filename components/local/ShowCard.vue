@@ -1,5 +1,5 @@
 <template>
-	<n-link :to="localePath(link)" class="show_card" :class="{ reverse: reverse }">
+	<NuxtLink :to="localePath(link)" class="show_card" :class="{ reverse: reverse }">
 		<div class="image">
 			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500'" :height="'350'" />
 			<div class="box"></div>
@@ -7,33 +7,28 @@
 		<div class="text">
 			<h2>{{ title }}</h2>
 		</div>
-	</n-link>
+	</NuxtLink>
 </template>
 
-<script>
-export default {
-	props: {
-		event: {
-			type: Object,
-			required: true,
-		},
-		reverse: {
-			type: Boolean,
-			default: false,
-		},
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+	event: {
+		type: Object,
+		required: true,
 	},
-	data: () => ({
-		link: '',
-	}),
-	computed: {
-		title() {
-			return this.event.data.title
-		},
+	reverse: {
+		type: Boolean,
+		default: false,
 	},
-	created() {
-		this.link = this.$prismic.linkResolver(this.event)
-	},
-}
+})
+
+const { $prismic } = useNuxtApp()
+const localePath = useLocalePath()
+
+const title = computed(() => props.event.data.title)
+const link = computed(() => $prismic.linkResolver(props.event))
 </script>
 
 <style lang="scss" scoped>

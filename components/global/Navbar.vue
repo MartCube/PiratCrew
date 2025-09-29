@@ -1,15 +1,15 @@
 <template>
 	<div class="navbar">
 		<div class="top">
-			<n-link class="logo" :to="localePath('index')" @click.native="showMenu = false">
+			<NuxtLink class="logo" :to="localePath('index')" @click="showMenu = false">
 				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
 				<div class="item">
 					<p class="text">pirat crew dance acrobatic theater</p>
 				</div>
-			</n-link>
+			</NuxtLink>
 
-			<div class="button" :class="{ active: showMenu }" @click="ToggleMenu">
+			<div class="button" :class="{ active: showMenu }" @click="toggleMenu">
 				<div class="line" />
 				<div class="line" />
 				<div class="cancel" />
@@ -17,7 +17,7 @@
 		</div>
 		<div class="right">
 			<div v-for="(item, i) in navigation" :key="i" class="item">
-				<div v-scroll-to="'#' + item.value" class="text-wrap">
+				<div @click="scrollToSection(item.value)" class="text-wrap">
 					<span class="text">{{ item.text }}</span>
 				</div>
 				<div :key="'line' + i" class="line" />
@@ -32,7 +32,7 @@
 			</div>
 			<div class="line" />
 			<div class="item">
-				<n-link class="text" to="/privacy-policy"> Privacy Policy </n-link>
+				<NuxtLink class="text" to="/privacy-policy"> Privacy Policy </NuxtLink>
 			</div>
 			<div class="line" />
 			<div class="item">
@@ -55,83 +55,90 @@
 		</div>
 
 		<div v-show="showMenu" class="menu">
-			<div class="links" @click="ToggleMenu">
-				<n-link :to="localePath('/about')"> {{ $t('pages.about') }}</n-link>
-				<!-- <n-link :to="localePath('/events')"> {{ $t('pages.events') }}</n-link> -->
-				<n-link :to="localePath('/shows')"> {{ $t('pages.shows.name') }}</n-link>
-				<n-link :to="localePath('/casting')"> {{ $t('pages.casting') }}</n-link>
-				<n-link :to="localePath('/contact')"> {{ $t('pages.contact') }}</n-link>
+			<div class="links" @click="toggleMenu">
+				<NuxtLink :to="localePath('/about')"> {{ t('pages.about') }}</NuxtLink>
+				<!-- <NuxtLink :to="localePath('/events')"> {{ t('pages.events') }}</NuxtLink> -->
+				<NuxtLink :to="localePath('/shows')"> {{ t('pages.shows.name') }}</NuxtLink>
+				<NuxtLink :to="localePath('/casting')"> {{ t('pages.casting') }}</NuxtLink>
+				<NuxtLink :to="localePath('/contact')"> {{ t('pages.contact') }}</NuxtLink>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script>
+<script setup>
 import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/assets/anime'
 
-export default {
-	data: () => ({
-		showMenu: false,
-	}),
-	computed: {
-		navigation() {
-			return this.$store.getters.navigation
-		},
-		year() {
-			return new Date().getFullYear()
-		},
-		availableLocales() {
-			return this.$i18n.locales
-		},
-		currentLocale() {
-			return this.$i18n.locale
-		},
-	},
-	watch: {
-		async navigation(newValue, oldValue) {
-			await this.$nextTick() // wait DOM to render
-			const navbarRightItems = document.querySelectorAll('.right .item .text')
-			const navbarRightLines = document.querySelectorAll('.right .line')
-			navbarRight(navbarRightItems, navbarRightLines)
-		},
-		async currentLocale(newValue, oldValue) {
-			await this.$nextTick() // wait DOM to render
-			const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
-			const navbarBottomLines = document.querySelectorAll('.bottom .line')
-			navbarBottom(navbarBottomItems, navbarBottomLines)
-		},
-		showMenu(newValue, oldValue) {
-			if (!newValue) return
-			const links = document.querySelectorAll('.navbar .menu .links a')
-			navbarMenu(links)
-		},
-	},
-	async mounted() {
-		await this.$nextTick() // wait DOM to render
+// Реактивні дані
+const showMenu = ref(false)
 
-		const navbarLogo = document.querySelectorAll('.top .logo picture')
-		const navbarTopText = document.querySelectorAll('.top .logo .item .text')
-		const navbarTopLines = document.querySelectorAll('.top  .line')
-		navbarTop(navbarLogo, navbarTopLines, navbarTopText)
+// Глобальний стан навігації
+const { navigation } = useNavigation()
 
-		const navbarRightItems = document.querySelectorAll('.right .item .text')
-		const navbarRightLines = document.querySelectorAll('.right .line')
-		navbarRight(navbarRightItems, navbarRightLines)
+// i18n composables
+const { locales, locale, t } = useI18n()
+const localePath = useLocalePath()
+const switchLocalePath = useSwitchLocalePath()
 
-		const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
-		const navbarBottomLines = document.querySelectorAll('.bottom .line')
-		navbarBottom(navbarBottomItems, navbarBottomLines)
+// Computed значення
+const year = computed(() => new Date().getFullYear())
+const availableLocales = computed(() => locales.value)
+const currentLocale = computed(() => locale.value)
 
-		const navbarLeftItems = document.querySelectorAll('.left .item .text')
-		const navbarLeftLines = document.querySelectorAll('.left .line')
-		navbarLeft(navbarLeftItems, navbarLeftLines)
-	},
-	methods: {
-		ToggleMenu() {
-			this.showMenu = !this.showMenu
-		},
-	},
+// Методи
+const toggleMenu = () => {
+	showMenu.value = !showMenu.value
 }
+
+const scrollToSection = (sectionId) => {
+	const element = document.getElementById(sectionId)
+	if (element) {
+		element.scrollIntoView({ behavior: 'smooth' })
+	}
+}
+
+// Watchers
+watch(navigation, async () => {
+	await nextTick() // замість this.$nextTick()
+	const navbarRightItems = document.querySelectorAll('.right .item .text')
+	const navbarRightLines = document.querySelectorAll('.right .line')
+	navbarRight(navbarRightItems, navbarRightLines)
+})
+
+watch(currentLocale, async () => {
+	await nextTick()
+	const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
+	const navbarBottomLines = document.querySelectorAll('.bottom .line')
+	navbarBottom(navbarBottomItems, navbarBottomLines)
+})
+
+watch(showMenu, (newValue) => {
+	if (!newValue) return
+	const links = document.querySelectorAll('.navbar .menu .links a')
+	navbarMenu(links)
+})
+
+// Lifecycle - onMounted замість mounted
+onMounted(async () => {
+	await nextTick()
+
+	const navbarLogo = document.querySelectorAll('.top .logo picture')
+	const navbarTopText = document.querySelectorAll('.top .logo .item .text')
+	const navbarTopLines = document.querySelectorAll('.top  .line')
+	navbarTop(navbarLogo, navbarTopLines, navbarTopText)
+
+	const navbarRightItems = document.querySelectorAll('.right .item .text')
+	const navbarRightLines = document.querySelectorAll('.right .line')
+	navbarRight(navbarRightItems, navbarRightLines)
+
+	const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
+	const navbarBottomLines = document.querySelectorAll('.bottom .line')
+	navbarBottom(navbarBottomItems, navbarBottomLines)
+
+	const navbarLeftItems = document.querySelectorAll('.left .item .text')
+	const navbarLeftLines = document.querySelectorAll('.left .line')
+	navbarLeft(navbarLeftItems, navbarLeftLines)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -373,7 +380,7 @@ $size: 40px;
 				background: #fff;
 			}
 		}
-		
+
 	}
 	.left {
 		position: fixed;

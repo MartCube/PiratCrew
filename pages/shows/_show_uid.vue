@@ -1,14 +1,14 @@
 <template>
 	<div class="container">
-		<template v-if="$fetchState.error">
+		<template v-if="error">
 			<Error />
 		</template>
-		<template v-else-if="$fetchState.pending">
+		<template v-else-if="pending">
 			<!-- loading animation -->
 			loading
 		</template>
 		<template v-else>
-			<Intro :video="event.bg" @click.native="OpenModal" />
+			<Intro :video="event.bg" @click="openModal" />
 			<Modal :video="event.video" />
 
 			<section id="show">
@@ -22,27 +22,39 @@
 	</div>
 </template>
 
-<script>
-export default {
-	middleware: 'navigation',
-	async fetch() {
-		const event = await this.$prismic.api.getByUID('show', this.$route.params.show_uid)
-		this.event = {
-			bg: event.data.main_image.alt,
-			title: event.data.title,
-			video: event.data.video,
-			description: event.data.description,
-			gallery: event.data.gallery,
-		}
-	},
-	data: () => ({
-		event: Object,
-	}),
-	methods: {
-		OpenModal() {
-			this.$store.dispatch('bindModal', true)
-		},
-	},
+<script setup>
+// Middleware (буде потрібно перенести логіку)
+definePageMeta({
+	middleware: 'navigation'
+})
+
+// Route params
+const route = useRoute()
+
+// Prismic client
+const { $prismic } = useNuxtApp()
+
+// Modal state
+const modal = useModal()
+
+// Data fetching з Nuxt 3 composable
+const { data: eventData, pending, error } = await useLazyAsyncData('show', async () => {
+	const event = await $prismic.api.getByUID('show', route.params.show_uid)
+	return {
+		bg: event.data.main_image.alt,
+		title: event.data.title,
+		video: event.data.video,
+		description: event.data.description,
+		gallery: event.data.gallery,
+	}
+})
+
+// Reactive event object
+const event = computed(() => eventData.value || {})
+
+// Methods
+const openModal = () => {
+	modal.value = true
 }
 </script>
 

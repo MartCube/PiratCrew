@@ -1,4 +1,6 @@
-@import '~/assets/fonts.scss';
+@use '~/assets/mixins.scss' as *;
+@use '@/assets/fonts.scss';
+
 
 
 * {
@@ -10,7 +12,7 @@
 }
 
 html {
-	scrollbar-width: none; 
+	scrollbar-width: none;
 	::-webkit-scrollbar {
 		display: none;
 	}

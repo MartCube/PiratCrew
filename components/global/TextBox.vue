@@ -1,43 +1,44 @@
 <template>
-	<div v-observe-visibility="visibilityOptions" class="text_box" :class="{ white: white }">
+	<div ref="textBoxRef" class="text_box" :class="{ white: white }">
 		<h2 ref="text">{{ text }}</h2>
 		<div ref="box" class="box"></div>
 	</div>
 </template>
 
-<script>
+<script setup>
 import { textAnim } from '~/assets/anime'
 
-export default {
-	props: {
-		text: {
-			type: String,
-			required: true,
-		},
-		white: {
-			type: Boolean,
-			default: false,
-		},
+// Props
+const props = defineProps({
+	text: {
+		type: String,
+		required: true,
 	},
-	computed: {
-		visibilityOptions() {
-			return {
-				callback: this.visibilityChanged,
-				once: true,
-				intersection: {
-					threshold: 1,
-				},
-			}
-		},
+	white: {
+		type: Boolean,
+		default: false,
 	},
-	methods: {
-		visibilityChanged(isVisible) {
-			if (isVisible) {
-				textAnim(this.$refs.text, this.$refs.box)
-			}
-		},
+})
+
+// Template refs
+const textBoxRef = ref(null)
+const text = ref(null)
+const box = ref(null)
+
+// Intersection Observer з @vueuse/core
+const { stop } = useIntersectionObserver(
+	textBoxRef,
+	([{ isIntersecting }]) => {
+		if (isIntersecting) {
+			textAnim(text.value, box.value)
+			// Зупиняємо спостереження після першого спрацювання (once: true)
+			stop()
+		}
 	},
-}
+	{
+		threshold: 1,
+	}
+)
 </script>
 
 <style lang="scss" scoped>

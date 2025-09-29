@@ -4,21 +4,15 @@
 	</client-only>
 </template>
 
-<script>
+<script setup>
 import { LazyYoutube } from 'vue-lazytube'
 
-export default {
-	components: {
-		LazyYoutube,
-		// LazyVimeo,
+defineProps({
+	video: {
+		type: String,
+		required: true,
 	},
-	props: {
-		video: {
-			type: String,
-			required: true,
-		},
-	},
-}
+})
 </script>
 
 <style lang="scss">

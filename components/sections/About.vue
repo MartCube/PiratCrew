@@ -1,6 +1,6 @@
 <template>
 	<section id="about">
-		<TextBox :text="$t('pages.about')" />
+		<TextBox :text="t('pages.about')" />
 		<div v-if="currentLocale === 'en'" class="about">
 			<div class="text">
 				<div class="wrap">
@@ -34,15 +34,12 @@
 	</section>
 </template>
 
-<script>
-export default {
-	data: () => ({}),
-	computed: {
-		currentLocale() {
-			return this.$i18n.localeProperties.code
-		},
-	},
-}
+<script setup>
+import { computed } from 'vue'
+
+const { locale, t } = useI18n()
+
+const currentLocale = computed(() => locale.value)
 </script>
 
 <style lang="scss" scoped>

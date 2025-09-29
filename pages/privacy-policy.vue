@@ -6,12 +6,11 @@
 	</div>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
 	name: 'PrivacyPolicy',
-	middleware: 'navigation',
-	data: () => ({}),
-}
+	middleware: 'navigation'
+})
 </script>
 
 <style lang="scss" scoped>

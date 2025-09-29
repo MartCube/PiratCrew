@@ -5,31 +5,29 @@
 	</picture>
 </template>
 
-<script>
-export default {
-	props: {
-		src: {
-			type: String,
-			required: true,
-		},
-		width: {
-			type: String,
-			default: '100',
-		},
-		height: {
-			type: String,
-			default: '100',
-		},
-		mobile: {
-			type: String,
-			default: null,
-		},
-		alt: {
-			type: String,
-			default: 'Alt',
-		},
+<script setup>
+defineProps({
+	src: {
+		type: String,
+		required: true,
 	},
-}
+	width: {
+		type: String,
+		default: '100',
+	},
+	height: {
+		type: String,
+		default: '100',
+	},
+	mobile: {
+		type: String,
+		default: null,
+	},
+	alt: {
+		type: String,
+		default: 'Alt',
+	},
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,30 +1,27 @@
 <template>
 	<div v-if="modal" class="modal">
 		<VideoItem :video="video" />
-		<svg class="cancel" viewBox="0 0 24 24" @click="Close">
+		<svg class="cancel" viewBox="0 0 24 24" @click="close">
 			<path d="M22,4,20,2l-8,8L4,2,2,4l8,8L2,20l2,2,8-8,8,8,2-2-8-8Z" />
 		</svg>
 	</div>
 </template>
 
-<script>
-export default {
-	props: {
-		video: {
-			type: String,
-			required: true,
-		},
+<script setup>
+// Пропси
+const props = defineProps({
+	video: {
+		type: String,
+		required: true,
 	},
-	computed: {
-		modal() {
-			return this.$store.getters.modal
-		},
-	},
-	methods: {
-		Close() {
-			this.$store.dispatch('bindModal', false)
-		},
-	},
+})
+
+// Глобальний стан модального вікна
+const modal = useModal()
+
+// Метод для закриття модалки
+const close = () => {
+	modal.value = false
 }
 </script>
 

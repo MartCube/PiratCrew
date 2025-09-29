@@ -6,14 +6,15 @@
 	</div>
 </template>
 
-<script>
-export default {
-	computed: {
-		theme() {
-			return this.$store.getters.theme
-		},
-	},
-}
+<script setup>
+// Поки що видаляємо theme - його не було у store
+// Можна додати як пропс якщо потрібно
+const props = defineProps({
+	theme: {
+		type: String,
+		default: ''
+	}
+})
 </script>
 
 <style scoped>

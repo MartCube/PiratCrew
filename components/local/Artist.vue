@@ -6,20 +6,17 @@
 	</div>
 </template>
 
-<script>
-export default {
-	props: {
-		image: {
-			type: String,
-			required: true,
-		},
-		name: {
-			type: String,
-			required: true,
-		},
+<script setup>
+defineProps({
+	image: {
+		type: String,
+		required: true,
 	},
-	data: () => ({}),
-}
+	name: {
+		type: String,
+		required: true,
+	},
+})
 </script>
 
 <style lang="scss" scoped>

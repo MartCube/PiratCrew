@@ -1,19 +1,26 @@
 <template>
 	<section id="events">
-		<TextBox :text="$t('pages.events')" />
+		<TextBox :text="t('pages.events')" />
 	</section>
 </template>
 
-<script>
-export default {
-	async fetch() {
-		const events = await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'project'), { orderings: '[document.first_publication_date desc]' })
-		this.events = events.results
-	},
-	data: () => ({
-		events: [Object],
-	}),
-}
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useNuxtApp } from '#app'
+
+const { t } = useI18n()
+const events = ref([])
+
+const nuxtApp = useNuxtApp()
+
+onMounted(async () => {
+	const response = await nuxtApp.$prismic.api.query(
+		nuxtApp.$prismic.predicates.at('document.type', 'project'),
+		{ orderings: '[document.first_publication_date desc]' }
+	)
+	events.value = response.results
+})
 </script>
 
 <style lang="scss" scoped>

@@ -9,12 +9,11 @@
 	</div>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
 	name: 'Home',
-	middleware: 'navigation',
-	data: () => ({}),
-}
+	middleware: 'navigation'
+})
 </script>
 
 <style lang="scss" scoped>

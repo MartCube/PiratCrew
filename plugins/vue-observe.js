@@ -1,4 +1,6 @@
-import Vue from 'vue'
-import VueObserveVisibility from 'vue-observe-visibility'
+// Замінено на @vueuse/core useIntersectionObserver
+// vue-observe-visibility не повністю сумісний з Vue 3
 
-Vue.use(VueObserveVisibility)
+export default defineNuxtPlugin(() => {
+  // Поки порожній - потім додамо useIntersectionObserver
+})

@@ -1,12 +1,12 @@
 <template>
 	<section id="contact">
-		<TextBox :text="$t('pages.contact')" />
+		<TextBox :text="t('pages.contact')" />
 
 		<transition name="page" appear mode="out-in">
 			<div class="wrapper">
 				<div class="wrap">
 					<div class="info media">
-						<h2>{{$t('contact.follow')}}</h2>
+						<h2>{{t('contact.follow')}}</h2>
 						<p>
 							<a href="https://www.facebook.com/piratcrewshow/">facebook</a>
 							<a href="https://www.youtube.com/channel/UCJjlUOVeQyATgVOqGss6C_Q">youtube</a>
@@ -14,107 +14,109 @@
 						</p>
 					</div>
 					<div class="info phone">
-						<h2>{{$t('contact.phone')}}</h2>
+						<h2>{{t('contact.phone')}}</h2>
 						<p>Viber <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
 						<p>WhatsApp <a href="tel:+3806731739455">+380 67 317 39 45</a></p>
 					</div>
 					<div class="info mail">
-						<h2>{{$t('contact.email')}}</h2>
+						<h2>{{t('contact.email')}}</h2>
 						<p><a href="mailto:piratcrew.info@gmail.com">piratcrew.info@gmail.com</a></p>
 					</div>
 				</div>
 				<div class="wrap">
-					<h2 class="title">{{$t('contact.write_us')}}</h2>
-					<form ref="form_contact" @submit.prevent="Submit()">
-						<ValidationObserver v-if="!complete" ref="form_contact_validation" tag="div">
-							<InputItem :label-name="$t('contact.name')" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
-							<InputItem :label-name="$t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-							<InputItem :label-name="$t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-							<InputItem :label-name="$t('contact.message')" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
+					<h2 class="title">{{t('contact.write_us')}}</h2>
+					<Form ref="form_contact" @submit="Submit">
+						<div v-if="!complete">
+							<InputItem :label-name="t('contact.name')" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
+							<InputItem :label-name="t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
+							<InputItem :label-name="t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
+							<InputItem :label-name="t('contact.message')" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
 
 							<button type="submit" class="submit">
-								<span v-if="!loading">{{ $t('contact.submit') }}</span>
+								<span v-if="!loading">{{ t('contact.submit') }}</span>
 								<Spinner v-else />
 							</button>
-						</ValidationObserver>
+						</div>
 						<div v-else class="message">
 							<div class="info">
 								<template v-if="isSuccess">
-									<h2>{{ $t('contact.success_title') }}</h2>
-									<p>{{ $t('contact.success_message') }}</p>
+									<h2>{{ t('contact.success_title') }}</h2>
+									<p>{{ t('contact.success_message') }}</p>
 								</template>
 								<template v-else>
-									<h2>{{ $t('contact.error_title') }}</h2>
-									<p>{{ $t('contact.error_message') }}</p>
+									<h2>{{ t('contact.error_title') }}</h2>
+									<p>{{ t('contact.error_message') }}</p>
 								</template>
 							</div>
-							<ButtonItem @click.native="complete = false">{{ $t('contact.okey') }}</ButtonItem>
+							<ButtonItem @click="complete = false">{{ t('contact.okey') }}</ButtonItem>
 						</div>
-					</form>
+					</Form>
 				</div>
 			</div>
 		</transition>
 	</section>
 </template>
 
-<script>
-import { ValidationObserver } from 'vee-validate'
+<script setup>
+import { Form } from 'vee-validate'
 import * as emailjs from '@emailjs/browser'
+import { ref } from 'vue'
 
-export default {
-	components: {
-		ValidationObserver,
-	},
-	data: () => ({
-		form: {
-			email: String,
-			number: String,
-			name: String,
-			message: String,
-		},
-		loading: false,
-		isSuccess: false,
-		complete: false,
-	}),
-	methods: {
-		async Submit() {
-			const isValid = await this.$refs.form_contact_validation.validate()
-			// validation
-			if (!isValid) return
+const { t } = useI18n()
 
-			this.loading = true
-			console.log('loading')
+const form = ref({
+	email: '',
+	number: '',
+	name: '',
+	message: '',
+})
 
-			// compose email template
-			emailjs
-				.sendForm('default_service', 'template_wy3mrgb', this.$refs.form_contact, 'wGoXfD98B08dUh-BC')
-				.then(
-					(result) => {
-						console.log('SUCCESS!', result.text)
-						this.isSuccess = true
-					},
-					(error) => {
-						console.log('FAILED...', error.text)
-					},
-				)
-				.finally(() => {
-					this.loading = false
-					this.complete = true
-				})
-		},
-		getName(value) {
-			this.form.name = value
-		},
-		getEmail(value) {
-			this.form.email = value
-		},
-		getNumber(value) {
-			this.form.number = value
-		},
-		getMessage(value) {
-			this.form.message = value
-		},
-	},
+const loading = ref(false)
+const isSuccess = ref(false)
+const complete = ref(false)
+
+const form_contact = ref(null)
+
+const Submit = async (values, { validate }) => {
+	// validation is automatically done by vee-validate Form component
+	loading.value = true
+	console.log('loading')
+
+	// Update form values from validation
+	form.value = values
+
+	// compose email template
+	emailjs
+		.sendForm('default_service', 'template_wy3mrgb', form_contact.value, 'wGoXfD98B08dUh-BC')
+		.then(
+			(result) => {
+				console.log('SUCCESS!', result.text)
+				isSuccess.value = true
+			},
+			(error) => {
+				console.log('FAILED...', error.text)
+			},
+		)
+		.finally(() => {
+			loading.value = false
+			complete.value = true
+		})
+}
+
+const getName = (value) => {
+	form.value.name = value
+}
+
+const getEmail = (value) => {
+	form.value.email = value
+}
+
+const getNumber = (value) => {
+	form.value.number = value
+}
+
+const getMessage = (value) => {
+	form.value.message = value
 }
 </script>
 

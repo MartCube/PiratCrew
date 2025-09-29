@@ -1,27 +1,28 @@
-import { extend } from 'vee-validate'
-import { required, email } from 'vee-validate/dist/rules'
+import { defineRule, configure } from 'vee-validate'
 
-extend('required', {
-	...required,
-	message: ' empty field', // the error message
+export default defineNuxtPlugin(() => {
+  // Реєструємо правила валідації вручну (без @vee-validate/rules)
+  defineRule('required', (value) => {
+    if (!value || !value.length) {
+      return ' empty field'
+    }
+    return true
+  })
+
+  defineRule('email', (value) => {
+    if (!value || !value.length) {
+      return true // не обов'язкове поле
+    }
+    if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i.test(value)) {
+      return 'email not valid'
+    }
+    return true
+  })
+
+  // Глобальна конфігурація
+  configure({
+    generateMessage: (ctx) => {
+      return ctx.rule.message || `The field ${ctx.field} is invalid`
+    }
+  })
 })
-
-extend('email', {
-	...email,
-	message: 'email not valid',
-})
-
-// extend('regexNumber', {
-// 	...regex,
-// 	message: 'include number',
-// })
-
-// extend('regexCapital', {
-// 	...regex,
-// 	message: 'include capital letter',
-// })
-
-// extend('regexSpecialSign', {
-// 	...regex,
-// 	message: 'include special sign',
-// })

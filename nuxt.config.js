@@ -1,29 +1,49 @@
-export default {
-	// Target (https://go.nuxtjs.dev/config-target)
-	target: 'static',
-	components: ['~/components/forms', '~/components/global', '~/components/items', '~/components/local', '~/components/sections'],
+export default defineNuxtConfig({
+	compatibilityDate: '2025-09-29',
 
-	// Global page headers (https://go.nuxtjs.dev/config-head)
-	head: {
-		title: 'PiratCrew',
-		meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }],
-		link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
-	},
-
-	// Global CSS (https://go.nuxtjs.dev/config-css)
-	css: ['~/assets/main.scss'],
-
-	// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-	plugins: [{ src: '~/plugins/responsive-video', mode: 'client' }, { src: '@/plugins/vue-observe' }, { src: '@/plugins/vee-validate.js' }, { src: `~/plugins/lazysizes.client.js` }, { src: `~/plugins/gsap.js` }],
-
-	// Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-	buildModules: [
-		// '@nuxtjs/eslint-module',
+	components: [
+		{
+			path: '~/components',
+			pathPrefix: false
+		}
 	],
 
-	// Modules (https://go.nuxtjs.dev/config-modules)
-	modules: ['vue-scrollto/nuxt', '@nuxtjs/prismic', '@nuxtjs/axios', 'nuxt-i18n', '@nuxtjs/sitemap'],
+	// Global page headers
+	app: {
+		head: {
+			title: 'PiratCrew',
+			meta: [
+				{ charset: 'utf-8' },
+				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+				{ hid: 'description', name: 'description', content: '' }
+			],
+			link: [
+				{ rel: 'icon', type: 'image/png', href: '/favicon.png' }
+			]
+		}
+	},
 
+	// Global CSS
+	css: ['~/assets/main.scss'],
+
+	// Plugins (нова структура для Nuxt 3)
+	plugins: [
+		// '~/plugins/responsive-video.js',
+		// '~/plugins/vue-observe.js',
+		'~/plugins/vee-validate.js',
+		'~/plugins/lazysizes.client.js',
+		'~/plugins/gsap.js'
+	],
+
+	// Modules
+	modules: [
+		'@nuxtjs/prismic',
+		'@nuxtjs/i18n',
+		'@nuxtjs/sitemap',
+		'@vueuse/nuxt'
+	],
+
+	// Prismic
 	prismic: {
 		endpoint: 'https://piratcrew.cdn.prismic.io/api/v2',
 		linkResolver: '@/plugins/link-resolver',
@@ -31,10 +51,12 @@ export default {
 		preview: false,
 	},
 
+	// i18n
 	i18n: {
+		strategy: 'no_prefix',
 		defaultLocale: 'en',
 		lazy: true,
-		langDir: 'locales/',
+		langDir: 'locales',
 		locales: [
 			{
 				code: 'en',
@@ -49,6 +71,7 @@ export default {
 		],
 	},
 
+	// Sitemap
 	sitemap: {
 		hostname: 'https://piratcrew.com',
 		defaults: {
@@ -57,49 +80,28 @@ export default {
 			lastmod: new Date(),
 		},
 		routes: [
-			{
-				url: '/shows/jazzdoit',
-			},
-			{
-				url: '/ru/shows/jazzdoit',
-			},
-			{
-				url: '/shows/juzeppe-art-hotel',
-			},
-			{
-				url: '/ru/shows/juzeppe-art-hotel',
-			},
-			{
-				url: '/shows/bon-voyage',
-			},
-			{
-				url: '/ru/shows/bon-voyage',
-			},
+			'/shows/jazzdoit',
+			'/ru/shows/jazzdoit',
+			'/shows/juzeppe-art-hotel',
+			'/ru/shows/juzeppe-art-hotel',
+			'/shows/bon-voyage',
+			'/ru/shows/bon-voyage'
 		],
 	},
 
-	axios: {
-		baseURL: '/',
+	// SCSS
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: '@use "~/assets/mixins.scss" as *;'
+				}
+			}
+		}
 	},
 
-	// Build Configuration (https://go.nuxtjs.dev/config-build)
+	// Build транспайлінг для vee-validate
 	build: {
-		hotMiddleware: {
-			client: {
-				quiet: true,
-			},
-		},
-
-		transpile: ['vee-validate/dist/rules'],
-		extend(config, { isClient, loaders: { vue } }) {
-			vue.transformAssetUrls.img = ['data-src', 'src']
-			vue.transformAssetUrls.source = ['data-srcset', 'srcset']
-
-			config.resolve.symlinks = false
-		},
-	},
-
-	generate: {
-		fallback: '404.html', // Netlify reads a 404.html, Nuxt will load as an SPA
-	},
-}
+		transpile: ['vee-validate']
+	}
+})

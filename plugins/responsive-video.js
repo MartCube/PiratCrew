@@ -1,4 +1,6 @@
-import Vue from 'vue'
-import VideoBackground from 'vue-responsive-video-background-player'
+// Відключено: vue-responsive-video-background-player не сумісний з Vue 3
+// Потрібно замінити на нативний <video> елемент
 
-Vue.component('video-background', VideoBackground)
+export default defineNuxtPlugin(() => {
+  // Поки порожній - потім додамо альтернативу
+})

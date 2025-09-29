@@ -1,15 +1,15 @@
 <template>
 	<section id="about">
-		<TextBox :text="$t('pages.about')" />
+		<TextBox :text="t('pages.about')" />
 		<div class="about">
 			<div class="text">
 				<div class="wrap">
 					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
-					<n-link class="more" :to="localePath('about')">
-						<span>{{ $t('pages.about') }}</span>
+					<NuxtLink class="more" :to="localePath('about')">
+						<span>{{ t('pages.about') }}</span>
 						<!-- eslint-disable-next-line vue/html-self-closing -->
 						<hr />
-					</n-link>
+					</NuxtLink>
 				</div>
 				<div class="box" @mouseover="cursorMove()">
 					<div class="box-wrapper">
@@ -22,61 +22,59 @@
 	</section>
 </template>
 
-<script>
+<script setup>
 import { TweenMax, Power2 } from 'gsap'
 
-export default {
-	data: () => ({}),
-	methods: {
-		cursorMove() {
-			const bg = document.querySelector('.about .box .image')
-			const border = document.querySelector('.about .box .border')
-			const breakpoint = window.matchMedia('(max-width:800px)')
-			const box = document.querySelector('.about .box')
+const { t } = useI18n()
+const localePath = useLocalePath()
 
-			if (!breakpoint.matches) {
-				let rect = box.getBoundingClientRect()
+const cursorMove = () => {
+	const bg = document.querySelector('.about .box .image')
+	const border = document.querySelector('.about .box .border')
+	const breakpoint = window.matchMedia('(max-width:800px)')
+	const box = document.querySelector('.about .box')
 
-				let request = null
-				const mouse = {
-					x: 0,
-					y: 0,
-				}
+	if (!breakpoint.matches) {
+		let rect = box.getBoundingClientRect()
 
-				box.addEventListener('mousemove', (e) => {
-					const event = e
+		let request = null
+		const mouse = {
+			x: 0,
+			y: 0,
+		}
 
-					mouse.x = event.pageX
-					mouse.y = event.pageY
+		box.addEventListener('mousemove', (e) => {
+			const event = e
 
-					cancelAnimationFrame(request)
-					request = requestAnimationFrame(() => {
-						update(event)
-					})
-				})
+			mouse.x = event.pageX
+			mouse.y = event.pageY
 
-				const update = (e) => {
-					const relX = e.pageX - rect.left
-					const relY = e.pageY - rect.top
+			cancelAnimationFrame(request)
+			request = requestAnimationFrame(() => {
+				update(event)
+			})
+		})
 
-					TweenMax.to(bg, 1, {
-						x: ((relX - rect.width / 2) / rect.width) * 5,
-						y: ((relY - rect.width / 2) / rect.width) * -5,
-						ease: Power2.easeOut,
-					})
-					TweenMax.to(border, 1, {
-						x: ((relX - rect.width / 2) / rect.width) * 30,
-						y: ((relY - rect.width / 2) / rect.width) * -30,
-						ease: Power2.easeOut,
-					})
-				}
+		const update = (e) => {
+			const relX = e.pageX - rect.left
+			const relY = e.pageY - rect.top
 
-				window.addEventListener('resize scroll', function () {
-					rect = box.getBoundingClientRect()
-				})
-			}
-		},
-	},
+			TweenMax.to(bg, 1, {
+				x: ((relX - rect.width / 2) / rect.width) * 5,
+				y: ((relY - rect.width / 2) / rect.width) * -5,
+				ease: Power2.easeOut,
+			})
+			TweenMax.to(border, 1, {
+				x: ((relX - rect.width / 2) / rect.width) * 30,
+				y: ((relY - rect.width / 2) / rect.width) * -30,
+				ease: Power2.easeOut,
+			})
+		}
+
+		window.addEventListener('resize scroll', function () {
+			rect = box.getBoundingClientRect()
+		})
+	}
 }
 </script>
 
@@ -114,7 +112,7 @@ export default {
 	}
 	.image {
 		width: 120%;
-		background-image: url('../../static/photo.jpg');
+		background-image: url('/photo.jpg');
 		background-size: cover;
 		background-position: center;
 		height: 120%;

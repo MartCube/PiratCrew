@@ -1,14 +1,14 @@
 <template>
 	<section id="casting">
-		<TextBox :text="$t('pages.casting')" />
+		<TextBox :text="t('pages.casting')" />
 
 		<div class="info">
 			<!-- <h2>piratcrew casting</h2> -->
 			<p>Are you an artist trying to prove your skills ?</p>
 			<p>Please fill the following so we can continue to next step.</p>
 		</div>
-		<form ref="casting_form" @submit.prevent="Submit()">
-			<ValidationObserver v-if="!complete" ref="casting_form_validation" tag="div">
+		<Form ref="casting_form" @submit="Submit">
+			<div v-if="!complete">
 				<div class="wrap">
 					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
 					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
@@ -26,7 +26,7 @@
 						<Spinner v-else />
 					</button>
 				</div>
-			</ValidationObserver>
+			</div>
 			<div v-else class="message">
 				<div class="info">
 					<template v-if="isSuccess">
@@ -38,110 +38,109 @@
 						<p>Please try again</p>
 					</template>
 				</div>
-				<ButtonItem @click.native="complete = false">okey</ButtonItem>
+				<ButtonItem @click="complete = false">okey</ButtonItem>
 			</div>
-		</form>
+		</Form>
 	</section>
 </template>
 
-<script>
-import { ValidationObserver } from 'vee-validate'
+<script setup>
+import { Form } from 'vee-validate'
+import { ref, computed } from 'vue'
 import * as emailjs from '@emailjs/browser'
 import SheetDB from 'sheetdb-js'
 
-export default {
-	middleware: 'navigation',
-	components: {
-		ValidationObserver,
-	},
-	data: () => ({
-		form: {
-			date: '',
-			name: '',
-			email: '',
-			phone: '',
-			birth: '',
-			location: '',
-			genre: '',
-			video: '',
-			instagram: '',
-		},
-		loading: false,
-		complete: false,
-		isSuccess: false,
-	}),
-	computed: {
-		currentData() {
-			return new Date().toLocaleDateString()
-		},
-	},
-	methods: {
-		async Submit() {
-			const isValid = await this.$refs.casting_form_validation.validate()
-			// validation
-			if (!isValid) return
+const { t } = useI18n()
 
-			this.loading = true
-			this.form.date = this.currentData
+const form = ref({
+	date: '',
+	name: '',
+	email: '',
+	phone: '',
+	birth: '',
+	location: '',
+	genre: '',
+	video: '',
+	instagram: '',
+})
 
-			await emailjs.sendForm('default_service', 'template_uvfe0gg', this.$refs.casting_form, 'wGoXfD98B08dUh-BC').then(
-				(result) => {
-					console.log('SUCCESS!', result.text)
-					this.loading = false
-					this.complete = true
-					this.isSuccess = true
-				},
-				(error) => {
-					console.log('FAILED...', error.text)
-					this.loading = false
-					this.complete = true
-				},
-			)
+const loading = ref(false)
+const complete = ref(false)
+const isSuccess = ref(false)
 
-			await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
-				sheet: 'ArtistForm',
-				data: this.form,
-			})
-				.then((result) => {
-					console.log(result.created)
-					this.isSuccess = true
-					this.complete = true
-					this.loading = false
-				})
-				.catch((error) => {
-					console.log(error)
-					this.isSuccess = false
-					this.complete = true
-					this.loading = false
-				})
+const casting_form = ref(null)
 
-			console.log('submited')
+const currentData = computed(() => new Date().toLocaleDateString())
+
+async function Submit(values) {
+	// validation is automatically done by vee-validate Form component
+	loading.value = true
+
+	// Update form values from validation
+	form.value = { ...values, date: currentData.value }
+
+	await emailjs.sendForm(
+		'default_service',
+		'template_uvfe0gg',
+		casting_form.value,
+		'wGoXfD98B08dUh-BC'
+	).then(
+		(result) => {
+			console.log('SUCCESS!', result.text)
+			loading.value = false
+			complete.value = true
+			isSuccess.value = true
 		},
-		getEmail(value) {
-			this.form.email = value
-		},
-		getName(value) {
-			this.form.name = value
-		},
-		getNumber(value) {
-			this.form.phone = value
-		},
-		getLocation(value) {
-			this.form.location = value
-		},
-		getBday(value) {
-			this.form.birth = value
-		},
-		getGenre(value) {
-			this.form.genre = value
-		},
-		getVideo(value) {
-			this.form.video = value
-		},
-		getLink(value) {
-			this.form.instagram = value
-		},
-	},
+		(error) => {
+			console.log('FAILED...', error.text)
+			loading.value = false
+			complete.value = true
+		}
+	)
+
+	await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
+		sheet: 'ArtistForm',
+		data: form.value,
+	})
+		.then((result) => {
+			console.log(result.created)
+			isSuccess.value = true
+			complete.value = true
+			loading.value = false
+		})
+		.catch((error) => {
+			console.log(error)
+			isSuccess.value = false
+			complete.value = true
+			loading.value = false
+		})
+
+	console.log('submited')
+}
+
+function getEmail(value) {
+	form.value.email = value
+}
+function getName(value) {
+	form.value.name = value
+}
+function getNumber(value) {
+	form.value.phone = value
+}
+function getLocation(value) {
+	form.value.location = value
+}
+function getBday(value) {
+	form.value.birth = value
+}
+function getGenre(value) {
+	form.value.genre = value
+}
+function getVideo(value) {
+	form.value.video = value
+}
+function getLink(value) {
+	form.value.instagram = value
 }
 </script>
 

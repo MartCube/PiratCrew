@@ -1,3 +1,4 @@
-export default function ({ route, store }) {
-	store.commit('setNavigation', route.name)
-}
+export default defineNuxtRouteMiddleware((to) => {
+	const { setNavigation } = useNavigation()
+	setNavigation(to.name)
+})
