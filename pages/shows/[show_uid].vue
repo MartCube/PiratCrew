@@ -8,18 +8,18 @@
 			loading
 		</template>
 		<template v-else>
-			<Intro :video="event.bg" @clickVideo="openModal" />
+			<Intro :video="pageData.uid" @clickVideo="openModal" />
 
-			<Modal :video="event.video" />
+			<Modal :video="pageData.video" />
 
 			<section id="show">
-				<h2 class="title">{{ event.title }}</h2>
+				<h2 class="title">{{ pageData.title }}</h2>
 				<div class="description rich_text">
-					<prismic-rich-text :field="event.description" />
+					<prismic-rich-text :field="pageData.description" />
 				</div>
 			</section>
 
-			<Gallery :data="event.gallery" />
+			<Gallery :data="pageData.gallery" />
 
 			<Contact />
 		</template>
@@ -34,17 +34,15 @@ definePageMeta({
 const route = useRoute()
 const { $prismic } = useNuxtApp()
 const modal = useModal()
+const { locale, locales } = useI18n()
 
-console.log('show id page');
 
 
 // Data fetching з Nuxt 3 composable
-const { data: eventData, pending, error } = await useLazyAsyncData('show', async () => {
+const { data: eventData, pending, error, refresh } = await useLazyAsyncData('show', async () => {
 	try {
-
-		const event = await $prismic.client.getByUID('show', route.params.show_uid)
-
-		console.log('Show data: event', event);
+    const prismicCode = locale.value === 'ua' ? 'uk-ua' : 'en-us';
+		const event = await $prismic.client.getByUID('show', route.params.show_uid, { lang: prismicCode });
 
 		return {
 			bg: event.data.main_image?.alt || 'piratcrew',
@@ -52,6 +50,7 @@ const { data: eventData, pending, error } = await useLazyAsyncData('show', async
 			video: event.data.video,
 			description: event.data.description,
 			gallery: event.data.gallery,
+			uid: event.uid,
 		}
 	} catch (err) {
 		console.error('Error fetching show:', err)
@@ -59,8 +58,14 @@ const { data: eventData, pending, error } = await useLazyAsyncData('show', async
 	}
 })
 
-// Reactive event object
-const event = computed(() => eventData.value || {})
+// Page data
+const pageData = computed(() => eventData.value || {});
+
+console.log('pageData', pageData.value);
+
+watch(locale, () => {
+	refresh();
+})
 
 // Methods
 const openModal = () => {
