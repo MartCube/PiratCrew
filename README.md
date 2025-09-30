@@ -16,6 +16,6 @@
 
 Що треба буде зробити пізніше:
 
-YouTube відео - замінити на нативний <iframe> або знайти Vue 3 альтернативу
+✅ YouTube відео - ЗРОБЛЕНО: замінено на нативний <iframe>
 Фонове відео - замінити на нативний <video> елемент
-vue-observe-visibility - замінити на @vueuse/core (useIntersectionObserver)
+✅ vue-observe-visibility - ЗРОБЛЕНО: замінено на @vueuse/core (useIntersectionObserver)

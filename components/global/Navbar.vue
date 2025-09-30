@@ -1,7 +1,143 @@
+<script setup>
+import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/assets/anime'
+
+// Template refs
+const navbarRef = ref(null)
+
+// Реактивні дані
+const showMenu = ref(false)
+
+// Глобальний стан навігації
+const { navigation } = useNavigation()
+
+// i18n composables
+const { locales, locale, t, setLocale } = useI18n()
+
+// Computed значення (кешуємо рік)
+const year = computed(() => new Date().getFullYear())
+const availableLocales = computed(() => locales.value)
+
+// Реактивна змінна для поточної мови (не computed!)
+const currentLocale = ref(locale.value)
+
+// Кешуємо селектори для performance
+let cachedElements = null
+
+const getCachedElements = () => {
+	if (!cachedElements && navbarRef.value) {
+		cachedElements = {
+			navbarLogo: navbarRef.value.querySelectorAll('.top .logo picture'),
+			navbarTopText: navbarRef.value.querySelectorAll('.top .logo .item .text'),
+			navbarTopLines: navbarRef.value.querySelectorAll('.top .line'),
+			navbarRightItems: navbarRef.value.querySelectorAll('.right .item .text'),
+			navbarRightLines: navbarRef.value.querySelectorAll('.right .line'),
+			navbarBottomItems: navbarRef.value.querySelectorAll('.bottom .item .text'),
+			navbarBottomLines: navbarRef.value.querySelectorAll('.bottom .line'),
+			navbarLeftItems: navbarRef.value.querySelectorAll('.left .item .text'),
+			navbarLeftLines: navbarRef.value.querySelectorAll('.left .line'),
+			menuLinks: navbarRef.value.querySelectorAll('.menu .links a')
+		}
+	}
+	return cachedElements
+}
+
+// Методи
+const toggleMenu = () => {
+	showMenu.value = !showMenu.value
+}
+
+const scrollToSection = (sectionId) => {
+	const element = document.getElementById(sectionId)
+	if (element) {
+		element.scrollIntoView({ behavior: 'smooth' })
+	}
+}
+
+// Функція зміни мови
+const switchLang = async (value) => {
+	try {
+		await setLocale(value)
+		currentLocale.value = value
+	} catch (error) {
+	}
+}
+
+// Синхронізуємо currentLocale з locale при зміні ззовні
+watch(locale, (newLocale) => {
+	currentLocale.value = newLocale
+})
+
+// Ініціалізація анімацій (винесено в окрему функцію)
+const initializeAnimations = () => {
+	const elements = getCachedElements()
+	if (!elements) return
+
+	navbarTop(elements.navbarLogo, elements.navbarTopLines, elements.navbarTopText)
+	navbarRight(elements.navbarRightItems, elements.navbarRightLines)
+	navbarBottom(elements.navbarBottomItems, elements.navbarBottomLines)
+	navbarLeft(elements.navbarLeftItems, elements.navbarLeftLines)
+}
+
+// Watchers з оптимізацією
+watch(navigation, async () => {
+	await nextTick()
+	const elements = getCachedElements()
+	if (elements) {
+		navbarRight(elements.navbarRightItems, elements.navbarRightLines)
+	}
+})
+
+watch(currentLocale, async () => {
+	await nextTick()
+	const elements = getCachedElements()
+	if (elements) {
+		navbarBottom(elements.navbarBottomItems, elements.navbarBottomLines)
+	}
+})
+
+watch(showMenu, (newValue) => {
+	if (newValue) {
+		// Меню відкривається - запускаємо анімацію появи
+		nextTick(() => {
+			const elements = getCachedElements()
+			if (elements) {
+				navbarMenu(elements.menuLinks)
+			}
+		})
+	} else {
+		// Меню закривається - можна додати анімацію зникнення якщо потрібно
+		const elements = getCachedElements()
+		if (elements?.menuLinks) {
+			// Плавно ховаємо посилання перед закриттям меню
+			elements.menuLinks.forEach((link, index) => {
+				setTimeout(() => {
+					link.style.opacity = '0'
+				}, index * 50) // Затримка для кожного посилання
+			})
+		}
+	}
+})
+
+// Lifecycle - оптимізований onMounted
+onMounted(async () => {
+	await nextTick()
+	initializeAnimations()
+
+	// Ініціалізація поточної мови (якщо потрібно)
+	currentLocale.value = locale.value
+
+})
+
+// Очищення кешу при unmount
+onUnmounted(() => {
+	cachedElements = null
+})
+</script>
+
 <template>
-	<div class="navbar">
+	<div ref="navbarRef" class="navbar">
 		<div class="top">
-			<NuxtLink class="logo" :to="localePath('index')" @click="showMenu = false">
+			<NuxtLink class="logo" :to="'/'" @click="showMenu = false">
 				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
 				<div class="item">
@@ -26,9 +162,15 @@
 		<div class="bottom">
 			<div class="line" />
 			<div class="item">
-				<nuxt-link v-for="locale in availableLocales" :key="locale.code" class="text" :class="{ active: locale.code == currentLocale }" :to="switchLocalePath(locale.code)">
+				<button
+					v-for="locale in availableLocales"
+					:key="locale.code"
+					class="text"
+					:class="{ active: locale.code === currentLocale }"
+					@click="switchLang(locale.code)"
+				>
 					{{ locale.name }}
-				</nuxt-link>
+				</button>
 			</div>
 			<div class="line" />
 			<div class="item">
@@ -54,95 +196,40 @@
 			</div>
 		</div>
 
-		<div v-show="showMenu" class="menu">
-			<div class="links" @click="toggleMenu">
-				<NuxtLink :to="localePath('/about')"> {{ t('pages.about') }}</NuxtLink>
-				<!-- <NuxtLink :to="localePath('/events')"> {{ t('pages.events') }}</NuxtLink> -->
-				<NuxtLink :to="localePath('/shows')"> {{ t('pages.shows.name') }}</NuxtLink>
-				<NuxtLink :to="localePath('/casting')"> {{ t('pages.casting') }}</NuxtLink>
-				<NuxtLink :to="localePath('/contact')"> {{ t('pages.contact') }}</NuxtLink>
+		<Transition name="menu-fade">
+			<div v-show="showMenu" class="menu">
+				<div class="links" @click="toggleMenu">
+					<NuxtLink :to="'/about'"> {{ t('pages.about') }}</NuxtLink>
+					<!-- <NuxtLink :to="'/events'"> {{ t('pages.events') }}</NuxtLink> -->
+					<NuxtLink :to="'/shows'"> {{ t('pages.shows.name') }}</NuxtLink>
+					<NuxtLink :to="'/casting'"> {{ t('pages.casting') }}</NuxtLink>
+					<NuxtLink :to="'/contact'"> {{ t('pages.contact') }}</NuxtLink>
+				</div>
 			</div>
-		</div>
+		</Transition>
 	</div>
 </template>
 
-<script setup>
-import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/assets/anime'
 
-// Реактивні дані
-const showMenu = ref(false)
-
-// Глобальний стан навігації
-const { navigation } = useNavigation()
-
-// i18n composables
-const { locales, locale, t } = useI18n()
-const localePath = useLocalePath()
-const switchLocalePath = useSwitchLocalePath()
-
-// Computed значення
-const year = computed(() => new Date().getFullYear())
-const availableLocales = computed(() => locales.value)
-const currentLocale = computed(() => locale.value)
-
-// Методи
-const toggleMenu = () => {
-	showMenu.value = !showMenu.value
-}
-
-const scrollToSection = (sectionId) => {
-	const element = document.getElementById(sectionId)
-	if (element) {
-		element.scrollIntoView({ behavior: 'smooth' })
-	}
-}
-
-// Watchers
-watch(navigation, async () => {
-	await nextTick() // замість this.$nextTick()
-	const navbarRightItems = document.querySelectorAll('.right .item .text')
-	const navbarRightLines = document.querySelectorAll('.right .line')
-	navbarRight(navbarRightItems, navbarRightLines)
-})
-
-watch(currentLocale, async () => {
-	await nextTick()
-	const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
-	const navbarBottomLines = document.querySelectorAll('.bottom .line')
-	navbarBottom(navbarBottomItems, navbarBottomLines)
-})
-
-watch(showMenu, (newValue) => {
-	if (!newValue) return
-	const links = document.querySelectorAll('.navbar .menu .links a')
-	navbarMenu(links)
-})
-
-// Lifecycle - onMounted замість mounted
-onMounted(async () => {
-	await nextTick()
-
-	const navbarLogo = document.querySelectorAll('.top .logo picture')
-	const navbarTopText = document.querySelectorAll('.top .logo .item .text')
-	const navbarTopLines = document.querySelectorAll('.top  .line')
-	navbarTop(navbarLogo, navbarTopLines, navbarTopText)
-
-	const navbarRightItems = document.querySelectorAll('.right .item .text')
-	const navbarRightLines = document.querySelectorAll('.right .line')
-	navbarRight(navbarRightItems, navbarRightLines)
-
-	const navbarBottomItems = document.querySelectorAll('.bottom .item .text')
-	const navbarBottomLines = document.querySelectorAll('.bottom .line')
-	navbarBottom(navbarBottomItems, navbarBottomLines)
-
-	const navbarLeftItems = document.querySelectorAll('.left .item .text')
-	const navbarLeftLines = document.querySelectorAll('.left .line')
-	navbarLeft(navbarLeftItems, navbarLeftLines)
-})
-</script>
 
 <style lang="scss" scoped>
 $size: 40px;
+
+// Анімація меню
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+	transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.menu-fade-enter-from,
+.menu-fade-leave-to {
+	opacity: 0;
+}
+
+.menu-fade-enter-to,
+.menu-fade-leave-from {
+	opacity: 1;
+}
 
 .navbar {
 	position: fixed;
@@ -310,6 +397,9 @@ $size: 40px;
 				display: block;
 				text-decoration: none;
 				color: white;
+				background: none;
+				border: none;
+				cursor: pointer;
 
 				&.year {
 					padding-right: 0;

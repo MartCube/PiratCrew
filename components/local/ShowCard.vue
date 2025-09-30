@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="localePath(link)" class="show_card" :class="{ reverse: reverse }">
+	<NuxtLink :to="link" class="show_card" :class="{ reverse: reverse }">
 		<div class="image">
 			<ImageItem :src="event.data.main_image.url" :alt="title" :width="'500'" :height="'350'" />
 			<div class="box"></div>
@@ -24,11 +24,21 @@ const props = defineProps({
 	},
 })
 
-const { $prismic } = useNuxtApp()
-const localePath = useLocalePath()
+const { $prismic, $linkResolver } = useNuxtApp()
 
 const title = computed(() => props.event.data.title)
-const link = computed(() => $prismic.linkResolver(props.event))
+const link = computed(() => {
+	// Використовуємо наш власний linkResolver
+	if ($linkResolver && typeof $linkResolver === 'function') {
+		const resolvedLink = $linkResolver(props.event)
+		return resolvedLink
+	} else {
+		// Fallback - генеруємо посилання вручну
+		const fallbackLink = `/shows/${props.event.uid}`
+		console.log('ShowCard fallback link:', fallbackLink)
+		return fallbackLink
+	}
+})
 </script>
 
 <style lang="scss" scoped>

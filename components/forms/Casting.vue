@@ -3,26 +3,25 @@
 		<TextBox :text="t('pages.casting')" />
 
 		<div class="info">
-			<!-- <h2>piratcrew casting</h2> -->
-			<p>Are you an artist trying to prove your skills ?</p>
-			<p>Please fill the following so we can continue to next step.</p>
+			<p>{{ t('casting.subtittle1') }}</p>
+			<p>{{ t('casting.subtittle2') }}</p>
 		</div>
 		<Form ref="casting_form" @submit="Submit">
 			<div v-if="!complete">
 				<div class="wrap">
-					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" @getValue="getName" />
-					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" @getValue="getBday" />
+					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" />
+					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
+					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
+					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" />
 				</div>
 				<div class="wrap">
-					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" @getValue="getLocation" />
-					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" @getValue="getGenre" />
-					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" @getValue="getVideo" />
-					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" @getValue="getLink" />
+					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" />
+					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" />
+					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" />
+					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" />
 
 					<button type="submit" class="submit">
-						<span v-if="!loading">submit</span>
+						<span v-if="!loading">{{t('contact.submit')}}</span>
 						<Spinner v-else />
 					</button>
 				</div>
@@ -48,21 +47,9 @@
 import { Form } from 'vee-validate'
 import { ref, computed } from 'vue'
 import * as emailjs from '@emailjs/browser'
-import SheetDB from 'sheetdb-js'
+// import SheetDB from 'sheetdb-js'
 
 const { t } = useI18n()
-
-const form = ref({
-	date: '',
-	name: '',
-	email: '',
-	phone: '',
-	birth: '',
-	location: '',
-	genre: '',
-	video: '',
-	instagram: '',
-})
 
 const loading = ref(false)
 const complete = ref(false)
@@ -76,13 +63,13 @@ async function Submit(values) {
 	// validation is automatically done by vee-validate Form component
 	loading.value = true
 
-	// Update form values from validation
-	form.value = { ...values, date: currentData.value }
+	// Prepare form data with current date
+	const formData = { ...values, date: currentData.value }
 
-	await emailjs.sendForm(
+	await emailjs.send(
 		'default_service',
 		'template_uvfe0gg',
-		casting_form.value,
+		formData,
 		'wGoXfD98B08dUh-BC'
 	).then(
 		(result) => {
@@ -93,54 +80,33 @@ async function Submit(values) {
 		},
 		(error) => {
 			console.log('FAILED...', error.text)
+			isSuccess.value = false
 			loading.value = false
 			complete.value = true
 		}
 	)
 
-	await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
-		sheet: 'ArtistForm',
-		data: form.value,
-	})
-		.then((result) => {
-			console.log(result.created)
-			isSuccess.value = true
-			complete.value = true
-			loading.value = false
-		})
-		.catch((error) => {
-			console.log(error)
-			isSuccess.value = false
-			complete.value = true
-			loading.value = false
-		})
+
+	// ЧИ ТРЕБА ВОНО ЇМ БО НА РАЗІ НЕ ПРАЦЮЄ
+
+	// await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
+	// 	sheet: 'ArtistForm',
+	// 	data: form.value,
+	// })
+	// 	.then((result) => {
+	// 		console.log(result.created)
+	// 		isSuccess.value = true
+	// 		complete.value = true
+	// 		loading.value = false
+	// 	})
+	// 	.catch((error) => {
+	// 		console.log(error)
+	// 		isSuccess.value = false
+	// 		complete.value = true
+	// 		loading.value = false
+	// 	})
 
 	console.log('submited')
-}
-
-function getEmail(value) {
-	form.value.email = value
-}
-function getName(value) {
-	form.value.name = value
-}
-function getNumber(value) {
-	form.value.phone = value
-}
-function getLocation(value) {
-	form.value.location = value
-}
-function getBday(value) {
-	form.value.birth = value
-}
-function getGenre(value) {
-	form.value.genre = value
-}
-function getVideo(value) {
-	form.value.video = value
-}
-function getLink(value) {
-	form.value.instagram = value
 }
 </script>
 

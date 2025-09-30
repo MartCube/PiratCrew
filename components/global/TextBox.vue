@@ -1,6 +1,6 @@
 <template>
 	<div ref="textBoxRef" class="text_box" :class="{ white: white }">
-		<h2 ref="text">{{ text }}</h2>
+		<h2 ref="text">{{ props.text }}</h2>
 		<div ref="box" class="box"></div>
 	</div>
 </template>

@@ -28,4 +28,23 @@ export default {
 		error_title:"Something went wrong",
     error_message:"Please try again",
 	},
+	casting: {
+		subtittle1: "Are you an artist trying to prove your skills ?",
+		subtittle2: "Please fill the following so we can continue to next step.",
+
+	},
+	aboutPage: {
+		paragraph1: "Show production PIRAT CREW 10 years of experience creating captivating world-class shows. He is heading for new and unexplored paths on the map of modern theatrical and choreographic art. His team includes circus artists, dancers, costume designers, choreographers, directors of shows and events.",
+		paragraph2: "Pirate Crew is a team of unique, creative and free. This is our story. PIRAT CREW's artistic journey began in 2010.",
+		paragraph3: "Since then, we have visited 20 countries with original shows that gave delight and joy to viewers in France, Sweden, Finland, Germany, Turkey, Ukraine, Russia.",
+		paragraph4: "More than 3,000 performances, 1,000 designed and staged events, 5 full-scale shows.",
+		paragraph5: "Jazz Do It Show, Bon Voyage, Juzeppe Hotel are highly appreciated all over the world. The shows are created under the direction of PIRAT CREW director and choreographer Dmitry Yudin and a team of interdisciplinary artists.",
+		paragraph6: "Circus art is intertwined with music and experimental choreography, designer costumes with modern technologies, acrobatics with an expressive design. All this involves the viewer in a magical and amazing story that we tell in a new visual language.",
+		welcome: "Welcome!"
+	},
+	aboutHome: {
+		paragraph1: "Show production ",
+		paragraph2: "10 years of experience creating captivating world-class shows. He is heading for new and unexplored paths on the map of modern theatrical and choreographic art. His team includes circus artists, dancers, costume designers, choreographers, directors of shows and events.",
+		more: 'more about us',
+	}
 }

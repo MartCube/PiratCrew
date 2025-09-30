@@ -8,13 +8,17 @@
 			loading
 		</template>
 		<template v-else>
-			<Intro :video="event.bg" @click="openModal" />
+			<Intro :video="event.bg" @clickVideo="openModal" />
+
 			<Modal :video="event.video" />
 
 			<section id="show">
 				<h2 class="title">{{ event.title }}</h2>
-				<prismic-rich-text class="description rich_text" :field="event.description" />
+				<div class="description rich_text">
+					<prismic-rich-text :field="event.description" />
+				</div>
 			</section>
+
 			<Gallery :data="event.gallery" />
 
 			<Contact />
@@ -23,29 +27,35 @@
 </template>
 
 <script setup>
-// Middleware (буде потрібно перенести логіку)
 definePageMeta({
 	middleware: 'navigation'
 })
 
-// Route params
 const route = useRoute()
-
-// Prismic client
 const { $prismic } = useNuxtApp()
-
-// Modal state
 const modal = useModal()
+
+console.log('show id page');
+
 
 // Data fetching з Nuxt 3 composable
 const { data: eventData, pending, error } = await useLazyAsyncData('show', async () => {
-	const event = await $prismic.api.getByUID('show', route.params.show_uid)
-	return {
-		bg: event.data.main_image.alt,
-		title: event.data.title,
-		video: event.data.video,
-		description: event.data.description,
-		gallery: event.data.gallery,
+	try {
+
+		const event = await $prismic.client.getByUID('show', route.params.show_uid)
+
+		console.log('Show data: event', event);
+
+		return {
+			bg: event.data.main_image?.alt || 'piratcrew',
+			title: event.data.title,
+			video: event.data.video,
+			description: event.data.description,
+			gallery: event.data.gallery,
+		}
+	} catch (err) {
+		console.error('Error fetching show:', err)
+		throw err
 	}
 })
 

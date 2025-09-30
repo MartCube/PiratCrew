@@ -14,8 +14,9 @@
 	"dependencies": {
 		"@emailjs/browser": "^3.6.2",
 		"@nuxtjs/i18n": "^9.1.1",
-		"@nuxtjs/prismic": "^4.0.0",
+		"@nuxtjs/prismic": "^4.1.0",
 		"@nuxtjs/sitemap": "^7.4.3",
+		"@prismicio/client": "^7.20.1",
 		"@vee-validate/rules": "^4.15.1",
 		"@vueuse/core": "^10.5.0",
 		"@vueuse/nuxt": "^10.5.0",

@@ -81,11 +81,11 @@ export default defineNuxtConfig({
 		},
 		routes: [
 			'/shows/jazzdoit',
-			'/ru/shows/jazzdoit',
+			'/ua/shows/jazzdoit',
 			'/shows/juzeppe-art-hotel',
-			'/ru/shows/juzeppe-art-hotel',
+			'/ua/shows/juzeppe-art-hotel',
 			'/shows/bon-voyage',
-			'/ru/shows/bon-voyage'
+			'/ua/shows/bon-voyage'
 		],
 	},
 

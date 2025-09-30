@@ -5,7 +5,7 @@
 			<ShowCard v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
 		</div>
 		<div v-if="error" class="error">
-			<h2>Упс что-то пошло не так, перезагрузите страницу пожалуйста</h2>
+			<h2>Something went wrong, please try again later.</h2>
 		</div>
 	</section>
 </template>
@@ -15,9 +15,17 @@ const { $prismic } = useNuxtApp()
 const { t } = useI18n()
 
 const { data: events, pending, error } = await useLazyAsyncData('shows', async () => {
-	const response = await $prismic.api.query($prismic.predicates.at('document.type', 'show'))
-	return response.results
+	try {
+		// Використовуємо новий client API замість старого api.query
+		const documents = await $prismic.client.getAllByType('show')
+		return documents || []
+	} catch (err) {
+		console.error('Error fetching shows:', err)
+		throw err
+	}
 })
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -4,10 +4,15 @@
 		<div class="about">
 			<div class="text">
 				<div class="wrap">
-					<p>Show production <b>PIRAT CREW</b> 10 лет создает завораживающие шоу мирового масштаба. Держит курс на новые и неизведанные пути на карте современного театрального и хореографического искусства. В его команду входят артисты циркового жанра, танцоры, художники по костюмам, хореографы, режиссеры-постановщики шоу и мероприятий.</p>
-					<NuxtLink class="more" :to="localePath('about')">
+					<p>
+						{{ t('aboutHome.paragraph1') }}
+						<b>PIRAT CREW</b>
+						{{ t('aboutHome.paragraph2') }}
+					</p>
+
+
+					<NuxtLink class="more" :to="'/about'">
 						<span>{{ t('pages.about') }}</span>
-						<!-- eslint-disable-next-line vue/html-self-closing -->
 						<hr />
 					</NuxtLink>
 				</div>
@@ -26,7 +31,6 @@
 import { TweenMax, Power2 } from 'gsap'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
 
 const cursorMove = () => {
 	const bg = document.querySelector('.about .box .image')
