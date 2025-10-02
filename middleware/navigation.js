@@ -1,4 +1,4 @@
 export default defineNuxtRouteMiddleware((to) => {
-	const { setNavigation } = useNavigation()
-	setNavigation(to.name)
+	// const { setNavigation } = useNavigation()
+	// setNavigation(to.name)
 })

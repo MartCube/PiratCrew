@@ -9,16 +9,16 @@
 		<Form ref="casting_form" @submit="Submit">
 			<div v-if="!complete">
 				<div class="wrap">
-					<InputItem label-name="name" :name="'name'" placeholder="name surname" :rules="'required'" />
-					<InputItem label-name="email" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
-					<InputItem label-name="number" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
-					<InputItem label-name="birth date" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" />
+					<InputItem :label-name="t('contact.name')" :name="'name'" placeholder="name surname" :rules="'required'" />
+					<InputItem :label-name="t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
+					<InputItem :label-name="t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
+					<InputItem :label-name="t('contact.birthDate')" :name="'birthDate'" placeholder="06.07.1990" :rules="'required'" />
 				</div>
 				<div class="wrap">
-					<InputItem label-name="location" :name="'location'" placeholder="country, city" :rules="'required'" />
-					<InputItem label-name="genre" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" />
-					<InputItem label-name="video" :name="'video'" placeholder="link to promo video" :rules="'required'" />
-					<InputItem label-name="link" :name="'link'" placeholder="link to instagram" :rules="'required'" />
+					<InputItem :label-name="t('contact.location')" :name="'location'" placeholder="country, city" :rules="'required'" />
+					<InputItem :label-name="t('contact.genre')" :name="'genre'" placeholder="dancer, vocalist .." :rules="'required'" />
+					<InputItem :label-name="t('contact.video')" :name="'video'" placeholder="link to promo video" :rules="'required'" />
+					<InputItem :label-name="t('contact.instagram')" :name="'instagram'" placeholder="link to instagram" :rules="'required'" />
 
 					<button type="submit" class="submit">
 						<span v-if="!loading">{{t('contact.submit')}}</span>
@@ -29,15 +29,15 @@
 			<div v-else class="message">
 				<div class="info">
 					<template v-if="isSuccess">
-						<h2>successfully submitted</h2>
-						<p>Thank you for filling out your information.</p>
+						<h2>{{ t('casting.successf') }}</h2>
+						<p>{{ t('contact.success_message') }}</p>
 					</template>
 					<template v-else>
-						<h2>Something went wrong</h2>
-						<p>Please try again</p>
+						<h2>{{ t('contact.error_title') }}</h2>
+						<p>{{ t('contact.error_message') }}</p>
 					</template>
 				</div>
-				<ButtonItem @click="complete = false">okey</ButtonItem>
+				<ButtonItem @click="complete = false">{{ t('contact.okey') }}</ButtonItem>
 			</div>
 		</Form>
 	</section>
@@ -45,9 +45,7 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import { ref, computed } from 'vue'
 import * as emailjs from '@emailjs/browser'
-// import SheetDB from 'sheetdb-js'
 
 const { t } = useI18n()
 
@@ -66,47 +64,46 @@ async function Submit(values) {
 	// Prepare form data with current date
 	const formData = { ...values, date: currentData.value }
 
-	await emailjs.send(
-		'default_service',
-		'template_uvfe0gg',
-		formData,
-		'wGoXfD98B08dUh-BC'
-	).then(
-		(result) => {
-			console.log('SUCCESS!', result.text)
-			loading.value = false
-			complete.value = true
-			isSuccess.value = true
-		},
-		(error) => {
-			console.log('FAILED...', error.text)
-			isSuccess.value = false
-			loading.value = false
-			complete.value = true
+	try {
+		// EmailJS відправка
+		const emailResult = await emailjs.send(
+			'default_service',
+			'template_uvfe0gg',
+			formData,
+			'wGoXfD98B08dUh-BC'
+		)
+		console.log('EmailJS SUCCESS!', emailResult.text)
+
+		// SheetDB відправка через fetch API
+		try {
+			const response = await fetch('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ data: formData })
+			})
+
+			if (response.ok) {
+				const sheetResult = await response.json()
+			} else {
+				const errorText = await response.text()
+			}
+		} catch (sheetError) {
+			console.log('SheetDB fetch failed:', sheetError)
 		}
-	)
 
+		// Успіх якщо EmailJS працює
+		isSuccess.value = true
+		complete.value = true
 
-	// ЧИ ТРЕБА ВОНО ЇМ БО НА РАЗІ НЕ ПРАЦЮЄ
+	} catch (error) {
+		isSuccess.value = false
+		complete.value = true
+	} finally {
+		loading.value = false
+	}
 
-	// await SheetDB.write('https://sheetdb.io/api/v1/l4xx2lrxtz7oe', {
-	// 	sheet: 'ArtistForm',
-	// 	data: form.value,
-	// })
-	// 	.then((result) => {
-	// 		console.log(result.created)
-	// 		isSuccess.value = true
-	// 		complete.value = true
-	// 		loading.value = false
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error)
-	// 		isSuccess.value = false
-	// 		complete.value = true
-	// 		loading.value = false
-	// 	})
-
-	console.log('submited')
 }
 </script>
 

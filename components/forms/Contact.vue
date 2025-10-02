@@ -27,10 +27,10 @@
 					<h2 class="title">{{t('contact.write_us')}}</h2>
 					<Form ref="form_contact" @submit="Submit">
 						<div v-if="!complete">
-							<InputItem :label-name="t('contact.name')" :name="'name'" placeholder="Alice Wonder" :rules="'required'" @getValue="getName" />
-							<InputItem :label-name="t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" @getValue="getEmail" />
-							<InputItem :label-name="t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" @getValue="getNumber" />
-							<InputItem :label-name="t('contact.message')" :name="'message'" placeholder="your message .." :rules="'required'" @getValue="getMessage" />
+							<InputItem :label-name="t('contact.name')" :name="'name'" placeholder="Alice Wonder" :rules="'required'" />
+							<InputItem :label-name="t('contact.email')" :name="'email'" placeholder="your@email.com" :rules="'email|required'" />
+							<InputItem :label-name="t('contact.phone')" :name="'number'" placeholder="(country code) phone number" :rules="'required'" />
+							<InputItem :label-name="t('contact.message')" :name="'message'" placeholder="your message .." :rules="'required'" />
 
 							<button type="submit" class="submit">
 								<span v-if="!loading">{{ t('contact.submit') }}</span>
@@ -64,13 +64,6 @@ import { ref } from 'vue'
 
 const { t } = useI18n()
 
-const form = ref({
-	email: '',
-	number: '',
-	name: '',
-	message: '',
-})
-
 const loading = ref(false)
 const isSuccess = ref(false)
 const complete = ref(false)
@@ -82,12 +75,12 @@ const Submit = async (values, { validate }) => {
 	loading.value = true
 	console.log('loading')
 
-	// Update form values from validation
-	form.value = values
+	// Prepare form data with current date
+	const formData = { ...values, date: new Date().toISOString().split('T')[0] }
 
-	// compose email template
+	// Use emailjs.send() instead of sendForm() for JavaScript objects
 	emailjs
-		.sendForm('default_service', 'template_wy3mrgb', form_contact.value, 'wGoXfD98B08dUh-BC')
+		.send('default_service', 'template_wy3mrgb', formData, 'wGoXfD98B08dUh-BC')
 		.then(
 			(result) => {
 				console.log('SUCCESS!', result.text)
@@ -95,28 +88,13 @@ const Submit = async (values, { validate }) => {
 			},
 			(error) => {
 				console.log('FAILED...', error.text)
+				isSuccess.value = false
 			},
 		)
 		.finally(() => {
 			loading.value = false
 			complete.value = true
 		})
-}
-
-const getName = (value) => {
-	form.value.name = value
-}
-
-const getEmail = (value) => {
-	form.value.email = value
-}
-
-const getNumber = (value) => {
-	form.value.number = value
-}
-
-const getMessage = (value) => {
-	form.value.message = value
 }
 </script>
 

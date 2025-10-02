@@ -27,11 +27,17 @@ export default {
 		success_message:"Thank you for filling out your information.",
 		error_title:"Something went wrong",
     error_message:"Please try again",
+		birthDate: "birth date",
+		location: "location",
+		genre: "genre",
+		video: "video",
+		instagram: "instagram",
 	},
 	casting: {
 		subtittle1: "Are you an artist trying to prove your skills ?",
 		subtittle2: "Please fill the following so we can continue to next step.",
-
+		successf: "Successfully submitted",
+		errorf: "Something went wrong. Please try again.",
 	},
 	aboutPage: {
 		paragraph1: "Show production PIRAT CREW 10 years of experience creating captivating world-class shows. He is heading for new and unexplored paths on the map of modern theatrical and choreographic art. His team includes circus artists, dancers, costume designers, choreographers, directors of shows and events.",

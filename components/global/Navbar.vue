@@ -1,26 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/assets/anime'
 
-// Template refs
+
 const navbarRef = ref(null)
-
-// Реактивні дані
 const showMenu = ref(false)
-
-// Глобальний стан навігації
-const { navigation } = useNavigation()
-
-// i18n composables
 const { locales, locale, t, setLocale } = useI18n()
 
-// Computed значення (кешуємо рік)
 const year = computed(() => new Date().getFullYear())
 const availableLocales = computed(() => locales.value)
 
-// Реактивна змінна для поточної мови (не computed!)
 const currentLocale = ref(locale.value)
-
-// Кешуємо селектори для performance
 let cachedElements = null
 
 const getCachedElements = () => {
@@ -40,6 +30,14 @@ const getCachedElements = () => {
 	}
 	return cachedElements
 }
+
+const navigation = computed(() => [
+	{ text: t('pages.about'), value: 'about' },
+	// { text: t('pages.events'), value: 'events' },
+	{ text: t('pages.shows.name'), value: 'shows' },
+	// { text: t('pages.casting'), value: 'casting' },
+	{ text: t('pages.contact'), value: 'contact' },
+])
 
 // Методи
 const toggleMenu = () => {
@@ -77,15 +75,6 @@ const initializeAnimations = () => {
 	navbarBottom(elements.navbarBottomItems, elements.navbarBottomLines)
 	navbarLeft(elements.navbarLeftItems, elements.navbarLeftLines)
 }
-
-// Watchers з оптимізацією
-watch(navigation, async () => {
-	await nextTick()
-	const elements = getCachedElements()
-	if (elements) {
-		navbarRight(elements.navbarRightItems, elements.navbarRightLines)
-	}
-})
 
 watch(currentLocale, async () => {
 	await nextTick()
@@ -137,13 +126,15 @@ onUnmounted(() => {
 <template>
 	<div ref="navbarRef" class="navbar">
 		<div class="top">
-			<NuxtLink class="logo" :to="'/'" @click="showMenu = false">
-				<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
+			<ClientOnly>
+				<NuxtLink class="logo" :to="'/'" @click="showMenu = false">
+					<ImageItem src="/logo.png" width="30" height="30" alt="logo" />
 
-				<div class="item">
-					<p class="text">pirat crew dance acrobatic theater</p>
-				</div>
-			</NuxtLink>
+					<div class="item">
+						<p class="text">pirat crew dance acrobatic theater</p>
+					</div>
+				</NuxtLink>
+			</ClientOnly>
 
 			<div class="button" :class="{ active: showMenu }" @click="toggleMenu">
 				<div class="line" />

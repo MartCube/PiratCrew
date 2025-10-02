@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container" id="about">
 		<template v-if="error">
 			<Error />
 		</template>
@@ -12,14 +12,14 @@
 
 			<Modal :video="pageData.video" />
 
-			<section id="show">
+			<section id="shows">
 				<h2 class="title">{{ pageData.title }}</h2>
 				<div class="description rich_text">
 					<prismic-rich-text :field="pageData.description" />
 				</div>
 			</section>
 
-			<Gallery :data="pageData.gallery" />
+			<Gallery :data="pageData.gallery" id="gallery" />
 
 			<Contact />
 		</template>
