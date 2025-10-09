@@ -1,40 +1,71 @@
 <template>
-	<section id="events">
+	<section id="events" class="events-wrapper">
 		<TextBox :text="t('pages.events')" />
-	</section>
+		<div v-if="!pending" class="events">
+			<EventCard v-for="(event, i) in events" :key="i" :event="event" :reverse="i % 2 == 0 ? true : false" />
+		</div>
+		<div v-if="error" class="error">
+			<h2>Something went wrong, please try again later.</h2>
+		</div>
+		</section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useNuxtApp } from '#app'
 
 const { t } = useI18n()
-const events = ref([])
+const { $prismic } = useNuxtApp()
+const route = useRoute()
 
-const nuxtApp = useNuxtApp()
+const isHomePage = computed(() => route.path === '/')
 
-onMounted(async () => {
-	const response = await nuxtApp.$prismic.api.query(
-		nuxtApp.$prismic.predicates.at('document.type', 'project'),
-		{ orderings: '[document.first_publication_date desc]' }
-	)
-	events.value = response.results
+
+const { data: allEvents, pending, error } = await useLazyAsyncData('events-list', async () => {
+	try {
+		const documents = await $prismic.client.getAllByType('event')
+		return documents || []
+	} catch (err) {
+		console.error('Error fetching events:', err)
+		throw err
+	}
+})
+
+const events = computed(() => {
+
+	if (!allEvents.value) return []
+
+	if (isHomePage.value) {
+		return allEvents.value
+			.sort((a, b) => new Date(b.first_publication_date) - new Date(a.first_publication_date))
+			.slice(0, 3)
+	}
+
+	return allEvents.value
 })
 </script>
 
 <style lang="scss" scoped>
-.events {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-}
+.events-wrapper {
 
-@media (max-width: 600px) {
 	.events {
-		margin-top: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+	@media (min-width: 1024px) {
+		margin-bottom: 4rem;
+
+		.events {
+			flex-direction: row;
+			gap: 20px;
+		}
+
+	}
+	@media (min-width: 1280px) {
+		.events {
+			gap: 40px;
+		}
 	}
 }
+
 </style>

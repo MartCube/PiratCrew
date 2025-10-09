@@ -52,5 +52,6 @@ export default {
 		paragraph1: "Show production ",
 		paragraph2: "10 years of experience creating captivating world-class shows. He is heading for new and unexplored paths on the map of modern theatrical and choreographic art. His team includes circus artists, dancers, costume designers, choreographers, directors of shows and events.",
 		more: 'more about us',
-	}
+	},
+	partners: "Partners"
 }

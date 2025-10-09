@@ -10,6 +10,10 @@ export default defineNuxtPlugin(() => {
           return '/shows/' + doc.uid
         }
 
+        if (doc.type === 'event') {
+          return '/events/' + doc.uid
+        }
+
         // Default to the root
         return '/not-found'
       }

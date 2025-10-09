@@ -4,6 +4,8 @@
 			<Intro video="piratcrew" />
 			<AboutHome />
 			<Shows />
+			<Events />
+			<Partners />
 			<Contact />
 		</div>
 	</div>

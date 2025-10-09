@@ -33,9 +33,10 @@ const link = computed(() => {
 		const resolvedLink = $linkResolver(props.event)
 		return resolvedLink
 	} else {
-		// Fallback - генеруємо посилання вручну
-		const fallbackLink = `/shows/${props.event.uid}`
-		console.log('ShowCard fallback link:', fallbackLink)
+		// Fallback - генеруємо посилання вручну базуючись на типі документа
+		const docType = props.event.type
+		const fallbackLink = `/${docType}s/${props.event.uid}` // 'event' -> '/events/', 'show' -> '/shows/'
+		console.log('ShowCard fallback link:', fallbackLink, 'for type:', docType)
 		return fallbackLink
 	}
 })

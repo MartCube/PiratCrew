@@ -6,9 +6,11 @@ import { navbarTop, navbarBottom, navbarRight, navbarLeft, navbarMenu } from '~/
 const navbarRef = ref(null)
 const showMenu = ref(false)
 const { locales, locale, t, setLocale } = useI18n()
+const route = useRoute()
 
 const year = computed(() => new Date().getFullYear())
 const availableLocales = computed(() => locales.value)
+const isHomePage = computed(() => route.path === '/')
 
 const currentLocale = ref(locale.value)
 let cachedElements = null
@@ -33,8 +35,9 @@ const getCachedElements = () => {
 
 const navigation = computed(() => [
 	{ text: t('pages.about'), value: 'about' },
-	// { text: t('pages.events'), value: 'events' },
 	{ text: t('pages.shows.name'), value: 'shows' },
+	{ text: t('pages.events'), value: 'events' },
+
 	// { text: t('pages.casting'), value: 'casting' },
 	{ text: t('pages.contact'), value: 'contact' },
 ])
@@ -71,7 +74,12 @@ const initializeAnimations = () => {
 	if (!elements) return
 
 	navbarTop(elements.navbarLogo, elements.navbarTopLines, elements.navbarTopText)
-	navbarRight(elements.navbarRightItems, elements.navbarRightLines)
+
+	// Анімація правої частини тільки на головній сторінці
+	if (isHomePage.value) {
+		navbarRight(elements.navbarRightItems, elements.navbarRightLines)
+	}
+
 	navbarBottom(elements.navbarBottomItems, elements.navbarBottomLines)
 	navbarLeft(elements.navbarLeftItems, elements.navbarLeftLines)
 }
@@ -82,6 +90,15 @@ watch(currentLocale, async () => {
 	if (elements) {
 		navbarBottom(elements.navbarBottomItems, elements.navbarBottomLines)
 	}
+})
+
+// Watcher для роуту, щоб оновлювати анімації при зміні сторінки
+watch(() => route.path, async () => {
+	await nextTick()
+	// Очищуємо кеш при зміні роуту
+	cachedElements = null
+	// Ре-ініціалізуємо анімації
+	initializeAnimations()
 })
 
 watch(showMenu, (newValue) => {
@@ -142,7 +159,7 @@ onUnmounted(() => {
 				<div class="cancel" />
 			</div>
 		</div>
-		<div class="right">
+		<div v-if="isHomePage" class="right">
 			<div v-for="(item, i) in navigation" :key="i" class="item">
 				<div @click="scrollToSection(item.value)" class="text-wrap">
 					<span class="text">{{ item.text }}</span>
@@ -191,8 +208,8 @@ onUnmounted(() => {
 			<div v-show="showMenu" class="menu">
 				<div class="links" @click="toggleMenu">
 					<NuxtLink :to="'/about'"> {{ t('pages.about') }}</NuxtLink>
-					<!-- <NuxtLink :to="'/events'"> {{ t('pages.events') }}</NuxtLink> -->
 					<NuxtLink :to="'/shows'"> {{ t('pages.shows.name') }}</NuxtLink>
+					<NuxtLink :to="'/events'"> {{ t('pages.events') }}</NuxtLink>
 					<NuxtLink :to="'/casting'"> {{ t('pages.casting') }}</NuxtLink>
 					<NuxtLink :to="'/contact'"> {{ t('pages.contact') }}</NuxtLink>
 				</div>
