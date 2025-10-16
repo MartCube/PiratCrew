@@ -1,6 +1,8 @@
 <template>
 	<div class="container" id="events">
 		<Events />
+
+		<Contact />
 	</div>
 </template>
 

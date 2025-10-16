@@ -2,6 +2,8 @@
 	<div class="container">
 		<About />
 		<!-- <Crew /> -->
+
+		<Contact />
 	</div>
 </template>
 

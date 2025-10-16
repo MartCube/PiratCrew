@@ -84,7 +84,8 @@ onMounted(() => animate())
 			text-orientation: mixed;
 			font-size: 14px;
 			overflow: hidden;
-			margin-left: 20px;
+			top: -17px;
+    	position: relative;
 			span {
 				// animate opacity: 1;
 				opacity: 0;
